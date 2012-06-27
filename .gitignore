@@ -10,3 +10,8 @@
 *.lai
 *.la
 *.a
+*.kdev4
+*~
+build
+fas/system/config.h
+
