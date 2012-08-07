@@ -12,7 +12,7 @@
 #include <fas/type_list/is_type_list.hpp>
 #include <fas/mp/is_placeholder.hpp>
 #include <fas/mp/placeholders.hpp>
-#include <fas/mp/w.hpp>
+#include <fas/mp/private/arg.hpp>
 
 namespace fas{ namespace detail{
 
@@ -59,7 +59,7 @@ template<typename PH, typename PL, int PD>
 struct ps_impl2
 {
   typedef typename ps_impl3< PH::value - 1, PL, is_type_list<PL>::value >::type wtype;
-  typedef typename unw<wtype>::type type;
+  typedef typename arg_extract<wtype>::type type;
   enum { value = 0 };
 };
 
@@ -67,7 +67,7 @@ template<typename PL, int PD>
 struct ps_impl2<_, PL, PD>
 {
   typedef typename ps_impl3< PD, PL, is_type_list<PL>::value >::type wtype;
-  typedef typename unw<wtype>::type type;
+  typedef typename arg_extract<wtype>::type type;
   enum { value = 1 };
 };
 

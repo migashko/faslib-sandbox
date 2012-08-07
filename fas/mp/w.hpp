@@ -10,19 +10,10 @@
 namespace fas{
 
 template<typename T>
-struct w{};
-
-template<typename T>
-struct unw { typedef T type; };
-
-template< typename T >
-struct unw< w<T> > { typedef T type; };
-
-template<typename T>
-struct is_w { enum {value = 0}; };
-
-template<typename T>
-struct is_w< w<T> > { enum {value = 1}; };
+struct w
+{
+  typedef T type;
+};
 
 
 }

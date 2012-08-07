@@ -23,7 +23,7 @@ if(UNIX)
 
 elseif(MSVC)
 
-  SET(CMAKE_CXX_FLAGS "/W3 /wd4503 /EHsc /D_CRT_SECURE_NO_WARNINGS /D_SCL_SECURE_NO_WARNINGS")
+  SET(CMAKE_CXX_FLAGS "/W3 /wd4503 /wd4307 /EHsc /D_CRT_SECURE_NO_WARNINGS /D_SCL_SECURE_NO_WARNINGS")
   SET(CMAKE_CXX_FLAGS_RELEASE "/O2 /DNDEBUG")
   SET(CMAKE_CXX_FLAGS_DEBUG  "/Od /D_DEBUG")
   SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO  "/Yd /O2 /DNDEBUG")
@@ -69,6 +69,7 @@ add_subdirectory(tutorial)
 
 add_custom_target( tests make WORKING_DIRECTORY tests )
 add_custom_target( examples make WORKING_DIRECTORY examples )
+add_custom_target( tutorial make WORKING_DIRECTORY tutorial )
 
 install(DIRECTORY fas DESTINATION include
   PATTERN "*.cmake" EXCLUDE
