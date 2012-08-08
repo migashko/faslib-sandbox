@@ -12,6 +12,8 @@
 #include <fas/access/global_fun_get.hpp>
 #include <fas/access/global_fun_set.hpp>
 
+#include <fas/static_check/static_check.hpp>
+
 #include <fas/testing.hpp>
 #include <string>
 #include <cstring>
@@ -117,7 +119,7 @@ UNIT(member_get_set_unit, "")
   t << equal<assert, std::string> ( get_foo4()(fc), "foo4-test" ) << FAS_TESTING_FILE_LINE;
 }
 
-UNIT(member_fun_unit, "")
+UNIT(mem_fun_unit, "")
 {
   using namespace ::fas::testing;
   foo f;
@@ -162,17 +164,118 @@ UNIT(member_fun_unit, "")
 
   t << equal<assert, std::string> ( get_foo3()(fc), "foo3-test-array" ) << FAS_TESTING_FILE_LINE;
   t << equal<assert, std::string> ( get_foo4()(fc), "foo4-test-array" ) << FAS_TESTING_FILE_LINE;
-
 }
+
+const std::string& get_foo1(const foo& f)
+{
+  return f.foo1;
+}
+
+void set_foo1(foo& f, const std::string& value)
+{
+  f.foo1 = value;
+}
+
+
+int get_foo2(const foo& f)
+{
+  return f.foo2;
+}
+
+void set_foo2(foo& f, int value)
+{
+  f.foo2 = value;
+}
+
+const char* get_foo3(const foo& f)
+{
+  return f.foo3;
+}
+
+void set_foo3(foo& f, const char* value)
+{
+  f.set_foo3(value);
+}
+
+const char* get_foo4(const foo& f)
+{
+  return f.foo4;
+}
+
+void set_foo4(foo& f, const char* value)
+{
+  f.set_foo4(value);
+}
+
+
+UNIT(global_fun_unit, "")
+{
+  using namespace ::fas::testing;
+  foo f;
+  const foo& fc = f;
+
+  typedef fas::global_fun_get<const foo&, const std::string&, &get_foo1> get_foo1;
+  typedef fas::global_fun_get<const foo&, int, &get_foo2> get_foo2;
+  typedef fas::global_fun_get<const foo&, const char*, &get_foo3> get_foo3;
+  typedef fas::global_fun_get<const foo&, const char*, &get_foo4> get_foo4;
+
+  t << equal<assert, std::string> ( get_foo1()(f), "foo1" ) << FAS_TESTING_FILE_LINE;
+  t << equal<assert, int> ( get_foo2()(f), 2 ) << FAS_TESTING_FILE_LINE;
+  t << equal<assert, std::string> ( get_foo3()(f), "foo3" ) << FAS_TESTING_FILE_LINE;
+  t << equal<assert, std::string> ( get_foo4()(f), "foo4" ) << FAS_TESTING_FILE_LINE;
+
+  typedef fas::global_fun_set<foo&, const std::string&, &set_foo1> set_foo1;
+  typedef fas::global_fun_set<foo&, int, &set_foo2> set_foo2;
+  typedef fas::global_fun_set<foo&, const char*, &set_foo3> set_foo3;
+  typedef fas::global_fun_set<foo&, const char*, &set_foo4> set_foo4;
+
+  set_foo1()(f) = "foo1-test";
+  set_foo2()(f) = 42;
+  char buffer[256];
+  std::strcpy( set_foo3()(f, buffer), "foo3-test" );
+  std::strcpy( set_foo4()(f, buffer), "foo4-test" );
+
+  t << equal<assert, std::string> ( get_foo1()(f), "foo1-test" ) << FAS_TESTING_FILE_LINE;
+  t << equal<assert, int> ( get_foo2()(f), 42 ) << FAS_TESTING_FILE_LINE;
+  t << equal<assert, std::string> ( get_foo3()(f), "foo3-test" ) << FAS_TESTING_FILE_LINE;
+  t << equal<assert, std::string> ( get_foo4()(f), "foo4-test" ) << FAS_TESTING_FILE_LINE;
+
+  t << equal<assert, std::string> ( get_foo1()(fc), "foo1-test" ) << FAS_TESTING_FILE_LINE;
+  t << equal<assert, int> ( get_foo2()(fc), 42 ) << FAS_TESTING_FILE_LINE;
+  t << equal<assert, std::string> ( get_foo3()(fc), "foo3-test" ) << FAS_TESTING_FILE_LINE;
+  t << equal<assert, std::string> ( get_foo4()(fc), "foo4-test" ) << FAS_TESTING_FILE_LINE;
+
+  /*std::strcpy( set_foo3_arr()(f), "foo3-test-array" );
+  std::strcpy( set_foo4_arr()(f), "foo4-test-array" );
+
+  t << equal<assert, std::string> ( get_foo3()(fc), "foo3-test-array" ) << FAS_TESTING_FILE_LINE;
+  t << equal<assert, std::string> ( get_foo4()(fc), "foo4-test-array" ) << FAS_TESTING_FILE_LINE;
+  */
+
+
+  /*enum
+  {
+    temp = fas::static_check<
+      fas::some_type<
+        char*,
+        fas::remove_const_reference<const char*&>::type
+      >::value
+    >::value
+  };*/
+}
+
+
+  
 
 BEGIN_SUITE(access_suite, "")
   ADD_UNIT(member_unit)
   ADD_UNIT(member_get_set_unit)
-  ADD_UNIT(member_fun_unit)
+  ADD_UNIT(mem_fun_unit)
+  ADD_UNIT(global_fun_unit)
 END_SUITE(access_suite)
 
 BEGIN_TEST
-RUN_SUITE(access_suite)
+  RUN_SUITE(access_suite)
 END_TEST
 
 

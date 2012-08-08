@@ -14,7 +14,10 @@ namespace fas{
 template<typename V, typename VT, void (V::* mg)(VT), typename VVT = typename remove_const_reference<VT>::type >
 struct mem_fun_set
 {
-  mem_fun_set():_obj(), _value() {}
+  mem_fun_set()
+    : _obj()
+    , _value()
+  {}
 
   VVT& operator()(V& v)
   {

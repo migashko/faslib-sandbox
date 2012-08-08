@@ -39,7 +39,7 @@ struct global_fun_set<V, VT, fun, VVT*>
 {
   global_fun_set():_obj(), _value() {}
 
-  VVT& operator()(typename remove_const_reference<V>::type& v, VVT* buffer)
+  VVT* operator()(typename remove_const_reference<V>::type& v, VVT* buffer)
   {
     _obj = &v;
     _value = buffer;
