@@ -68,7 +68,6 @@ private:
       
       if (!try_(t)) 
         return r;
-      
     }
     else
       return throw_( t, invalid_json_number( distance(r) ), r );

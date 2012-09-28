@@ -17,10 +17,10 @@ inline void throw_t( T& t, const E& e)
 }
 
 template<typename Tg, typename T, typename E, typename P>
-inline P throw_t( T& t, const E& e, P param)
+inline P throw_t( T& t, const E& e, P p)
 {
   typedef Tg _except_;
-  return t.get_aspect().template get<_except_>()( t, e, param);
+  return t.get_aspect().template get<_except_>()( t, e, p);
 }
 
 }
