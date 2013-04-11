@@ -15,7 +15,7 @@ endif ( "${CMAKE_BUILD_TYPE}" STREQUAL ""  )
 
 
 if(UNIX)
-  SET(CMAKE_CXX_FLAGS "-Wall -fno-rtti")
+  SET(CMAKE_CXX_FLAGS "-Wall -Werror -pedantic -fno-rtti")
   SET(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG ")
   SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO  "-O2 -g -DNDEBUG")
   SET(CMAKE_CXX_FLAGS_DEBUG  "-O0 -g")

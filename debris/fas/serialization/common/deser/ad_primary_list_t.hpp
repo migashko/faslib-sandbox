@@ -19,7 +19,7 @@ struct ad_primary_list_t
   typedef SpaceParserTg _parse_space_;
   typedef ItemListTg _parse_item_;
   typedef TgExcept _except_;
-	
+
   template<typename T, typename M, typename R>
   bool check(T& , M, R )
   {
@@ -30,14 +30,14 @@ struct ad_primary_list_t
   R operator()(T& t, M, V& v, R r)
   {
     typedef typename M::target_list target_list;
-    
+
+    // Убераем пробелы
     r = t.get_aspect().template get< _parse_space_ >()(t, r);
-    
-    // if ( !try_t<_except_>(t) ) return r;
-    
-    if ( r ) 
+
+    // Десериализуем список
+    if ( r )
       r = _( t, v, r, target_list(), int_<length<target_list>::value>() );
-    
+
     return r;
   }
 
@@ -49,31 +49,21 @@ private:
     return r;
   }
 
+  // Убераем сепаратор, если есть
   template<typename T, typename V, typename R, typename L, int N >
   R _(T& t, V& v, R r, L, int_<N> )
   {
     enum { position = length<L>::value - N };
     typedef typename type_at_c<position, L>::type target;
-    
+
     if (t.get_aspect().template get< _separator_ >().check(t, r))
     {
       r = t.get_aspect().template get< _separator_ >()(t, r);
       r = t.get_aspect().template get< _parse_space_ >()(t, r);
     }
-    /*
-    R income = r;
-    r = t.get_aspect().template get< _separator_ >()(t, r);
-    //if ( !try_t<_except_>(t) ) return r;
-    
-    if ( r != income )
-    {
-      r = t.get_aspect().template get< _parse_space_ >()(t, r);
-      //if ( !try_t<_except_>(t) ) return r;
-    }
-    */
-    
+
     typedef typename target::deserializer_tag deserializer_tag;
-    
+
     r = __(t, v, r, L(), int_<N>() );
     return  r ;
   }
@@ -85,32 +75,27 @@ private:
     enum { position = length<L>::value - N };
     typedef typename type_at_c<position, L>::type target;
     typedef typename target::deserializer_tag deserializer_tag;
-    
+
     R income = r;
     r = t.get_aspect().template get<deserializer_tag>()(t, target(), v, r);
     if ( r && r == income)
       return __(t, v, r, L(), int_<N-1>() );
-    
+
     r = t.get_aspect().template get< _parse_space_ >()(t, r);
-    //if ( !try_t<_except_>(t) ) return r;
-    
+
     if ( !r || !t.get_aspect().template get< _separator_ >().check(t, /*target(),*/ r) )
       return r;
-    
+
     typedef typename erase_c<position, L>::type target_list;
-    
+
     return _(t, v, r, target_list(), int_<length<target_list>::value>() );
   }
-  
+
   template<typename T, typename V, typename R, typename L>
   R __(T& t, V& v, R r, L, int_<0> )
   {
     r = t.get_aspect().template get< _parse_item_ >()(t, r);
-    //if ( !try_t<_except_>(t) ) return r;
-    
     r = t.get_aspect().template get< _parse_space_>()(t, r);
-    //if ( !try_t<_except_>(t) ) return r;
-    
     return _(t, v, r, L(), int_<length<L>::value>());
   }
 
