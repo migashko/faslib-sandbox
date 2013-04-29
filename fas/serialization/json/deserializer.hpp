@@ -2,7 +2,7 @@
 #define FAS_SERIALIZATION_JSON_DESERIALIZER_HPP
 
 #include <fas/aop/aspect_class.hpp>
-#include <fas/serialization/json/except/except_aspect_type.hpp>
+#include <fas/serialization/json/except/aspect.hpp>
 #include <fas/serialization/json/deser/aspect_type.hpp>
 #include <fas/serialization/json/parse/aspect_type.hpp>
 
@@ -10,9 +10,9 @@ namespace fas{ namespace json{
 
 template<typename A = ::fas::aspect<> >
 class deserializer
-  : public aspect_class<A, deser::aspect_type, parse::aspect_type, except_aspect_type >
+  : public aspect_class<A, deser::aspect_type, parse::aspect_type, aspect_except >
 {
-  typedef aspect_class<A, deser::aspect_type, parse::aspect_type, except_aspect_type > super;
+  typedef aspect_class<A, deser::aspect_type, parse::aspect_type, aspect_except > super;
 
 public:
 

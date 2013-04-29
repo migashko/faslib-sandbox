@@ -1,13 +1,28 @@
-// #include <fas/serialization/<<implementation defined>>/try_throw.hpp>
-// #include <fas/serialization/<<implementation defined>>/unexpected_end_fragment.hpp>
-// #include <fas/serialization/<<implementation defined>>/parse_error.hpp>
-// #include <fas/serialization/<<implementation defined>>/out_of_range.hpp>
-// #include <fas/range/distance.hpp>
-// #include <fas/integral/int_.hpp>
-// #include <utility>
+//
+// Author: Vladimir Migashko <migashko@gmail.com>, (C) 2009, 2010, 2011, 2012, 2013
+//
+// Copyright: See COPYING file that comes with this distribution
+//
 
+#ifndef FAS_SERIALIZATION_AUX_PARSE_AD_UTF8_LETTER_HPP
+#define FAS_SERIALIZATION_AUX_PARSE_AD_UTF8_LETTER_HPP
+
+#include <fas/serialization/aux/except/unexpected_end_fragment.hpp>
+#include <fas/serialization/aux/except/parse_error.hpp>
+#include <fas/serialization/aux/except/out_of_range.hpp>
+#include <fas/except/throw_.hpp>
+#include <fas/except/try_.hpp>
+#include <fas/range/distance.hpp>
+#include <fas/integral/int_.hpp>
+#include <utility>
+
+namespace fas{ namespace serialization{ namespace aux{ namespace parse{
+
+template<typename TgExcept>
 struct ad_utf8_letter
 {
+  typedef TgExcept _except_;
+
   template<typename T, typename R>
   bool peek( T&, R r)
   {
@@ -39,7 +54,7 @@ private:
     */
 
     if (!rr.first)
-      return throw_( t, unexpected_end_fragment(), rr);
+      return throw_<_except_>( t, unexpected_end_fragment(), rr);
 
     // 1
     if ( (*rr.first & 128)==0 )
@@ -57,14 +72,14 @@ private:
     if ( (*rr.first & 248)==240 )
       return this->parse(t, rr, int_<3>());
 
-    return throw_( t, parse_error( distance(rr.first) ), rr);
+    return throw_<_except_>( t, parse_error( distance(rr.first) ), rr);
   }
 
   template<typename T, typename RR>
   RR parse(T& t, RR rr, int_<0>)
   {
     if (!rr.second)
-      return throw_( t, out_of_range( distance(rr.first) ), rr);
+      return throw_<_except_>( t, out_of_range( distance(rr.first) ), rr);
 
     *(rr.second++) = *(rr.first++);
 
@@ -75,16 +90,20 @@ private:
   RR parse(T& t, RR rr, int_<N>)
   {
     if (!rr.first)
-      return throw_( t, unexpected_end_fragment(), rr);
+      return throw_<_except_>( t, unexpected_end_fragment(), rr);
 
     rr = this->parse(t, rr, int_<0>() );
 
-    if ( !try_(t) )
+    if ( !try_<_except_>(t) )
       return rr;
 
     if ( (*rr.first & 192)==128 )
       return this->parse(t, rr, int_<N-1>() );
 
-    return throw_( t, parse_error( distance(rr.first) ), rr);
+    return throw_<_except_>( t, parse_error( distance(rr.first) ), rr);
   }
 };
+
+}}}}
+
+#endif

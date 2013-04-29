@@ -2,15 +2,23 @@
 
 #include <fas/serialization/json/parse/ad_utf8_letter.hpp>
 #include <fas/serialization/json/parse/ad_four_hex_digits.hpp>
+#include <fas/serialization/json/parse/ad_quote.hpp>
+#include <fas/serialization/json/except.hpp>
 
-#include <fas/serialization/json/except/tags.hpp>
+/*#include <fas/serialization/json/except/tags.hpp>
 #include <fas/serialization/json/except/ad_except.hpp>
+*/
+#include <fas/except/ad_except.hpp>
 
 #include <fas/range.hpp>
 #include <fas/range/mrange.hpp>
 #include <set>
 
 namespace aj = ::fas::json;
+
+///
+/// utf8 letter
+///
 
 UNIT(ad_utf8_letter_unit, "")
 {
@@ -51,6 +59,10 @@ UNIT(ad_utf8_letter_unit, "")
   t << is_true<assert>(except) << FAS_TESTING_FILE_LINE;
   /*0x808080F0*/
 }
+
+///
+/// four hex digits
+///
 
 template<bool Valid, typename T>
 void hex_subunit(T& t, const char* h, int line)
@@ -98,9 +110,34 @@ UNIT(ad_four_hex_digits_unit, "")
   hex_subunit<false>(t, "fffg", __LINE__);
 }
 
+///
+/// quote
+///
+
+UNIT(ad_quote_unit, "")
+{
+  using namespace fas::testing;
+  aj::parse::ad_quote adq;
+
+  const char* chq="\"";
+  const char* chf="'";
+  t << is_true<expect>(adq.peek(t, chq) );
+  t << is_false<expect>(adq.peek(t, chf) );
+
+  char out[25]={0};
+  adq(t, chq, fas::orange(out));
+  t << equal<expect, std::string>(out, "\"") << FAS_TESTING_FILE_LINE;
+
+  bool flag = false;
+  try{ adq(t, chf, fas::orange(out)); } catch(const aj::expected_of& ) { flag=true;}
+  t << is_true<assert>(flag) << FAS_TESTING_FILE_LINE;
+
+  t << nothing();
+}
 
 BEGIN_SUITE(string_suite, "")
   ADD_UNIT(ad_utf8_letter_unit)
   ADD_UNIT(ad_four_hex_digits_unit)
-  ADD_ADVICE( aj::_except_, aj::ad_except )
+  ADD_UNIT(ad_quote_unit)
+  ADD_ADVICE( aj::_except_, fas::ad_except )
 END_SUITE(string_suite)

@@ -7,11 +7,12 @@
 #ifndef FAS_SERIALIZATION_JSON_EXCEPT_OUT_OF_RANGE_HPP
 #define FAS_SERIALIZATION_JSON_EXCEPT_OUT_OF_RANGE_HPP
 
-#include <fas/serialization/aux/except/out_of_range.hpp>
+
+#include <fas/serialization/json/except/exception.hpp>
 
 namespace fas{ namespace json{
 
-typedef ::fas::serialization::aux::out_of_range out_of_range;
+#include <fas/serialization/aux/except/out_of_range.cls>
 
 }}
 

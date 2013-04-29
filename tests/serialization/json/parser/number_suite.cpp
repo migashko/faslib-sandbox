@@ -1,5 +1,4 @@
 #include <fas/testing.hpp>
-
 #include <fas/serialization/json/parse/ad_number.hpp>
 
 
@@ -7,6 +6,8 @@ namespace aj = ::fas::json;
 
 UNIT(ad_number_unit, "")
 {
+  using namespace ::fas::testing;
+  t << nothing();
 }
 
 

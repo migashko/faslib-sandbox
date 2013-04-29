@@ -1,19 +1,18 @@
-#ifndef FAS_SERIALIZATION_JSON_PARSE_AD_INTEGER_HPP
-#define FAS_SERIALIZATION_JSON_PARSE_AD_INTEGER_HPP
+//
+// Author: Vladimir Migashko <migashko@gmail.com>, (C) 2011, 2012, 2013
+//
+// Copyright: See COPYING file that comes with this distribution
+//
 
-#include <fas/range/moke_range.hpp>
-#include <fas/range/distance.hpp>
-#include <fas/serialization/json/except/out_of_range.hpp>
-#include <fas/serialization/json/except/unexpected_end_fragment.hpp>
-#include <fas/serialization/json/except/parse_error.hpp>
-#include <fas/serialization/json/except/try_throw.hpp>
-#include <utility>
+#ifndef FAS_SERIALIZATION_JSON_PARSE_AD_NUMBER_HPP
+#define FAS_SERIALIZATION_JSON_PARSE_AD_NUMBER_HPP
+
+#include <fas/serialization/json/except/tags.hpp>
+#include <fas/serialization/aux/parse/ad_json_number.hpp>
 
 namespace fas{ namespace json{ namespace parse{
 
-#include <fas/serialization/aux/parse/ad_json_number.cls>
-
-typedef ad_json_number ad_number;
+typedef ::fas::serialization::aux::parse::ad_json_number<_except_> ad_number;
 
 }}}
 

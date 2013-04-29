@@ -1,12 +1,26 @@
-// #include <fas/range/distance.hpp>
-// #include <fas/serialization/<<implementation defined>>/out_of_range.hpp>
-// #include <fas/serialization/<<implementation defined>>/unexpected_end_fragment.hpp>
-// #include <fas/serialization/<<implementation defined>>/parse_error.hpp>
-// #include <fas/serialization/<<implementation defined>>/try_throw.hpp>
-// #include <utility>
+//
+// Author: Vladimir Migashko <migashko@gmail.com>, (C) 2009, 2010, 2011, 2012, 2013
+//
+// Copyright: See COPYING file that comes with this distribution
+//
 
+#ifndef FAS_SERIALIZATION_AUX_PARSE_AD_NUMBER_HPP
+#define FAS_SERIALIZATION_AUX_PARSE_AD_NUMBER_HPP
+
+#include <fas/serialization/aux/except/out_of_range.hpp>
+#include <fas/serialization/aux/except/unexpected_end_fragment.hpp>
+#include <fas/serialization/aux/except/parse_error.hpp>
+#include <fas/except/throw_.hpp>
+#include <fas/range/distance.hpp>
+#include <utility>
+
+namespace fas{ namespace serialization{ namespace aux{ namespace parse{
+
+template<typename TgExcept>
 struct ad_json_number
 {
+  typedef TgExcept _except_;
+
   template<typename T, typename R>
   bool peek( T&, R r) {  return r && ( *r=='-' || ( *r>='0' && *r<='9' ) ); }
 
@@ -22,15 +36,15 @@ private:
   RR parse_digits(T& t, RR rr)
   {
     if ( !rr.first )
-      return throw_( t, unexpected_end_fragment(), rr );
+      return throw_<_except_>( t, unexpected_end_fragment(), rr );
 
     if ( (*rr.first) < '0' || (*rr.first) > '9' )
-      return throw_( t, parse_error( distance(rr.first) ), rr);
+      return throw_<_except_>( t, parse_error( distance(rr.first) ), rr);
 
     for ( ;rr.first && *rr.first >= '0' && *rr.first <= '9';)
     {
       if ( !rr.second )
-        return throw_( t, out_of_range(distance(rr.first) ), rr );
+        return throw_<_except_>( t, out_of_range(distance(rr.first) ), rr );
 
       *(rr.second++) = *(rr.first++);
     }
@@ -41,13 +55,13 @@ private:
   RR parse(T& t, RR rr)
   {
     if ( !rr.first )
-      return throw_( t, unexpected_end_fragment(), rr );
+      return throw_<_except_>( t, unexpected_end_fragment(), rr );
 
     // if '-'
     if ( *rr.first == '-' )
     {
       if ( !rr.second )
-        return throw_( t, out_of_range( distance(rr.first) ), rr );
+        return throw_<_except_>( t, out_of_range( distance(rr.first) ), rr );
       *(rr.second++)= *(rr.first++);
     }
 
@@ -55,7 +69,7 @@ private:
     if ( rr.first && *rr.first == '0')
     {
       if ( !rr.second )
-        return throw_( t, out_of_range( distance(rr.first) ), rr );
+        return throw_<_except_>( t, out_of_range( distance(rr.first) ), rr );
       *(rr.second++)= *(rr.first++);
       // 00 prohibited
       return rr;
@@ -77,7 +91,7 @@ private:
       *(rr.second++)= *(rr.first++);
 
       if ( !rr.first )
-        return throw_( t, unexpected_end_fragment(), rr );
+        return throw_<_except_>( t, unexpected_end_fragment(), rr );
 
       rr = this->parse_digits(t, rr);
 
@@ -89,17 +103,17 @@ private:
     if ( rr.first && ( *rr.first=='e' || *rr.first=='E' ) )
     {
       if ( !rr.second )
-        return throw_( t, out_of_range( distance(rr.first) ), rr );
+        return throw_<_except_>( t, out_of_range( distance(rr.first) ), rr );
 
       *(rr.second++)= *(rr.first++);
 
       if ( !rr.first )
-        return throw_( t, unexpected_end_fragment(), rr );
+        return throw_<_except_>( t, unexpected_end_fragment(), rr );
 
       if ( rr.first && (*rr.first=='-' || *rr.first=='+'))
       {
         if ( !rr.second )
-          return throw_( t, out_of_range( distance(rr.first) ), rr );
+          return throw_<_except_>( t, out_of_range( distance(rr.first) ), rr );
 
         *(rr.second++)= *(rr.first++);
       }
@@ -109,6 +123,9 @@ private:
 
     return rr;
   }
-
-
 };
+
+}}}}
+
+#endif
+

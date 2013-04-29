@@ -1,2 +1,2 @@
 add_subdirectory(json)
-add_subdirectory(except)
+#add_subdirectory(except)

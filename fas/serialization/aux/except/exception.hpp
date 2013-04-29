@@ -4,14 +4,19 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 
-// #include <fas/range/advance.hpp>
-// #include <fas/range/distance.hpp>
-// #include <fas/serialization/<<implementation defined>>/exception.hpp>
+#ifndef FAS_SERIALIZATION_AUX_EXCEPT_EXCEPTION_HPP
+#define FAS_SERIALIZATION_AUX_EXCEPT_EXCEPTION_HPP
 
-// #include <string>
-// #include <stdexcept>
-// #include <cstddef>
+#include <fas/range/advance.hpp>
+#include <fas/range/distance.hpp>
+#include <fas/range/begin.hpp>
+#include <fas/range/end.hpp>
 
+#include <string>
+#include <stdexcept>
+#include <cstddef>
+
+namespace fas{ namespace serialization{ namespace aux{
 
 class exception
   : public std::runtime_error
@@ -49,3 +54,7 @@ public:
 private:
   std::ptrdiff_t _tail_of;
 };
+
+}}}
+
+#endif
