@@ -14,7 +14,7 @@
 
 namespace fas{ namespace json{
 
-#include <fas/serialization/aux/except/exception.cls>
+#include <fas/serialization/common/except/exception.cls>
 
 }}
 

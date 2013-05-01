@@ -12,7 +12,7 @@
 
 namespace fas{ namespace json{
 
-#include <fas/serialization/aux/except/out_of_range.cls>
+#include <fas/serialization/common/except/out_of_range.cls>
 
 }}
 

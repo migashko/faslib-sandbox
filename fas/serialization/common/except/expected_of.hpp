@@ -4,13 +4,13 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 
-#ifndef FAS_SERIALIZATION_AUX_EXCEPT_EXPECTED_OF_HPP
-#define FAS_SERIALIZATION_AUX_EXCEPT_EXPECTED_OF_HPP
+#ifndef FAS_SERIALIZATION_COMMON_EXCEPT_EXPECTED_OF_HPP
+#define FAS_SERIALIZATION_COMMON_EXCEPT_EXPECTED_OF_HPP
 
-#include <fas/serialization/aux/except/syntax_error.hpp>
+#include <fas/serialization/common/except/syntax_error.hpp>
 #include <string>
 
-namespace fas{ namespace serialization{ namespace aux{
+namespace fas{ namespace serialization{ namespace common{
 
 class expected_of
   : public syntax_error

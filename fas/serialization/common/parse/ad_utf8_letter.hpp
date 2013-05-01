@@ -4,19 +4,19 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 
-#ifndef FAS_SERIALIZATION_AUX_PARSE_AD_UTF8_LETTER_HPP
-#define FAS_SERIALIZATION_AUX_PARSE_AD_UTF8_LETTER_HPP
+#ifndef FAS_SERIALIZATION_COMMON_PARSE_AD_UTF8_LETTER_HPP
+#define FAS_SERIALIZATION_COMMON_PARSE_AD_UTF8_LETTER_HPP
 
-#include <fas/serialization/aux/except/unexpected_end_fragment.hpp>
-#include <fas/serialization/aux/except/parse_error.hpp>
-#include <fas/serialization/aux/except/out_of_range.hpp>
+#include <fas/serialization/common/except/unexpected_end_fragment.hpp>
+#include <fas/serialization/common/except/parse_error.hpp>
+#include <fas/serialization/common/except/out_of_range.hpp>
 #include <fas/except/throw_.hpp>
 #include <fas/except/try_.hpp>
 #include <fas/range/distance.hpp>
 #include <fas/integral/int_.hpp>
 #include <utility>
 
-namespace fas{ namespace serialization{ namespace aux{ namespace parse{
+namespace fas{ namespace serialization{ namespace common{ namespace parse{
 
 template<typename TgExcept>
 struct ad_utf8_letter

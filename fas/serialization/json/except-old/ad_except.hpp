@@ -11,7 +11,7 @@
 
 namespace fas{ namespace json{
 
-#include <fas/serialization/aux/except/ad_except.cls>
+#include <fas/serialization/common/except/ad_except.cls>
 
 }}
 

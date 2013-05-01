@@ -1,8 +1,12 @@
 #include <fas/testing.hpp>
 
+#include <fas/serialization/json/parse/aspect.hpp>
 #include <fas/serialization/json/parse/ad_utf8_letter.hpp>
 #include <fas/serialization/json/parse/ad_four_hex_digits.hpp>
 #include <fas/serialization/json/parse/ad_quote.hpp>
+#include <fas/serialization/json/parse/ad_control_character.hpp>
+#include <fas/serialization/json/parse/ad_string_content.hpp>
+
 #include <fas/serialization/json/except.hpp>
 
 /*#include <fas/serialization/json/except/tags.hpp>
@@ -13,6 +17,7 @@
 #include <fas/range.hpp>
 #include <fas/range/mrange.hpp>
 #include <set>
+#include <algorithm>
 
 namespace aj = ::fas::json;
 
@@ -131,13 +136,64 @@ UNIT(ad_quote_unit, "")
   bool flag = false;
   try{ adq(t, chf, fas::orange(out)); } catch(const aj::expected_of& ) { flag=true;}
   t << is_true<assert>(flag) << FAS_TESTING_FILE_LINE;
+}
 
-  t << nothing();
+UNIT(ad_control_charaster_unit, "")
+{
+  using namespace fas::testing;
+  aj::parse::ad_control_character acc;
+
+  typedef char chs_type[10];
+  chs_type chs="\"\\/bfnrtu";
+  std::srand(time(0));
+  std::random_shuffle(chs, chs + sizeof(chs)-1   );
+  std::string result;
+  typedef fas::typerange<chs_type>::range irange;
+  typedef fas::typerange<std::string>::orange orange;
+  typedef std::pair< irange, orange> pair_range;
+
+  pair_range pr( fas::range(chs, chs + sizeof(chs)-1 ), fas::orange(result));
+
+  while (pr.first)
+    pr = acc(t, pr.first, pr.second);
+
+  t << equal<expect, std::string>(result, chs) << "[" << result <<"]"<< FAS_TESTING_FILE_LINE;
+}
+
+UNIT(ad_string_content_unit, "")
+{
+  using namespace fas::testing;
+  aj::parse::ad_string_content asc;
+  typedef char chs_type[100];
+  chs_type chs="~Ё你\\ueF43\\b\\\"\"";
+  std::string result;
+  asc(t, fas::srange(chs), fas::orange(result) );
+  chs[std::strlen(chs)-1]='\0';
+  t << equal<expect, std::string>(result, chs) << "[" << result <<"]"<< FAS_TESTING_FILE_LINE;
+}
+
+UNIT(ad_string_unit, "")
+{
+  using namespace fas::testing;
+  aj::parse::ad_string as;
+  typedef char chs_type[100];
+  chs_type chs="\"~Ё你\\ueF43\\b\\\"\"";
+  std::string result;
+  as(t, fas::srange(chs), fas::orange(result) );
+  t << equal<expect, std::string>(result, chs) << "[" << result <<"]" << chs<< FAS_TESTING_FILE_LINE;
 }
 
 BEGIN_SUITE(string_suite, "")
   ADD_UNIT(ad_utf8_letter_unit)
   ADD_UNIT(ad_four_hex_digits_unit)
   ADD_UNIT(ad_quote_unit)
+  ADD_UNIT(ad_control_charaster_unit)
+  ADD_UNIT(ad_string_content_unit)
+  ADD_UNIT(ad_string_unit)
   ADD_ADVICE( aj::_except_, fas::ad_except )
+  ADD_ASPECT( aj::parse::aspect)
+  /*
+  ADD_ADVICE( aj::parse::_quote_, aj::parse::ad_quote )
+  ADD_ADVICE( aj::parse::_control_character_, aj::parse::ad_control_character )
+  */
 END_SUITE(string_suite)

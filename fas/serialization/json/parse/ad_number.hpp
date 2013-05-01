@@ -8,11 +8,11 @@
 #define FAS_SERIALIZATION_JSON_PARSE_AD_NUMBER_HPP
 
 #include <fas/serialization/json/except/tags.hpp>
-#include <fas/serialization/aux/parse/ad_json_number.hpp>
+#include <fas/serialization/common/parse/ad_json_number.hpp>
 
 namespace fas{ namespace json{ namespace parse{
 
-typedef ::fas::serialization::aux::parse::ad_json_number<_except_> ad_number;
+typedef ::fas::serialization::common::parse::ad_json_number<_except_> ad_number;
 
 }}}
 

@@ -11,7 +11,7 @@
 
 namespace fas{ namespace json{
 
-#include <fas/serialization/aux/except/try_throw.cls>
+#include <fas/serialization/common/except/try_throw.cls>
 
 }}
 

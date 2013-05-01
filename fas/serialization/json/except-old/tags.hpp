@@ -9,7 +9,7 @@
 
 namespace fas{ namespace json{
 
-// #include <fas/serialization/aux/except/tags.cls>
+// #include <fas/serialization/common/except/tags.cls>
 struct _except_;
 
 }}

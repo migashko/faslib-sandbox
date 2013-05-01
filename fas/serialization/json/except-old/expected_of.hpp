@@ -9,7 +9,7 @@
 
 namespace fas{ namespace json{
 
-#include <fas/serialization/aux/except/expected_of.cls>
+#include <fas/serialization/common/except/expected_of.cls>
 
 }}
 

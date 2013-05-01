@@ -11,7 +11,7 @@
 
 namespace fas{ namespace json{
 
-#include <fas/serialization/aux/except/syntax_error.cls>
+#include <fas/serialization/common/except/syntax_error.cls>
 
 }}
 

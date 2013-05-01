@@ -12,7 +12,7 @@
 
 namespace fas{ namespace json{
 
-#include <fas/serialization/aux/except/unexpected_end_fragment.cls>
+#include <fas/serialization/common/except/unexpected_end_fragment.cls>
 
 
 }}

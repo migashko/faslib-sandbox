@@ -7,11 +7,11 @@
 #ifndef FAS_SERIALIZATION_JSON_EXCEPT_EXPECTED_OF_HPP
 #define FAS_SERIALIZATION_JSON_EXCEPT_EXPECTED_OF_HPP
 
-#include <fas/serialization/aux/except/expected_of.hpp>
+#include <fas/serialization/common/except/expected_of.hpp>
 
 namespace fas{ namespace json{
 
-typedef ::fas::serialization::aux::expected_of expected_of;
+typedef ::fas::serialization::common::expected_of expected_of;
 
 
 }}

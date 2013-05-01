@@ -7,7 +7,7 @@
 
 namespace fas{ namespace json{ namespace deser{
 
-#include <fas/serialization/aux/deser/ad_integer.cls>
+#include <fas/serialization/common/deser/ad_integer.cls>
 
 }}}
 

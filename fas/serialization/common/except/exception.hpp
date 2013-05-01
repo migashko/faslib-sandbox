@@ -4,8 +4,8 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 
-#ifndef FAS_SERIALIZATION_AUX_EXCEPT_EXCEPTION_HPP
-#define FAS_SERIALIZATION_AUX_EXCEPT_EXCEPTION_HPP
+#ifndef FAS_SERIALIZATION_COMMON_EXCEPT_EXCEPTION_HPP
+#define FAS_SERIALIZATION_COMMON_EXCEPT_EXCEPTION_HPP
 
 #include <fas/range/advance.hpp>
 #include <fas/range/distance.hpp>
@@ -16,7 +16,7 @@
 #include <stdexcept>
 #include <cstddef>
 
-namespace fas{ namespace serialization{ namespace aux{
+namespace fas{ namespace serialization{ namespace common{
 
 class exception
   : public std::runtime_error

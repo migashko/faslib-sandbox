@@ -9,7 +9,7 @@
 
 namespace fas{ namespace json{
 
-#include <fas/serialization/aux/except/parse_error.cls>
+#include <fas/serialization/common/except/parse_error.cls>
 
 }}
 
