@@ -12,7 +12,10 @@
 
 namespace fas{ namespace json{ namespace parse{
 
-typedef ::fas::serialization::common::parse::ad_utf8_letter<_except_> ad_utf8_letter;
+struct ad_utf8_letter:
+  ::fas::serialization::common::parse::ad_utf8_letter<_except_>
+{};
+
 
 }}}
 

@@ -13,7 +13,12 @@
 
 namespace fas{ namespace json{ namespace parse{
 
-typedef ::fas::serialization::common::parse::ad_tstring< tchars<'"'>, _except_> ad_quote;
+struct ad_quote:
+  ::fas::serialization::common::parse::ad_tstring< 
+    tchars<'"'>, 
+    _except_
+  >
+{};
 
 }}}
 

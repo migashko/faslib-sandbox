@@ -12,7 +12,9 @@
 
 namespace fas{ namespace json{ namespace parse{
 
-typedef ::fas::serialization::common::parse::ad_four_hex_digits<_except_> ad_four_hex_digits;
+struct ad_four_hex_digits:
+  ::fas::serialization::common::parse::ad_four_hex_digits<_except_>
+{};
 
 }}}
 

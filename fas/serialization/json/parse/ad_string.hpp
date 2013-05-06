@@ -13,8 +13,15 @@
 
 namespace fas{ namespace json{ namespace parse{
 
-typedef ::fas::serialization::common::parse::ad_enclosed_entity< _quote_, _string_content_, _quote_, _except_> ad_string;
-
+struct ad_string:
+  ::fas::serialization::common::parse::ad_enclosed_entity< 
+    _quote_,
+    _string_content_,
+    _quote_,
+    _except_
+  >
+{};
+  
 }}}
 
 #endif

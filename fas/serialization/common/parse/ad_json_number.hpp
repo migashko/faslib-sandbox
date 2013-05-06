@@ -11,6 +11,7 @@
 #include <fas/serialization/common/except/unexpected_end_fragment.hpp>
 #include <fas/serialization/common/except/parse_error.hpp>
 #include <fas/except/throw_.hpp>
+#include <fas/except/try_.hpp>
 #include <fas/range/distance.hpp>
 #include <utility>
 
@@ -78,7 +79,7 @@ private:
     {
       rr = this->parse_digits(t, rr);
 
-      if ( !try_(t) )
+      if ( !try_<_except_>(t) )
         return rr;
     }
 
@@ -86,7 +87,7 @@ private:
     if ( rr.first && *rr.first=='.' )
     {
       if ( !rr.second )
-        return throw_( t, out_of_range( distance(rr.first) ), rr );
+        return throw_<_except_>( t, out_of_range( distance(rr.first) ), rr );
 
       *(rr.second++)= *(rr.first++);
 
@@ -95,7 +96,7 @@ private:
 
       rr = this->parse_digits(t, rr);
 
-      if ( !try_(t) )
+      if ( !try_<_except_>(t) )
         return rr;
     }
 

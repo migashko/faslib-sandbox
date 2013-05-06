@@ -12,7 +12,9 @@
 
 namespace fas{ namespace json{ namespace parse{
 
-typedef ::fas::serialization::common::parse::ad_json_number<_except_> ad_number;
+struct ad_number:
+  ::fas::serialization::common::parse::ad_json_number<_except_>
+{};
 
 }}}
 

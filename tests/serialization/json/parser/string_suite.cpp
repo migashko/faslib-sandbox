@@ -155,7 +155,7 @@ UNIT(ad_control_charaster_unit, "")
   pair_range pr( fas::range(chs, chs + sizeof(chs)-1 ), fas::orange(result));
 
   while (pr.first)
-    pr = acc(t, pr.first, pr.second);
+    pr = acc(t, pr);
 
   t << equal<expect, std::string>(result, chs) << "[" << result <<"]"<< FAS_TESTING_FILE_LINE;
 }

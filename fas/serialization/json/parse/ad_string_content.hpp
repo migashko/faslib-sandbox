@@ -13,7 +13,15 @@
 
 namespace fas{ namespace json{ namespace parse{
 
-typedef ::fas::serialization::common::parse::ad_json_string_content< _utf8_letter_, _control_character_, _four_hex_digits_, _quote_, _except_> ad_string_content;
+struct ad_string_content:
+  ::fas::serialization::common::parse::ad_json_string_content<
+    _utf8_letter_,
+    _control_character_,
+    _four_hex_digits_,
+    _quote_,
+    _except_
+  >
+{};
 
 }}}
 
