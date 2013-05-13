@@ -31,16 +31,8 @@ struct ad_four_hex_digits
                 );
   }
 
-  template<typename T, typename RI, typename RO>
-  std::pair<RI, RO> operator()(T& t, RI ri, RO ro)
-  {
-    return this->parse(t, std::make_pair(ri, ro) );
-  }
-
-private:
-
   template<typename T, typename RR>
-  RR parse(T& t, RR rr)
+  RR operator()(T& t, RR rr)
   {
     for (register int i=0; i < 4; ++i)
     {

@@ -18,16 +18,6 @@ inline moke_range<typename typerange<IC>::iterator > mrange(const IC&)
   return moke_range<typename typerange<IC>::iterator >();
 }
 
-  /*
-template<typename C>
-inline string_range<C*> srange(C* str)
-{
-  return string_range<C*>(str);
-}
-
-*/
-
-
 }
 
 #endif

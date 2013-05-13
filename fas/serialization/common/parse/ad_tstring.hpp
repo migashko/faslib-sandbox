@@ -13,7 +13,6 @@
 
 #include <fas/except/throw_.hpp>
 
-
 #include <fas/range/distance.hpp>
 #include <fas/range/string_range.hpp>
 #include <utility>
@@ -33,7 +32,7 @@ struct ad_tstring
     if ( !r )
       return false;
     tstring_range rr = tstring_range( tstring()() );
-    for ( ; rr; ++rr )
+    for ( ;rr; ++rr, ++r )
     {
       if ( *r != *rr )
         return false;
@@ -41,25 +40,25 @@ struct ad_tstring
     return true;
   }
 
-  template<typename T, typename RI, typename RO>
-  std::pair<RI, RO> operator()(T& t, RI ri, RO ro)
+  template<typename T, typename RR>
+  RR operator()(T& t, RR rr)
   {
-    tstring_range rr = tstring_range( tstring()() );
-    for (;rr;++rr)
+    tstring_range sr = tstring_range( tstring()() );
+    for (;sr;++sr)
     {
-      if (!ro)
-        return throw_<_except_>( t, out_of_range( distance(ri) ), std::pair<RI, RO>(ri, ro) );
+      if (!rr.second)
+        return throw_<_except_>( t, out_of_range( distance(rr.first) ), rr );
 
-      if ( !ri )
-        return throw_<_except_>( t, unexpected_end_fragment(), std::pair<RI, RO>(ri, ro) );
+      if ( !rr.first )
+        return throw_<_except_>( t, unexpected_end_fragment(), rr );
 
-      if ( *ri != *rr )
-        return throw_<_except_>( t, expected_of(tstring()(),  distance(ri) ), std::pair<RI, RO>(ri, ro));
+      if ( *rr.first != *sr )
+        return throw_<_except_>( t, expected_of(tstring()(),  distance(rr.first) ), rr );
 
-      *(ro++) = *(ri++);
+      *(rr.second++) = *(rr.first++);
     }
 
-    return std::pair<RI, RO>(ri, ro);
+    return rr;
   }
 };
 

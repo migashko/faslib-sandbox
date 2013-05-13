@@ -13,6 +13,7 @@
 
 namespace fas{ namespace json{ namespace parse{
 
+  
 struct ad_string_content:
   ::fas::serialization::common::parse::ad_json_string_content<
     _utf8_letter_,

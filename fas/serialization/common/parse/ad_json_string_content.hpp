@@ -57,14 +57,14 @@ struct ad_json_string_content
 
         bool hex = ( *rr.first == 'u');
 
-        rr = t.get_aspect().template get<_ctrl_>()(t, rr.first, rr.second);
+        rr = t.get_aspect().template get<_ctrl_>()(t, rr);
 
         if ( !try_<_except_>(t) )
           return rr;
 
         if (hex)
         {
-          rr = t.get_aspect().template get<_hex_>()(t, rr.first, rr.second);
+          rr = t.get_aspect().template get<_hex_>()(t, rr);
           if ( !try_<_except_>(t) )
             return rr;
         }

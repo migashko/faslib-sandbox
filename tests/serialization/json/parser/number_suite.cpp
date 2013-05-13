@@ -16,19 +16,19 @@ UNIT(ad_number_unit, "")
   std::string str;  
   aj::parse::ad_number an;
   
-  an(t, fas::range(ch1), fas::orange(str));
+  an(t, std::make_pair(fas::range(ch1), fas::orange(str)));
   t << equal<expect>(str, ch1) << FAS_TESTING_FILE_LINE;
   
   str.clear();
-  an(t, fas::range(ch2), fas::orange(str));
+  an(t, std::make_pair(fas::range(ch2), fas::orange(str)));
   t << equal<expect>(str, ch2) << FAS_TESTING_FILE_LINE;
 
   str.clear();
-  an(t, fas::range(ch3), fas::orange(str));
+  an(t, std::make_pair(fas::range(ch3), fas::orange(str)));
   t << equal<expect>(str, ch3) << FAS_TESTING_FILE_LINE;
 
   str.clear();
-  an(t, fas::range(ch4), fas::orange(str));
+  an(t, std::make_pair(fas::range(ch4), fas::orange(str)));
   t << equal<expect>(str, ch4) << FAS_TESTING_FILE_LINE;
 }
 
@@ -47,25 +47,25 @@ UNIT(ad_bad_number_unit, "")
   std::string str;  
   aj::parse::ad_number an;
 
-  try{ an(t, fas::range(ch1), fas::orange(str)); } 
+  try{ an(t, std::make_pair(fas::range(ch1), fas::orange(str))); } 
   catch( const aj::parse_error& ) { flag =true; }
   t << is_true<expect>(flag) << FAS_TESTING_FILE_LINE;
 
   flag=false;
   str.clear();
-  try{ an(t, fas::range(ch2), fas::orange(str)); } 
+  try{ an(t, std::make_pair(fas::range(ch2), fas::orange(str))); } 
   catch( const aj::parse_error& ) { flag =true; }
   t << is_true<expect>(flag) << FAS_TESTING_FILE_LINE;
 
   flag=false;
   str.clear();
-  try{ an(t, fas::range(ch3), fas::orange(str)); } 
+  try{ an(t, std::make_pair(fas::range(ch3), fas::orange(str))); } 
   catch( const aj::parse_error& ) { flag =true; }
   t << is_true<expect>(flag) << FAS_TESTING_FILE_LINE;
 
   flag=false;
   str.clear();
-  try{ an(t, fas::range(ch4), fas::orange(str)); } 
+  try{ an(t, std::make_pair(fas::range(ch4), fas::orange(str))); } 
   catch( const aj::parse_error& ) { flag =true; }
   t << is_true<expect>(flag) << FAS_TESTING_FILE_LINE;
 

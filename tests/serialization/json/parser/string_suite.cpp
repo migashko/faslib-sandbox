@@ -79,7 +79,7 @@ void hex_subunit(T& t, const char* h, int line)
     aj::parse::ad_four_hex_digits hex4;
     std::string out;
     t << is_true<assert>(hex4.peek(t, h)) << FAS_TESTING_FILE_LINE << "," <<line;
-    const char* ptr = hex4( t, h, fas::orange(out)).first;
+    const char* ptr = hex4( t, std::make_pair( h, fas::orange(out) ) ).first;
     t << equal<assert, const char*>(ptr, h+4) << FAS_TESTING_FILE_LINE << "," <<line;
     t << equal<assert, std::string>(out, h) << FAS_TESTING_FILE_LINE << "," <<line;
 
@@ -130,11 +130,11 @@ UNIT(ad_quote_unit, "")
   t << is_false<expect>(adq.peek(t, chf) );
 
   char out[25]={0};
-  adq(t, chq, fas::orange(out));
+  adq(t, std::make_pair( chq, fas::orange(out)) );
   t << equal<expect, std::string>(out, "\"") << FAS_TESTING_FILE_LINE;
 
   bool flag = false;
-  try{ adq(t, chf, fas::orange(out)); } catch(const aj::expected_of& ) { flag=true;}
+  try{ adq(t, std::make_pair( chf, fas::orange(out)) ); } catch(const aj::expected_of& ) { flag=true;}
   t << is_true<assert>(flag) << FAS_TESTING_FILE_LINE;
 }
 
@@ -167,7 +167,7 @@ UNIT(ad_string_content_unit, "")
   typedef char chs_type[100];
   chs_type chs="~Ё你\\ueF43\\b\\\"\"";
   std::string result;
-  asc(t, fas::srange(chs), fas::orange(result) );
+  asc(t, std::make_pair( fas::srange(chs), fas::orange(result) ) );
   chs[std::strlen(chs)-1]='\0';
   t << equal<expect, std::string>(result, chs) << "[" << result <<"]"<< FAS_TESTING_FILE_LINE;
 }
@@ -179,7 +179,7 @@ UNIT(ad_string_unit, "")
   typedef char chs_type[100];
   chs_type chs="\"~Ё你\\ueF43\\b\\\"\"";
   std::string result;
-  as(t, fas::srange(chs), fas::orange(result) );
+  as(t, std::make_pair( fas::srange(chs), fas::orange(result) ) );
   t << equal<expect, std::string>(result, chs) << "[" << result <<"]" << chs<< FAS_TESTING_FILE_LINE;
 }
 

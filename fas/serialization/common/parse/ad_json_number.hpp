@@ -23,12 +23,15 @@ struct ad_json_number
   typedef TgExcept _except_;
 
   template<typename T, typename R>
-  bool peek( T&, R r) {  return r && ( *r=='-' || ( *r>='0' && *r<='9' ) ); }
-
-  template<typename T, typename R, typename RD>
-  std::pair<R, RD> operator()(T& t, R r, RD rd)
+  bool peek( T&, R r)
   {
-    return this->parse(t, std::make_pair(r, rd) );
+    return r && ( *r=='-' || ( *r>='0' && *r<='9' ) );
+  }
+
+  template<typename T, typename RR>
+  RR operator()(T& t, RR rr)
+  {
+    return this->parse(t, rr );
   }
 
 private:
