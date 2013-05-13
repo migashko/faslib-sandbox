@@ -6,6 +6,7 @@ add_executable(
   string_suite.cpp
   except_suite.cpp
   space_suite.cpp
+  parser_suite.cpp
 )
 add_test(test_parser test_parser)
 
