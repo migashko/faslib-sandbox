@@ -34,7 +34,6 @@ private:
   RR _(T& t, RR rr, TagList)
   {
     typedef typename ::fas::head<TagList>::type _head_;
-
     rr = t.get_aspect().template get<_head_>()(t, rr);
 
     if ( !try_<_except_>(t) )

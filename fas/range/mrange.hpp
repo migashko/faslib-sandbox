@@ -13,9 +13,9 @@
 namespace fas{
 
 template<typename IC>
-inline moke_range<typename typerange<IC>::iterator > mrange(const IC&)
+inline moke_range<typename typerange<IC>::range::iterator > mrange(const IC&)
 {
-  return moke_range<typename typerange<IC>::iterator >();
+  return moke_range<typename typerange<IC>::range::iterator >();
 }
 
 }

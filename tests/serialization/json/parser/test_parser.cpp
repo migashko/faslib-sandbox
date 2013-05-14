@@ -6,4 +6,5 @@ BEGIN_TEST
   RUN_SUITE(space_suite)
   RUN_SUITE(except_suite)
   RUN_SUITE(parser_suite)
+  RUN_SUITE(object_suite)
 END_TEST

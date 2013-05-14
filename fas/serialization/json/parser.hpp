@@ -1,39 +1,29 @@
 #ifndef FAS_SERIALIZATION_JSON_PARSER_HPP
 #define FAS_SERIALIZATION_JSON_PARSER_HPP
 
-#include <fas/aop/aspect_class.hpp>
-#include <fas/serialization/json/except/except_aspect_type.hpp>
+#include <fas/serialization/json/except/aspect.hpp>
 #include <fas/serialization/json/parse/aspect.hpp>
-#include <utility>
+
+#include <fas/serialization/parser.hpp>
+#include <fas/aop/aspect_merge.hpp>
 
 namespace fas{ namespace json{
 
-template<typename A = ::fas::aspect<> >
-class parser
-  : public aspect_class<A, parse::aspect_type, except_aspect_type >
+template<
+  typename A1 = empty_type,
+  typename A2 = empty_type,
+  typename A3 = empty_type,
+  typename A4 = empty_type,
+  typename A5 = empty_type
+>
+class parser:
+  public ::fas::serialization::parser<
+    typename aspect_merge<A1,A2,A3,A4,A5>::type,
+    parse::aspect,
+    except::aspect
+  >
 {
-  typedef aspect_class<A, parse::aspect_type, except_aspect_type > super;
-public:
-  typedef typename super::aspect aspect;
-
-  operator bool () const
-  {
-    return !super::get_aspect().template get<_except_>();
-  }
-
-  template<typename R>
-  R operator()(R r)
-  {
-    return r;
-    //return parse(*this,r);
-  }
-
-  template<typename RI, typename RO>
-  std::pair<RI, RO> operator()(RI ri, RO ro)
-  {
-    return std::make_pair(ri, ro);
-    //return copy(*this,r, rd);
-  }
+  
 };
 
 }}

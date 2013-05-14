@@ -8,7 +8,7 @@
 #define FAS_SERIALIZATION_JSON_PARSE_AD_SPACE_HPP
 
 #include <fas/serialization/json/except/tags.hpp>
-#include <fas/serialization/common/parse/ad_sequence.hpp>
+#include <fas/serialization/common/parse/ad_list.hpp>
 #include <fas/type_list/type_list_n.hpp>
 
 

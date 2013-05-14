@@ -14,7 +14,7 @@ struct ad_list
   typedef TgExcept    _except_;
   
   template<typename T, typename R>
-  bool peek( T& t, R r)
+  bool peek( T&, R )
   {
     return true;
   }
@@ -22,14 +22,17 @@ struct ad_list
   template<typename T, typename RR>
   RR operator()(T& t, RR rr)
   {
+    if ( t.get_aspect().template get<_end_>().peek(t, rr.first) )
+      return rr;
+
     for (;;)
     {
-      if ( t.get_aspect().template get<_end_>().peek(t, rr.first) )
-        break;
-
       rr = t.get_aspect().template get<_entity_>()(t, rr);
 
       if ( !try_<_except_>(t) )
+        break;
+
+      if ( t.get_aspect().template get<_end_>().peek(t, rr.first) )
         break;
 
       rr = t.get_aspect().template get<_separator_>()(t, rr);

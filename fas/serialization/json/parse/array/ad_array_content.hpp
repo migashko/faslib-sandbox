@@ -4,8 +4,8 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 
-#ifndef FAS_SERIALIZATION_JSON_PARSE_AD_OBJECT_HPP
-#define FAS_SERIALIZATION_JSON_PARSE_AD_OBJECT_HPP
+#ifndef FAS_SERIALIZATION_JSON_PARSE_AD_ARRAY_CONTENT_HPP
+#define FAS_SERIALIZATION_JSON_PARSE_AD_ARRAY_CONTENT_HPP
 
 #include <fas/serialization/json/except/tags.hpp>
 #include <fas/serialization/common/parse/ad_sequence.hpp>
@@ -14,12 +14,11 @@
 
 namespace fas{ namespace json{ namespace parse{
 
-struct ad_object:
+struct ad_array_content:
   ::fas::serialization::common::parse::ad_sequence<
     type_list_n<
-      _left_brace_,
-      _field_list_,
-      _right_brace_
+      _space_,
+      _item_list_
     >::type,
     _except_
   >

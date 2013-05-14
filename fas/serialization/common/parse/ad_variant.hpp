@@ -5,6 +5,7 @@
 #include <fas/type_list/normalize.hpp>
 #include <fas/type_list/head.hpp>
 #include <fas/type_list/tail.hpp>
+#include <fas/serialization/common/except/parse_error.hpp>
 
 
 namespace fas{ namespace serialization{ namespace common{ namespace parse{
@@ -41,7 +42,7 @@ private:
   }
 
   template<typename T, typename R>
-  bool _peek(T&, R r, ::fas::empty_list)
+  bool _peek(T&, R, ::fas::empty_list)
   {
     return false;
   }
