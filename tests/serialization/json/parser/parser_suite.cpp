@@ -23,8 +23,8 @@ UNIT(parser1_unit, "")
   t << equal<expect, std::string>(result, str) << result << std::endl << FAS_TESTING_FILE_LINE;
 
   char strarr[20]="\0";
-  p(str, strarr );
-  t << equal<expect, std::string>(strarr, str) << result << std::endl << FAS_TESTING_FILE_LINE;
+  p(str, fas::range(strarr) );
+  t << equal<expect, std::string>(strarr, str) << strarr << std::endl << FAS_TESTING_FILE_LINE;
   
   
   t << nothing();

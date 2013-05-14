@@ -10,11 +10,11 @@
 #include <fas/serialization/json/except/tags.hpp>
 #include <fas/serialization/common/parse/ad_sequence.hpp>
 #include <fas/type_list/type_list_n.hpp>
-
+#include <fas/serialization/common/parse/nocopy.hpp>
 
 namespace fas{ namespace json{ namespace parse{
 
-struct ad_comment:
+struct ad_comment_cp:
   ::fas::serialization::common::parse::ad_sequence<
     type_list_n<
       _begin_comment_,
@@ -24,6 +24,9 @@ struct ad_comment:
     _except_
   >
 {};
+
+typedef ::fas::serialization::common::parse::nocopy<ad_comment_cp> ad_comment;
+
 
 }}}
 

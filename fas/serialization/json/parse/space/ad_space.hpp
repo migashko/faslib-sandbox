@@ -10,11 +10,14 @@
 #include <fas/serialization/json/except/tags.hpp>
 #include <fas/serialization/common/parse/ad_list.hpp>
 #include <fas/type_list/type_list_n.hpp>
+#include <fas/serialization/common/parse/nocopy.hpp>
+
+
 
 
 namespace fas{ namespace json{ namespace parse{
 
-struct ad_space:
+struct ad_space_cp:
   ::fas::serialization::common::parse::ad_list<
     _space_variant_,
     _empty_,
@@ -22,6 +25,8 @@ struct ad_space:
     _except_
   >
 {};
+
+typedef ::fas::serialization::common::parse::nocopy<ad_space_cp> ad_space;
 
 }}}
 

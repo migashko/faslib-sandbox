@@ -3,11 +3,15 @@
 
 #include <fas/serialization/json/except/aspect.hpp>
 #include <fas/serialization/json/parse/aspect.hpp>
-
+#include <fas/serialization/json/parse/space/aspect_cp.hpp>
 #include <fas/serialization/parser.hpp>
 #include <fas/aop/aspect_merge.hpp>
 
 namespace fas{ namespace json{
+
+typedef parse::space::aspect_space_cp space_cp;
+typedef parse::space::aspect_white_space_cp white_space_cp;
+typedef parse::space::aspect_comment_cp comment_cp;
 
 template<
   typename A1 = empty_type,

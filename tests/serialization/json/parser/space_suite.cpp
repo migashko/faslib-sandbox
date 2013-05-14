@@ -1,6 +1,8 @@
 #include <fas/testing.hpp>
 
 #include <fas/serialization/json/parse/aspect.hpp>
+#include <fas/serialization/json/parse/space/aspect_cp.hpp>
+
 #include <fas/serialization/json/except.hpp>
 
 
@@ -22,7 +24,7 @@ UNIT(comment_unit, "")
   
   std::string result;
   t.get_aspect().template get< aj::parse::_comment_ >()(t, std::make_pair( fas::srange(comment1), fas::orange(result) ) );
-  t << equal<expect, std::string>(result, comment1) << FAS_TESTING_FILE_LINE;
+  t << equal<expect, std::string>(result, comment1) << "<<"<< result << ">>"<< FAS_TESTING_FILE_LINE;
 
   const char comment2[]="/*/**/{";
   result.clear();
@@ -48,17 +50,19 @@ UNIT(space_unit, "")
 {
   using namespace fas::testing;
   const char comment1[]="      /* комментарий ~Ё你 */ {}";
+  std::string test = std::string(comment1, comment1 + strlen(comment1)-2);
 
   std::string result;
   t.get_aspect().template get< aj::parse::_space_ >()(t, std::make_pair( fas::srange(comment1), fas::orange(result) ) );
-  t << equal<expect, std::string>(result, std::string(comment1, comment1 + strlen(comment1)-2)) << FAS_TESTING_FILE_LINE;
+  t << equal<expect, std::string>(result, test) << result << "!=" << test <<  FAS_TESTING_FILE_LINE;
 }
 
 
 BEGIN_SUITE(space_suite, "")
   ADD_UNIT(comment_unit)
   ADD_UNIT(space_unit)
-  
   ADD_ADVICE( aj::_except_, fas::ad_except )
+  ADD_ASPECT( aj::parse::space::aspect_space_cp)
   ADD_ASPECT( aj::parse::aspect)
+  
 END_SUITE(space_suite)

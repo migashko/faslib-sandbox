@@ -16,13 +16,13 @@ UNIT(ad_object_unit, "")
   chs_type chs="{ \"field\":12234 }";
   std::string result;
   as(t, std::make_pair( fas::srange(chs), fas::orange(result) ) );
-  t << equal<expect, std::string>(result, chs) << "[" << result <<"]" << chs<< FAS_TESTING_FILE_LINE;
+  t << equal<expect, std::string>(result, chs) << result <<"!=" << chs<< FAS_TESTING_FILE_LINE;
 
   
   chs_type chs2="{ \"field\":12234, /*field2*/ \"field2\":[{},{}] }";
   result.clear();
   as(t, std::make_pair( fas::srange(chs2), fas::orange(result) ) );
-  t << equal<expect, std::string>(result, chs2) << "[" << result <<"]" << chs<< FAS_TESTING_FILE_LINE;
+  t << equal<expect, std::string>(result, chs2) << ":" << result <<"!=" << chs2<< FAS_TESTING_FILE_LINE;
 
 }
 
