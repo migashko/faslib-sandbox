@@ -152,25 +152,6 @@ public:
     return this->parse(*this, std::make_pair( ri, ro ) );
   }
 
-  
-
-  /*
-  template<typename R>
-  struct helper: parse_helper_impl< R, typerange<R>::flag > {};
-
-  template<typename P1>
-  typename helper<P1>::return_type operator()(P1 p1)
-  {
-    return this->parse(*this, helper<P1>::make_iparam(p1) );
-  }
-
-  template<typename P1, typename P2>
-  typename helper<P1>::return_type operator()(P1 p1, P2 p2)
-  {
-    return this->parse(*this, helper<P1>::make_iparam(p1), helper<P2>::make_oparam(p2) );
-  }
-  */
-
 protected:
 
 
@@ -183,35 +164,8 @@ protected:
     return t.get_aspect().template get<_parse_>()(t, rr);
   }
 
-  /*
-  template<typename T, typename R>
-  typename helper<R>::return_type parse(T& t, R r)
-  {
-    return helper<R>::make_return(
-      this->_parse(t, std::make_pair( r, mrange(r) ) )
-    );
-  }
-
-  template<typename T, typename R, typename RO >
-  typename helper<R>::return_type parse(T& t, R r, RO ro)
-  {
-    return helper<R>::make_return(
-      this->_parse(t, std::make_pair( r, ro ) )
-    );
-  }
-  */
-  
 private:
 
-  /*
-  template<typename T, typename RR>
-  RR _parse(T& t, RR rr)
-  {
-    group_for_each<_clear_>( t, f_clear() );
-    return t.get_aspect().template get<_parse_>()(t, rr);
-  }
-  */
-  
 };
 
 }}
