@@ -192,7 +192,7 @@ BEGIN_SUITE(string_suite, "")
   ADD_UNIT(ad_control_charaster_unit)
   ADD_UNIT(ad_string_content_unit)
   ADD_UNIT(ad_string_unit)
-  ADD_ADVICE( aj::_except_, fas::ad_except )
+  ADD_ADVICE( aj::_except_, fas::ad_except<> )
   ADD_ASPECT( aj::parse::aspect)
   /*
   ADD_ADVICE( aj::parse::_quote_, aj::parse::ad_quote )

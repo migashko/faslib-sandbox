@@ -5,7 +5,7 @@
 #include <fas/type_list/normalize.hpp>
 #include <fas/type_list/head.hpp>
 #include <fas/type_list/tail.hpp>
-#include <fas/serialization/common/except/parse_error.hpp>
+#include <fas/serialization/except/parse_error.hpp>
 
 
 namespace fas{ namespace serialization{ namespace common{ namespace parse{

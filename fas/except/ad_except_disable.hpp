@@ -1,5 +1,5 @@
 //
-// Author: Vladimir Migashko <migashko@gmail.com>, (C) 2012
+// Author: Vladimir Migashko <migashko@gmail.com>, (C) 2012, 2013
 //
 // Copyright: See COPYING file that comes with this distribution
 //
@@ -10,8 +10,11 @@
 
 namespace fas{
 
+template<typename Ex = std::exception >
 struct ad_except_disable
 {
+  typedef Ex exception_type;
+  
   ad_except_disable()
     : _exception_flag(false)
   {
@@ -45,6 +48,16 @@ struct ad_except_disable
   {
     _exception_flag = true;
     return p;
+  }
+
+  exception_type exception() const
+  {
+    return exception_type();
+  }
+
+  void raise()
+  {
+    throw;
   }
 
 private:

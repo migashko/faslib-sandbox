@@ -4,13 +4,13 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 
-#ifndef FAS_SERIALIZATION_COMMON_EXCEPT_OUT_OF_RANGE_HPP
-#define FAS_SERIALIZATION_COMMON_EXCEPT_OUT_OF_RANGE_HPP
+#ifndef FAS_SERIALIZATION_EXCEPT_OUT_OF_RANGE_HPP
+#define FAS_SERIALIZATION_EXCEPT_OUT_OF_RANGE_HPP
 
-#include <fas/serialization/common/except/exception.hpp>
+#include <fas/serialization/except/exception.hpp>
 #include <string>
 
-namespace fas{ namespace serialization{ namespace common{
+namespace fas{ namespace serialization{ 
 
 class out_of_range
   : public exception
@@ -25,6 +25,6 @@ public:
    : exception( std::string("out of range: ") + str, tail_of ) {}
 };
 
-}}}
+}}
 
 #endif

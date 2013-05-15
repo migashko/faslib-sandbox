@@ -4,8 +4,8 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 
-#ifndef FAS_SERIALIZATION_COMMON_EXCEPT_EXCEPTION_HPP
-#define FAS_SERIALIZATION_COMMON_EXCEPT_EXCEPTION_HPP
+#ifndef FAS_SERIALIZATION_EXCEPT_EXCEPTION_HPP
+#define FAS_SERIALIZATION_EXCEPT_EXCEPTION_HPP
 
 #include <fas/range/advance.hpp>
 #include <fas/range/distance.hpp>
@@ -16,7 +16,7 @@
 #include <stdexcept>
 #include <cstddef>
 
-namespace fas{ namespace serialization{ namespace common{
+namespace fas{ namespace serialization{
 
 class exception
   : public std::runtime_error
@@ -25,6 +25,12 @@ class exception
 public:
   typedef std::ptrdiff_t size_type;
 
+  exception(size_type tail_of = 0 )
+    : std::runtime_error("serialization error")
+    , _tail_of(tail_of)
+  { }
+
+  
   exception(const std::string& msg, size_type tail_of = 0 )
     : std::runtime_error(msg)
     , _tail_of(tail_of)
@@ -55,6 +61,6 @@ private:
   std::ptrdiff_t _tail_of;
 };
 
-}}}
+}}
 
 #endif

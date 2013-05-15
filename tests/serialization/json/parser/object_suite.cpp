@@ -1,6 +1,7 @@
 #include <fas/testing.hpp>
 
 #include <fas/serialization/json/parse/aspect.hpp>
+#include <fas/serialization/json/parse/space/aspect_cp.hpp>
 #include <fas/except/ad_except.hpp>
 
 #include <fas/range.hpp>
@@ -28,6 +29,7 @@ UNIT(ad_object_unit, "")
 
 BEGIN_SUITE(object_suite, "")
   ADD_UNIT(ad_object_unit)
-  ADD_ADVICE( aj::_except_, fas::ad_except )
+  ADD_ADVICE( aj::_except_, fas::ad_except<> )
+  ADD_ASPECT( aj::parse::space::aspect_space_cp)
   ADD_ASPECT( aj::parse::aspect)
 END_SUITE(object_suite)

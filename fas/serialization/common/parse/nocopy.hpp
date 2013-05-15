@@ -18,7 +18,7 @@ struct nocopy: Base
   template<typename T, typename RR>
   RR operator() (T& t, RR rr)
   {
-    return RR( 
+    return RR(
       Base::operator()( t, std::make_pair(rr.first, ::fas::mrange(rr.first))).first,
       rr.second
     );

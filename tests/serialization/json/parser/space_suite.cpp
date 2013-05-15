@@ -25,6 +25,7 @@ UNIT(comment_unit, "")
   std::string result;
   t.get_aspect().template get< aj::parse::_comment_ >()(t, std::make_pair( fas::srange(comment1), fas::orange(result) ) );
   t << equal<expect, std::string>(result, comment1) << "<<"<< result << ">>"<< FAS_TESTING_FILE_LINE;
+  //t.get_aspect().template get< aj::parse::_space_ >().toto();
 
   const char comment2[]="/*/**/{";
   result.clear();
@@ -61,7 +62,7 @@ UNIT(space_unit, "")
 BEGIN_SUITE(space_suite, "")
   ADD_UNIT(comment_unit)
   ADD_UNIT(space_unit)
-  ADD_ADVICE( aj::_except_, fas::ad_except )
+  ADD_ADVICE( aj::_except_, fas::ad_except<> )
   ADD_ASPECT( aj::parse::space::aspect_space_cp)
   ADD_ASPECT( aj::parse::aspect)
   

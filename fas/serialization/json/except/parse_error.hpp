@@ -7,11 +7,11 @@
 #ifndef FAS_SERIALIZATION_JSON_EXCEPT_PARSE_ERROR_HPP
 #define FAS_SERIALIZATION_JSON_EXCEPT_PARSE_ERROR_HPP
 
-#include <fas/serialization/common/except/parse_error.hpp>
+#include <fas/serialization/except/parse_error.hpp>
 
 namespace fas{ namespace json{
 
-typedef ::fas::serialization::common::parse_error parse_error;
+typedef ::fas::serialization::parse_error parse_error;
 
 }}
 

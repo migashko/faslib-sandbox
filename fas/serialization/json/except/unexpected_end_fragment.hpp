@@ -7,11 +7,11 @@
 #ifndef FAS_SERIALIZATION_JSON_EXCEPT_UNEXPECTED_END_FRAGMENT_HPP
 #define FAS_SERIALIZATION_JSON_EXCEPT_UNEXPECTED_END_FRAGMENT_HPP
 
-#include <fas/serialization/common/except/unexpected_end_fragment.hpp>
+#include <fas/serialization/except/unexpected_end_fragment.hpp>
 
 namespace fas{ namespace json{
 
-typedef ::fas::serialization::common::unexpected_end_fragment unexpected_end_fragment;
+typedef ::fas::serialization::unexpected_end_fragment unexpected_end_fragment;
 
 }}
 

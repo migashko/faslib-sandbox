@@ -28,11 +28,8 @@ class parser
   typedef aspect_class<A1, A2, A3, A4, A5> super;
 public:
   typedef typename super::aspect aspect;
-
-  operator bool () const
-  {
-    return !super::get_aspect().template get<_except_>();
-  }
+  typedef typename super::aspect::template advice_cast<_except_>::type::exception_type exception_type;
+  
 
   template<typename RI>
   RI operator()( RI ri )
@@ -46,6 +43,16 @@ public:
     return this->parse(*this, std::make_pair( ri, ro ) );
   }
 
+  operator bool () const
+  {
+    return !super::get_aspect().template get<_except_>();
+  }
+
+  exception_type exception() const
+  {
+    return super::get_aspect().template get<_except_>().exception();
+  }
+
 protected:
 
   template<typename T, typename RR>
@@ -53,7 +60,9 @@ protected:
   {
     typedef typename ::fas::range_traits<typename RR::first_type>::range_category  first_range_category;
     typedef typename ::fas::range_traits<typename RR::second_type>::range_category second_range_category;
+    
     group_for_each<_clear_>( t, f_clear() );
+    
     return t.get_aspect().template get<_parse_>()(t, rr);
   }
 

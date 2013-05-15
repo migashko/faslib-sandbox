@@ -24,7 +24,8 @@ struct ad_space_cp:
     _end_space_,
     _except_
   >
-{};
+{
+};
 
 typedef ::fas::serialization::common::parse::nocopy<ad_space_cp> ad_space;
 

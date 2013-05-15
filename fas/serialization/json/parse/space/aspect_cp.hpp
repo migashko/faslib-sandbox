@@ -14,23 +14,26 @@
 
 namespace fas{ namespace json{ namespace parse{ namespace space{
 
-struct aspect_space_cp:
-  ::fas::aspect< type_list_n<
-      advice< _space_, ad_space_cp>
-  >::type > 
-{};
-
-struct aspect_white_space_cp:
+typedef
   ::fas::aspect< type_list_n<
       advice< _white_space_, ad_white_space_cp>
-  >::type > 
-{};
+  >::type >
+aspect_white_space_cp;
 
-struct aspect_comment_cp:
+typedef
   ::fas::aspect< type_list_n<
       advice< _comment_, ad_comment_cp>
+  >::type >
+aspect_comment_cp;
+  
+typedef
+  ::fas::aspect< type_list_n<
+      advice< _space_, ad_space_cp>,
+      advice< _white_space_, ad_white_space_cp>,
+      advice< _comment_, ad_comment_cp>
   >::type > 
-{};
+aspect_space_cp;
+
 
 }}}}
 

@@ -9,4 +9,9 @@
 #include <fas/serialization/json/except/aspect.hpp>
 
 
+namespace fas{ namespace json{
+
+}}
+
+
 #endif

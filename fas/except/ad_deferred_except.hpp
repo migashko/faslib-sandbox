@@ -1,5 +1,5 @@
 //
-// Author: Vladimir Migashko <migashko@gmail.com>, (C) 2012
+// Author: Vladimir Migashko <migashko@gmail.com>, (C) 2012, 2013
 //
 // Copyright: See COPYING file that comes with this distribution
 //
@@ -78,9 +78,12 @@ struct ad_deferred_except
     return p;
   }
 
-  const exception_type* exception() const
+  exception_type exception() const
   {
-    return _exception;
+    if ( _exception )
+      return _exception;
+    else
+      return exception_type();
   }
 
   void raise()

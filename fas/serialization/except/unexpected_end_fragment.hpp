@@ -4,13 +4,13 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 
-#ifndef FAS_SERIALIZATION_COMMON_EXCEPT_UNEXPECTED_END_FRAGMENT_HPP
-#define FAS_SERIALIZATION_COMMON_EXCEPT_UNEXPECTED_END_FRAGMENT_HPP
+#ifndef FAS_SERIALIZATION_EXCEPT_UNEXPECTED_END_FRAGMENT_HPP
+#define FAS_SERIALIZATION_EXCEPT_UNEXPECTED_END_FRAGMENT_HPP
 
-#include <fas/serialization/common/except/syntax_error.hpp>
+#include <fas/serialization/except/syntax_error.hpp>
 #include <string>
 
-namespace fas{ namespace serialization{ namespace common{
+namespace fas{ namespace serialization{
 
 class unexpected_end_fragment
   : public syntax_error
@@ -25,6 +25,6 @@ public:
    : syntax_error( str, tail_of ) {}
 };
 
-}}}
+}}
 
 #endif

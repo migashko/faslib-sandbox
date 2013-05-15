@@ -7,9 +7,9 @@
 #ifndef FAS_SERIALIZATION_COMMON_PARSE_AD_FOUR_HEX_DIGITS_HPP
 #define FAS_SERIALIZATION_COMMON_PARSE_AD_FOUR_HEX_DIGITS_HPP
 
-#include <fas/serialization/common/except/out_of_range.hpp>
-#include <fas/serialization/common/except/unexpected_end_fragment.hpp>
-#include <fas/serialization/common/except/parse_error.hpp>
+#include <fas/serialization/except/out_of_range.hpp>
+#include <fas/serialization/except/unexpected_end_fragment.hpp>
+#include <fas/serialization/except/parse_error.hpp>
 #include <fas/except/throw_.hpp>
 #include <fas/range/distance.hpp>
 #include <utility>

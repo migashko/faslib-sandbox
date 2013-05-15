@@ -7,11 +7,11 @@
 #ifndef FAS_SERIALIZATION_JSON_EXCEPT_INVALID_JSON_HPP
 #define FAS_SERIALIZATION_JSON_EXCEPT_INVALID_JSON_HPP
 
-#include <fas/serialization/common/except/syntax_error.hpp>
+#include <fas/serialization/except/syntax_error.hpp>
 
 namespace fas{ namespace json{
 
-typedef ::fas::serialization::common::syntax_error invalid_json;
+typedef ::fas::serialization::syntax_error invalid_json;
 
 }}
 

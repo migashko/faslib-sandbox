@@ -7,9 +7,9 @@
 #ifndef FAS_SERIALIZATION_COMMON_PARSE_AD_JSON_NUMBER_HPP
 #define FAS_SERIALIZATION_COMMON_PARSE_AD_JSON_NUMBER_HPP
 
-#include <fas/serialization/common/except/out_of_range.hpp>
-#include <fas/serialization/common/except/unexpected_end_fragment.hpp>
-#include <fas/serialization/common/except/parse_error.hpp>
+#include <fas/serialization/except/out_of_range.hpp>
+#include <fas/serialization/except/unexpected_end_fragment.hpp>
+#include <fas/serialization/except/parse_error.hpp>
 #include <fas/except/throw_.hpp>
 #include <fas/except/try_.hpp>
 #include <fas/range/distance.hpp>
