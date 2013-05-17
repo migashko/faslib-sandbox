@@ -13,17 +13,11 @@
 
 namespace fas{ namespace serialization{ namespace common{ namespace deser{
 
-template<typename Tg>
+template<typename TgExcept>
 struct ad_restriction
 {
-  typedef Tg _except_;
+  typedef TgExcept _except_;
   
-  template<typename T, typename J, typename R>
-  bool peek( T&, R )
-  {
-    return true;
-  }
-
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)
   {

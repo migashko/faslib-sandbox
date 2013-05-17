@@ -17,18 +17,22 @@ struct ad_integer
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)
   {
-    if ( !this->peek(t, J(), r) )
+    if ( !t.get_aspect().template get< _number_ >().peek(t, r) )
     {
       t.get_aspect().template get<_status_>() = false;
       return r;
     }
-    r = this->deserealize(v, r);
+
+    return this->deserealize(v, r);
+    
+    /*R res = this->deserealize(v, r);
 
     typedef typename J::target target;
     typedef typename target::deserializer_tag deserializer_tag;
     r = t.get_aspect().template get< deserializer_tag >()(t, target(), v, r);
     
-    return r;
+    return res;
+    */
   }
 
 private:

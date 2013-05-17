@@ -14,7 +14,7 @@ UNIT(deser1_unit, "")
   const char json[] = "12345";
   int result = -1;
   
-  deser( aj::integer< aj::restriction< aj::max_value< fas::int_<12345> > > >(), result, fas::range(json) );
+  deser( aj::integer< aj::restriction< aj::maximum< fas::int_<12345> > > >(), result, fas::range(json) );
 
   t << equal<expect>(result, 12345) << FAS_TESTING_FILE_LINE;
 

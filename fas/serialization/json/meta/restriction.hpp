@@ -9,7 +9,7 @@
 namespace fas{ namespace json{
 
 template<typename N>
-struct min_value
+struct maximum
 {
   template<typename V>
   bool operator() (const V& v) const
@@ -19,7 +19,7 @@ struct min_value
 };
 
 template<typename N>
-struct max_value
+struct minimum
 {
   template<typename V>
   bool operator() (const V& v) const
