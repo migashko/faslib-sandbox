@@ -9,6 +9,7 @@ struct _value_;
 struct _status_;
 struct _empty_;
 struct _restriction_;
+struct _space_;
 
 }}}
 

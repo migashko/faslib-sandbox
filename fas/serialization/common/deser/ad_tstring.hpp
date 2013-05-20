@@ -33,7 +33,6 @@ private:
     RR res = rr;
     for ( ; rl && rr; ++rl, ++rr )
     {
-      
       if ( !rr )
         return throw_<_except_>( t, unexpected_end_fragment(), rr );
       

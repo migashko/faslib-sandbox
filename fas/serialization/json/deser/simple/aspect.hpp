@@ -9,7 +9,7 @@
 namespace fas{ namespace json{ namespace deser{ namespace simple{
 
 struct aspect: ::fas::aspect< type_list_n<
-  advice< _integer_, ad_integer>
+  //advice< _integer_, ad_integer>
 >::type >
 {};
 

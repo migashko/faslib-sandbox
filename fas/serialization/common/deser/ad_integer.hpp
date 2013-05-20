@@ -3,17 +3,12 @@
 
 namespace fas{ namespace serialization{ namespace common{ namespace deser{
 
-template<typename TgParseNumber>
+template<typename TgAccess, typename TgParseNumber>
 struct ad_integer
 {
+  typedef TgAccess _access_;
   typedef TgParseNumber _number_;
   
-  template<typename T, typename J, typename R>
-  bool peek(T& t, J, R r)
-  {
-    return t.get_aspect().template get< _number_ >().peek(t, r);
-  }
-
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)
   {
@@ -23,7 +18,9 @@ struct ad_integer
       return r;
     }
 
-    return this->deserealize(v, r);
+    return this->deserealize(
+      t.get_aspect().template get< _access_ >()(t, J(),v, r), 
+      r);
     
     /*R res = this->deserealize(v, r);
 

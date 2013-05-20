@@ -42,17 +42,16 @@ private:
     r = t.get_aspect().template get<_head_>()(t, J(), v, r);
 
     if ( !try_<_except_>(t) )
-      return rr;
+      return r;
 
     if ( !t.get_aspect().template get<_status_>() )
       return r;
 
-
     return _(t, J(), v, r, typename ::fas::tail<TagList>::type() );
   }
 
-  template<typename T, typename J, typename V, typename R, typename TagList>
-  R operator()(T& , J, V& , R r, TagList)
+  template<typename T, typename J, typename V, typename R>
+  R operator()(T& , J, V& , R r, empty_list)
   {
     return r;
   }
