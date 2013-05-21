@@ -3,7 +3,7 @@
 
 #include <fas/serialization/json/parse/simple/tags.hpp>
 
-namespace fas{ namespace json{ namespace deser{
+namespace fas{ namespace json{ 
 
 struct _value_;
 struct _status_;
@@ -11,6 +11,6 @@ struct _empty_;
 struct _restriction_;
 struct _space_;
 
-}}}
+}}
 
 #endif

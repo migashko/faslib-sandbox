@@ -5,9 +5,10 @@
 #include <fas/serialization/json/except.hpp>
 #include <fas/serialization/except/invalid_value.hpp>
 #include <fas/serialization/common/deser/ad_sequence.hpp>
+#include <fas/serialization/common/deser/ad_compare.hpp>
 
 
-#include <fas/serialization/json/meta.hpp>
+//#include <fas/serialization/json/meta.hpp>
 #include <fas/type_list/type_list_n.hpp>
 
 #include <fas/typemanip/has_typename.hpp>
@@ -153,12 +154,20 @@ struct integer1
   typedef _integer_ tag;
 };
 
+struct _compare_;
+
 struct aspect1: fas::aspect< fas::type_list_n<
   //advice< _postcondition_, ad_condition<has_postcondition, _except_> >,
   advice< _native_integer_, ad_native_integer>,
   advice< _integer_, ad_integer1>,
   advice< _target_list_, ad_target_list<_except_> >,
-  advice< _condition_, ad_condition<_except_> >
+  advice< _condition_, ad_condition<_except_> >,
+  advice< _compare_, 
+          ::fas::serialization::common::deser::ad_compare<
+            _status_, 
+            _except_
+          > 
+        >
 >::type > {};
   
 
@@ -172,8 +181,7 @@ UNIT(deser1_unit, "")
   const char json[] = "12345";
   int result = -1;
 
-  
-  deser( integer1< maximum< fas::int_<1000> > >(), result, fas::range(json) );
+  deser( integer1< maximum< fas::int_<12345> > >(), result, fas::range(json) );
   t << equal<expect>(result, 12345) << FAS_TESTING_FILE_LINE;
   /*deser( aj::integer< aj::restriction< aj::maximum< fas::int_<12345> > > >(), result, fas::range(json) );
 
