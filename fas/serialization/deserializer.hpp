@@ -62,7 +62,7 @@ protected:
     
     t.get_aspect().template get<_status_>() = true;
     
-    r = t.get_aspect().template get< typename J::deserializer_tag >()(t, J(), v, r);
+    r = t.get_aspect().template get< typename J::tag >()(t, J(), v, r);
 
     if ( false == t.get_aspect().template get<_status_>() )
       return throw_<_except_>(t, syntax_error(distance(r)), r);

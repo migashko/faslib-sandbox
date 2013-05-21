@@ -8,6 +8,7 @@
 
 namespace fas{ namespace json{
 
+  /*
 template<typename N>
 struct maximum
 {
@@ -37,8 +38,6 @@ struct minimum
 template<typename F>
 struct restriction
 {
-  //typedef metalist::number metatype;
-  //typedef ser::_integer_ serializer_tag;
   typedef deser::_restriction_ deserializer_tag;
 
   template<typename V>
@@ -47,6 +46,7 @@ struct restriction
     return F()(v);
   }
 };
+*/
 
 }}
 

@@ -35,7 +35,7 @@ struct ad_sequence
 private:
 
   template<typename T, typename J, typename V, typename R, typename TagList>
-  R operator()(T& t, J, V& v, R r, TagList)
+  R _(T& t, J, V& v, R r, TagList)
   {
     typedef typename ::fas::head<TagList>::type _head_;
 
@@ -51,7 +51,7 @@ private:
   }
 
   template<typename T, typename J, typename V, typename R>
-  R operator()(T& , J, V& , R r, empty_list)
+  R _(T& , J, V& , R r, empty_list)
   {
     return r;
   }

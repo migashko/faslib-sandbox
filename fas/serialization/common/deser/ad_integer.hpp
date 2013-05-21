@@ -3,24 +3,23 @@
 
 namespace fas{ namespace serialization{ namespace common{ namespace deser{
 
-template<typename TgAccess, typename TgParseNumber>
+template<typename TgParseNumber>
 struct ad_integer
 {
-  typedef TgAccess _access_;
   typedef TgParseNumber _number_;
   
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)
   {
+    std::cout << std::endl << "ad_integer<>" << std::endl;
+    
     if ( !t.get_aspect().template get< _number_ >().peek(t, r) )
     {
       t.get_aspect().template get<_status_>() = false;
       return r;
     }
 
-    return this->deserealize(
-      t.get_aspect().template get< _access_ >()(t, J(),v, r), 
-      r);
+    return this->deserealize(v, r);
     
     /*R res = this->deserealize(v, r);
 
