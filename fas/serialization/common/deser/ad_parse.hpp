@@ -12,6 +12,7 @@
 
 namespace fas{ namespace serialization{ namespace common{ namespace deser{
 
+  /*
 template<typename TgParse, typename TgStatus>
 struct ad_parse
 {
@@ -29,9 +30,10 @@ struct ad_parse
     return r;
   }
 };
+*/
 
 template<typename TgParse>
-struct ad_parse_strong
+struct ad_parse
 {
   typedef TgParse _parse_;
 

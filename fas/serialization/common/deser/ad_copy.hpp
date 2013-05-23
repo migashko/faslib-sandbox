@@ -12,6 +12,7 @@
 
 namespace fas{ namespace serialization{ namespace common{ namespace deser{
 
+  /*
 template<typename TgParse, typename TgStatus>
 struct ad_copy
 {
@@ -25,14 +26,15 @@ struct ad_copy
       t.get_aspect().template get<_status_>() = false;
     else
       r = t.get_aspect().template get<_parse_>()
-           ( t, std::make_pair(r, range(r)) );
+           ( t, std::make_pair(r, range(v)) );
     return r;
   }
 };
+*/
 
 
 template<typename TgParse>
-struct ad_copy_strong
+struct ad_copy
 {
   typedef TgParse _parse_;
   
