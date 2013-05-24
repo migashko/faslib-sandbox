@@ -8,7 +8,7 @@
 #define FAS_SERIALIZATION_JSON_PARSE_AD_ITEM_LIST_HPP
 
 #include <fas/serialization/json/except/tags.hpp>
-#include <fas/serialization/common/parse/ad_list.hpp>
+#include <fas/serialization/parse/ad_list.hpp>
 
 namespace fas{ namespace json{ namespace parse{
 

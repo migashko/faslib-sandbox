@@ -8,9 +8,9 @@
 #define FAS_SERIALIZATION_JSON_PARSE_AD_WHITE_SPACE_HPP
 
 #include <fas/serialization/json/except/tags.hpp>
-#include <fas/serialization/common/parse/ad_charset.hpp>
+#include <fas/serialization/parse/ad_charset.hpp>
 #include <fas/typemanip/tstring.hpp>
-#include <fas/serialization/common/parse/nocopy.hpp>
+#include <fas/serialization/parse/nocopy.hpp>
 
 namespace fas{ namespace json{ namespace parse{
 

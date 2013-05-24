@@ -8,7 +8,7 @@
 #define FAS_SERIALIZATION_JSON_PARSE_AD_NUMBER_HPP
 
 #include <fas/serialization/json/except/tags.hpp>
-#include <fas/serialization/common/parse/ad_json_number.hpp>
+#include <fas/serialization/parse/ad_json_number.hpp>
 
 namespace fas{ namespace json{ namespace parse{
 

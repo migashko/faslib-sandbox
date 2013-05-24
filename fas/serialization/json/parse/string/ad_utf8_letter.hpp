@@ -8,7 +8,7 @@
 #define FAS_SERIALIZATION_JSON_PARSE_AD_UTF8_LETTER_HPP
 
 #include <fas/serialization/json/except/tags.hpp>
-#include <fas/serialization/common/parse/ad_utf8_letter.hpp>
+#include <fas/serialization/parse/ad_utf8_letter.hpp>
 
 namespace fas{ namespace json{ namespace parse{
 

@@ -8,7 +8,7 @@
 #define FAS_SERIALIZATION_JSON_PARSE_AD_FOUR_HEX_DIGITS
 
 #include <fas/serialization/json/except/tags.hpp>
-#include <fas/serialization/common/parse/ad_four_hex_digits.hpp>
+#include <fas/serialization/parse/ad_four_hex_digits.hpp>
 
 namespace fas{ namespace json{ namespace parse{
 

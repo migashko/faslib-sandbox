@@ -9,7 +9,7 @@
 
 #include <fas/serialization/json/except/tags.hpp>
 #include <fas/serialization/json/parse/tags.hpp>
-#include <fas/serialization/common/parse/ad_json_string_content.hpp>
+#include <fas/serialization/parse/ad_json_string_content.hpp>
 
 namespace fas{ namespace json{ namespace parse{
 
