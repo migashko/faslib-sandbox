@@ -55,8 +55,8 @@ protected:
   template<typename T, typename J, typename V, typename R>
   R deserialize(T& t, J, V& v, R r)
   {
+    // R range verify
     typedef typename ::fas::range_traits<R>::range_category  first_range_category;
-    typedef typename ::fas::range_traits<R>::range_category second_range_category;
     
     group_for_each<_clear_>( t, f_clear() );
     
