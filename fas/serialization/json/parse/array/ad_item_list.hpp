@@ -7,7 +7,7 @@
 #ifndef FAS_SERIALIZATION_JSON_PARSE_AD_ITEM_LIST_HPP
 #define FAS_SERIALIZATION_JSON_PARSE_AD_ITEM_LIST_HPP
 
-#include <fas/serialization/json/except/tags.hpp>
+#include <fas/serialization/except/tags.hpp>
 #include <fas/serialization/parse/ad_list.hpp>
 
 namespace fas{ namespace json{ namespace parse{
@@ -17,7 +17,7 @@ struct ad_item_list:
     _array_item_,
     _comma_,
     _right_bracket_,
-    _except_
+    ::fas::serialization::_except_
   >
 {};
 

@@ -7,7 +7,6 @@
 #ifndef FAS_SERIALIZATION_JSON_PARSE_AD_EMPTY_HPP
 #define FAS_SERIALIZATION_JSON_PARSE_AD_EMPTY_HPP
 
-#include <fas/serialization/json/except/tags.hpp>
 #include <fas/serialization/parse/ad_empty.hpp>
 #include <fas/typemanip/tchars.hpp>
 

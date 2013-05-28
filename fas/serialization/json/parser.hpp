@@ -1,7 +1,7 @@
 #ifndef FAS_SERIALIZATION_JSON_PARSER_HPP
 #define FAS_SERIALIZATION_JSON_PARSER_HPP
 
-#include <fas/serialization/json/except/aspect.hpp>
+#include <fas/serialization/except/aspect.hpp>
 #include <fas/serialization/json/parse/aspect.hpp>
 #include <fas/serialization/parser.hpp>
 #include <fas/aop/aspect_merge.hpp>
@@ -19,7 +19,7 @@ class parser:
   public ::fas::serialization::parser<
     typename aspect_merge<A1,A2,A3,A4,A5>::type,
     parse::aspect,
-    except::aspect
+    ::fas::serialization::except::aspect
   >
 {
   

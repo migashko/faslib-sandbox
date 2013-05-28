@@ -4,6 +4,7 @@
 #include <fas/range.hpp>
 #include <string>
 namespace aj = ::fas::json;
+namespace as = ::fas::serialization;
 
 UNIT(ad_number_unit, "")
 {
@@ -48,25 +49,25 @@ UNIT(ad_bad_number_unit, "")
   aj::parse::ad_number an;
 
   try{ an(t, std::make_pair(fas::range(ch1), fas::orange(str))); } 
-  catch( const aj::parse_error& ) { flag =true; }
+  catch( const as::parse_error& ) { flag =true; }
   t << is_true<expect>(flag) << FAS_TESTING_FILE_LINE;
 
   flag=false;
   str.clear();
   try{ an(t, std::make_pair(fas::range(ch2), fas::orange(str))); } 
-  catch( const aj::parse_error& ) { flag =true; }
+  catch( const as::parse_error& ) { flag =true; }
   t << is_true<expect>(flag) << FAS_TESTING_FILE_LINE;
 
   flag=false;
   str.clear();
   try{ an(t, std::make_pair(fas::range(ch3), fas::orange(str))); } 
-  catch( const aj::parse_error& ) { flag =true; }
+  catch( const as::parse_error& ) { flag =true; }
   t << is_true<expect>(flag) << FAS_TESTING_FILE_LINE;
 
   flag=false;
   str.clear();
   try{ an(t, std::make_pair(fas::range(ch4), fas::orange(str))); } 
-  catch( const aj::parse_error& ) { flag =true; }
+  catch( const as::parse_error& ) { flag =true; }
   t << is_true<expect>(flag) << FAS_TESTING_FILE_LINE;
 
   t << nothing();
@@ -76,5 +77,5 @@ UNIT(ad_bad_number_unit, "")
 BEGIN_SUITE(number_suite, "")
   ADD_UNIT(ad_number_unit)
   ADD_UNIT(ad_bad_number_unit)
-  ADD_ADVICE( aj::_except_, fas::ad_except<> )
+  ADD_ADVICE( as::_except_, fas::ad_except<> )
 END_SUITE(number_suite)

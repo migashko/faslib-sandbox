@@ -20,8 +20,9 @@
 #include <fas/range/mrange.hpp>
 #include <set>
 #include <algorithm>
-
+#include <time.h>
 namespace aj = ::fas::json;
+namespace as = ::fas::serialization;
 
 ///
 /// utf8 letter
@@ -58,7 +59,7 @@ UNIT(ad_utf8_letter_unit, "")
     ptr = utf8(t, ptr, fas::orange(out) ).first;
     t << equal<assert>(out, std::string( reinterpret_cast<const char*>(&i2), reinterpret_cast<const char*>(&i2) + 4) );
   }
-  catch( const aj::parse_error& )
+  catch( const as::parse_error& )
   {
     except = true;
   }
@@ -88,7 +89,7 @@ void hex_subunit(T& t, const char* h, int line)
     if ( !Valid )
       t << fail("") << FAS_TESTING_FILE_LINE << "," <<line;;
   }
-  catch( const aj::parse_error& e)
+  catch( const as::parse_error& e)
   {
     if ( Valid )
     {
@@ -136,7 +137,7 @@ UNIT(ad_quote_unit, "")
   t << equal<expect, std::string>(out, "\"") << FAS_TESTING_FILE_LINE;
 
   bool flag = false;
-  try{ adq(t, std::make_pair( chf, fas::orange(out)) ); } catch(const aj::expected_of& ) { flag=true;}
+  try{ adq(t, std::make_pair( chf, fas::orange(out)) ); } catch(const as::expected_of& ) { flag=true;}
   t << is_true<assert>(flag) << FAS_TESTING_FILE_LINE;
 }
 
@@ -147,7 +148,7 @@ UNIT(ad_control_charaster_unit, "")
 
   typedef char chs_type[10];
   chs_type chs="\"\\/bfnrtu";
-  std::srand(time(0));
+  std::srand( static_cast<int>(time(0)) );
   std::random_shuffle(chs, chs + sizeof(chs)-1   );
   std::string result;
   typedef fas::typerange<chs_type>::range irange;
@@ -192,7 +193,7 @@ BEGIN_SUITE(string_suite, "")
   ADD_UNIT(ad_control_charaster_unit)
   ADD_UNIT(ad_string_content_unit)
   ADD_UNIT(ad_string_unit)
-  ADD_ADVICE( aj::_except_, fas::ad_except<> )
+  ADD_ADVICE( as::_except_, fas::ad_except<> )
   ADD_ASPECT( aj::parse::aspect)
   /*
   ADD_ADVICE( aj::parse::_quote_, aj::parse::ad_quote )

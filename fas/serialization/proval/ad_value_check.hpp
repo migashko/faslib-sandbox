@@ -4,10 +4,10 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 
-#ifndef FAS_SERIALIZATION_DESER_AD_VALUE_CHECK_HPP
-#define FAS_SERIALIZATION_DESER_AD_VALUE_CHECK_HPP
+#ifndef FAS_SERIALIZATION_PROVAL_AD_VALUE_CHECK_HPP
+#define FAS_SERIALIZATION_PROVAL_AD_VALUE_CHECK_HPP
 
-namespace fas{ namespace serialization{ namespace deser{
+namespace fas{ namespace serialization{ namespace proval{
 
 template<typename TgStatus>
 struct ad_value_check

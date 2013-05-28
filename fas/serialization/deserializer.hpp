@@ -31,7 +31,7 @@ class deserializer
   typedef aspect_class<A1, A2, A3, A4, A5> super;
 public:
   typedef typename super::aspect aspect;
-  typedef typename super::aspect::template advice_cast<_except_>::type::exception_type exception_type;
+  typedef typename super::aspect::template advice_cast< ::fas::serialization::_except_>::type::exception_type exception_type;
   
 
   template<typename J, typename V, typename R>

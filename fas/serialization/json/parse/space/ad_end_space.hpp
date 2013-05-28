@@ -7,7 +7,7 @@
 #ifndef FAS_SERIALIZATION_JSON_PARSE_AD_END_SPACE_HPP
 #define FAS_SERIALIZATION_JSON_PARSE_AD_END_SPACE_HPP
 
-#include <fas/serialization/json/except/tags.hpp>
+#include <fas/serialization/except/tags.hpp>
 #include <fas/serialization/parse/ad_charset.hpp>
 #include <fas/typemanip/tstring.hpp>
 
@@ -18,7 +18,7 @@ FAS_STRING(end_space, "\":{}[]ntf,+-0123456789")
 struct ad_end_space:
   ::fas::serialization::common::parse::ad_charset< 
     end_space, 
-    _except_
+    ::fas::serialization::_except_
   >
 {};
 

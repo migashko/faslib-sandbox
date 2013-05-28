@@ -8,6 +8,7 @@
 #include <fas/range/mrange.hpp>
 
 namespace aj = ::fas::json;
+namespace as = ::fas::serialization;
 
 UNIT(ad_object_unit, "")
 {
@@ -29,7 +30,7 @@ UNIT(ad_object_unit, "")
 
 BEGIN_SUITE(object_suite, "")
   ADD_UNIT(ad_object_unit)
-  ADD_ADVICE( aj::_except_, fas::ad_except<> )
+  ADD_ADVICE( as::_except_, fas::ad_except<> )
   ADD_ASPECT( aj::parse::space::aspect_space_cp)
   ADD_ASPECT( aj::parse::aspect)
 END_SUITE(object_suite)

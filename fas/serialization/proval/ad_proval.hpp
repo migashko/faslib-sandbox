@@ -4,26 +4,22 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 
-#ifndef FAS_SERIALIZATION_DESER_AD_AFTER_DESER_HPP
-#define FAS_SERIALIZATION_DESER_AD_AFTER_DESER_HPP
+#ifndef FAS_SERIALIZATION_PROVAL_AD_PROVAL_HPP
+#define FAS_SERIALIZATION_PROVAL_AD_PROVAL_HPP
 
 #include <fas/except/throw_.hpp>
 #include <fas/range/distance.hpp>
 #include <fas/serialization/except/invalid_value.hpp>
 
-#include <fas/type_list/normalize.hpp>
-#include <fas/type_list/head.hpp>
-#include <fas/type_list/tail.hpp>
-#include <fas/type_list/empty_list.hpp>
-
-namespace fas{ namespace serialization{ namespace deser{
+namespace fas{ namespace serialization{ namespace proval{
 
 // excludes the range of further processing
-template<typename TgStatus, typename TgNext>
-struct ad_after_deser
+template<typename TgStatus, typename TgNext, typename TgExcept>
+struct ad_proval
 {
   typedef TgStatus _status_;
   typedef TgNext   _next_;
+  typedef TgExcept _except_;
   
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)
