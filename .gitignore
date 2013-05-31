@@ -10,8 +10,10 @@
 *.lai
 *.la
 *.a
+
+# other
 *.kdev4
+*.kate-swp
 *~
 build
 fas/system/config.h
-

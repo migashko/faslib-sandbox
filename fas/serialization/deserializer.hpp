@@ -15,9 +15,9 @@ template<
   typename A5 = empty_type
 >
 class deserializer
-  : public aspect_class<A1, A2, A3, A4, typename aspect_merge<A5, ::fas::serialzation::aspect>::type >
+  : public aspect_class<A1, A2, A3, A4, A5 >
 {
-  typedef aspect_class<A1, A2, A3, A4, typename aspect_merge<A5, ::fas::serialzation::aspect>::type > super;
+  typedef aspect_class<A1, A2, A3, A4, A5 > super;
 public:
   typedef typename super::aspect aspect;
   typedef typename super::aspect::template advice_cast<_except_>::type::exception_type exception_type;
@@ -25,7 +25,7 @@ public:
   template<typename J, typename V, typename R>
   R operator()(J, V& v, R r)
   {
-    return t.get_aspect().template get<_deser_>()(t, J(), v, r); 
+    return super::get_aspect().template get<_deser_>()(*this, J(), v, r);
   }
 
   operator bool () const

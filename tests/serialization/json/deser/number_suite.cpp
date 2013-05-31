@@ -4,6 +4,8 @@
 
 UNIT(ad_number_unit, "")
 {
+  using namespace fas::testing;
+  t << nothing();
 }
 
 BEGIN_SUITE(number_suite, "")

@@ -7,13 +7,12 @@
 #ifndef FAS_SERIALIZATION_PROVAL_AD_VALUE_CHECK_HPP
 #define FAS_SERIALIZATION_PROVAL_AD_VALUE_CHECK_HPP
 
+#include <fas/serialization/tags.hpp>
+
 namespace fas{ namespace serialization{ namespace proval{
 
-template<typename TgStatus>
 struct ad_value_check
 {
-  typedef TgStatus _status_;
-  
   template<typename T, typename J, typename V>
   void operator()(T& t, J, V& v)
   {

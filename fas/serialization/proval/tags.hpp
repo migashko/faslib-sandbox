@@ -10,7 +10,7 @@
 namespace fas{ namespace serialization{ namespace proval{
 
 struct _value_check_;
-struct _process_value_;
+struct _check_list_;
 struct _proval_;
 
 }}}

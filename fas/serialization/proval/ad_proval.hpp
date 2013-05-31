@@ -10,16 +10,15 @@
 #include <fas/except/throw_.hpp>
 #include <fas/range/distance.hpp>
 #include <fas/serialization/except/invalid_value.hpp>
+#include <fas/serialization/tags.hpp>
 
 namespace fas{ namespace serialization{ namespace proval{
 
 // excludes the range of further processing
-template<typename TgStatus, typename TgNext, typename TgExcept>
+template<typename TgNext>
 struct ad_proval
 {
-  typedef TgStatus _status_;
   typedef TgNext   _next_;
-  typedef TgExcept _except_;
   
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)

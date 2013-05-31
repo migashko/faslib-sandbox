@@ -12,12 +12,13 @@
 #include <fas/type_list/tail.hpp>
 #include <fas/type_list/empty_list.hpp>
 
+#include <fas/serialization/tags.hpp>
+
 namespace fas{ namespace serialization{ namespace proval{
 
-template<typename TgStatus>
+
 struct ad_process_value
 {
-  typedef TgStatus _status_;
   
   template<typename T, typename J, typename V>
   void operator()(T& t, J, V& v)
