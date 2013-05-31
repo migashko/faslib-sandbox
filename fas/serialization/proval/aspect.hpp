@@ -10,9 +10,9 @@
 namespace fas{ namespace serialization{ namespace proval{
 
 typedef ::fas::aspect< fas::type_list_n<
-  ::fas::advice<_value_check_>
-struct _process_value_;
-struct _proval_;
+  ::fas::advice<_value_check_, ad_value_check>,
+  ::fas::advice<_process_value_, ad_process_value>,
+  ::fas::advice<_proval_, ad_proval>
 >::type > aspect_basic
 
 }}}
