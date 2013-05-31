@@ -86,6 +86,20 @@ private:
   */
 };
 
+template< typename TgParser >
+struct ad_peek
+{
+  typedef TgParser _parser_;
+
+  template<typename T, typename J, typename V, typename R>
+  R operator()(T& t, J, V&, R r)
+  {
+    if ( !t.get_aspect().template get<_parser_>().peek(t, r) )
+      t.get_aspect().template get<_status_>() = false;
+    return r;
+  }
+};
+
 struct _target_list_;
 //
 template<typename TgExcept>
@@ -129,16 +143,22 @@ private:
 
 
 
+struct _peek_number_;
 struct _native_integer_;
 
 struct ad_native_integer:
-  ::fas::serialization::common::deser::ad_integer<aj::parse::_number_>
+  ::fas::serialization::common::deser::ad_integer/*<aj::parse::_number_>*/
+{};
+
+struct ad_peek_number:
+  ad_peek< aj::parse::_number_ >
 {};
 
 struct _integer_;
 struct ad_integer1:
   ::fas::serialization::common::deser::ad_sequence<
     type_list_n<
+      _peek_number_,
       _native_integer_,
       _target_list_
     >::type,
@@ -156,18 +176,109 @@ struct integer1
 
 struct _compare_;
 
+template<typename TgTargetList>
+struct ad_range
+{
+  typedef TgTargetList _targets_;
+
+  template<typename T, typename J, typename V, typename R>
+  R operator()(T& t, J, V& v, R r)
+  {
+    // V - range или pair
+    //typedef typename J::target target;
+
+    R beg = r;
+    r = t.get_aspect().template get<_parser_>()
+        ( t, std::make_pair(r, mrange(r)) );
+    v = V(beg.begin(), r.begin());
+    return r;
+  }
+};
+
+
+///??? нах
+template<typename TgParseValue, typename TgTargetList>
+struct ad_proxy
+{
+  typedef TgTargetList _targets_;
+  typedef TgParseValue _parse_;
+
+  // венести в аспект
+  std::vector<char> buffer;
+
+  template<typename T, typename J, typename V, typename R>
+  R operator()(T& t, J, V& v, R r)
+  {
+     buffer.clear();
+     r = t.get_aspect().template get<_parse_>()(t, r, range(proxy_value)).first;
+     t.get_aspect().template get<_targets_>()( t, J(), v, range(proxy_value) );
+     return r;
+  }
+};
+
+
+template<typename L>
+struct range
+{
+  typedef L targets;
+  typedef _range_ tag;
+}
+
+template<typename L>
+struct proxy
+{
+  typedef L targets;
+  typedef _proxy_ tag;
+};
+
+struct _quite_;
+
+struct ad_quite:
+  ::fas::serialization::common::deser::ad_parse< aj::parse::_quote_ >
+{};
+
+struct _string_content_range_;
+struct ad_string_content_range: ad_range< aj::parse::_string_content_ > {}
+
+struct _string_range_;
+struct ad_string_range:
+  ::fas::serialization::common::deser::ad_sequence<
+    type_list_n<
+      _quite_,
+      _string_content_range_,
+      _quite_
+    >::type,
+    _except_
+  >
+{
+};
+
+/*
+ *
+ proxy<integer>
+ * 
+ */
+
+
+
+
 struct aspect1: fas::aspect< fas::type_list_n<
   //advice< _postcondition_, ad_condition<has_postcondition, _except_> >,
   advice< _native_integer_, ad_native_integer>,
+  advice< _peek_number_, ad_peek_number>,
   advice< _integer_, ad_integer1>,
   advice< _target_list_, ad_target_list<_except_> >,
   advice< _condition_, ad_condition<_except_> >,
+  advice< _quite_, ad_quite >,
+  advice< _string_content_range_, ad_string_content_range >,
+  advice< _string_range_, ad_string_content_range >,
+  /*,
   advice< _compare_, 
           ::fas::serialization::common::deser::ad_compare<
             _status_, 
             _except_
           > 
-        >
+        >*/
 >::type > {};
   
 
