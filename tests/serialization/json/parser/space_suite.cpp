@@ -15,7 +15,7 @@
 #include <utility>
 
 namespace aj = ::fas::json;
-
+namespace as = ::fas::serialization;
 
 UNIT(comment_unit, "")
 {
@@ -39,7 +39,7 @@ UNIT(comment_unit, "")
     result.clear();
     t.get_aspect().template get< aj::parse::_comment_ >()(t, std::make_pair( fas::srange(comment3), fas::orange(result) ) );
   }
-  catch( const aj::unexpected_end_fragment& )
+  catch( const as::unexpected_end_fragment& )
   {
     except = true;
   }
@@ -62,7 +62,7 @@ UNIT(space_unit, "")
 BEGIN_SUITE(space_suite, "")
   ADD_UNIT(comment_unit)
   ADD_UNIT(space_unit)
-  ADD_ADVICE( aj::_except_, fas::ad_except<> )
+  ADD_ADVICE( as::_except_, fas::ad_except<> )
   ADD_ASPECT( aj::parse::space::aspect_space_cp)
   ADD_ASPECT( aj::parse::aspect)
   

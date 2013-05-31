@@ -28,7 +28,7 @@ class parser
   typedef aspect_class<A1, A2, A3, A4, A5> super;
 public:
   typedef typename super::aspect aspect;
-  typedef typename super::aspect::template advice_cast<_except_>::type::exception_type exception_type;
+  typedef typename super::aspect::template advice_cast< ::fas::serialization::_except_>::type::exception_type exception_type;
   
 
   template<typename RI>
@@ -45,12 +45,12 @@ public:
 
   operator bool () const
   {
-    return !super::get_aspect().template get<_except_>();
+    return !super::get_aspect().template get< ::fas::serialization::_except_>();
   }
 
   exception_type exception() const
   {
-    return super::get_aspect().template get<_except_>().exception();
+    return super::get_aspect().template get< ::fas::serialization::_except_>().exception();
   }
 
 protected:

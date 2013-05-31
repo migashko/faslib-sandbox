@@ -7,9 +7,9 @@
 #ifndef FAS_SERIALIZATION_JSON_PARSE_AD_STRING_CONTENT_HPP
 #define FAS_SERIALIZATION_JSON_PARSE_AD_STRING_CONTENT_HPP
 
-#include <fas/serialization/json/except/tags.hpp>
+#include <fas/serialization/except/tags.hpp>
 #include <fas/serialization/json/parse/tags.hpp>
-#include <fas/serialization/common/parse/ad_json_string_content.hpp>
+#include <fas/serialization/parse/ad_json_string_content.hpp>
 
 namespace fas{ namespace json{ namespace parse{
 
@@ -20,7 +20,7 @@ struct ad_string_content:
     _control_character_,
     _four_hex_digits_,
     _quote_,
-    _except_
+    ::fas::serialization::_except_
   >
 {};
 

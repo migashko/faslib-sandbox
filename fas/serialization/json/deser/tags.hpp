@@ -1,16 +1,16 @@
 #ifndef FAS_SERIALIZATION_JSON_DESER_TAGS_HPP
 #define FAS_SERIALIZATION_JSON_DESER_TAGS_HPP
 
-#include <fas/serialization/json/parse/simple/tags.hpp>
+namespace fas{ namespace json{ namespace deser{
 
-namespace fas{ namespace json{ 
-
-struct _value_;
-struct _status_;
-struct _empty_;
-struct _restriction_;
+struct _integer_;
+struct _quote_;
+struct _equal_range_;
+struct _field_name_;
+struct _field_value_;
 struct _space_;
+struct _colon_;
 
-}}
+}}}
 
 #endif

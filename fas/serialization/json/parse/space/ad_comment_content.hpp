@@ -7,8 +7,8 @@
 #ifndef FAS_SERIALIZATION_JSON_PARSE_AD_COMMENT_CONTENT_HPP
 #define FAS_SERIALIZATION_JSON_PARSE_AD_COMMENT_CONTENT_HPP
 
-#include <fas/serialization/json/except/tags.hpp>
-#include <fas/serialization/common/parse/ad_list.hpp>
+#include <fas/serialization/except/tags.hpp>
+#include <fas/serialization/parse/ad_list.hpp>
 
 namespace fas{ namespace json{ namespace parse{
 
@@ -17,7 +17,7 @@ struct ad_comment_content:
     _any_,
     _empty_,
     _end_comment_,
-    _except_
+    ::fas::serialization::_except_
   >
 {};
 

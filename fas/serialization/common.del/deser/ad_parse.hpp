@@ -12,26 +12,6 @@
 
 namespace fas{ namespace serialization{ namespace common{ namespace deser{
 
-  /*
-template<typename TgParse, typename TgStatus>
-struct ad_parse
-{
-  typedef TgParse _parse_;
-  typedef TgStatus _status_;
-  
-  template<typename T, typename J, typename V, typename R>
-  R operator()(T& t, J, V& , R r)
-  {
-    if ( !t.get_aspect().template get<_parse_>().peek(t, r) )
-      t.get_aspect().template get<_status_>() = false;
-    else
-      r = t.get_aspect().template get<_parse_>()
-           ( t, std::make_pair(r, mrange(r)) );
-    return r;
-  }
-};
-*/
-
 template<typename TgParse>
 struct ad_parse
 {
