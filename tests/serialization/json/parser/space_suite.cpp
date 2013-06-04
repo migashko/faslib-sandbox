@@ -32,6 +32,11 @@ UNIT(comment_unit, "")
   t.get_aspect().template get< aj::parse::_comment_ >()(t, std::make_pair( fas::srange(comment2), fas::orange(result) ) );
   t << equal<expect, std::string>(result, std::string(comment2, comment2+6)) << FAS_TESTING_FILE_LINE;
 
+  const char comment4[]="/* */ /**/";
+  result.clear();
+  t.get_aspect().template get< aj::parse::_comment_ >()(t, std::make_pair( fas::srange(comment4), fas::orange(result) ) );
+  t << equal<expect, std::string>(result, std::string(comment4, comment4+10)) << FAS_TESTING_FILE_LINE;
+
   const char comment3[]="/*** /";
   bool except = false;
   try

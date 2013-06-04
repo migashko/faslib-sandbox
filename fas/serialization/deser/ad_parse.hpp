@@ -21,11 +21,15 @@ struct ad_parse
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& , R r)
   {
+    std::cout << "ad_parse 1:" << r << std::endl;
     if ( !t.get_aspect().template get<_parse_>().peek(t, r) )
       return r;
     
-    return t.get_aspect().template get<_parse_>()
+    std::cout << "ad_parse 2:" << r << std::endl;
+    /*return*/ r= t.get_aspect().template get<_parse_>()
            ( t, std::make_pair(r, mrange(r)) ).first;
+    std::cout << "ad_parse 3:" << r << std::endl;
+    return r;
   }
 };
 
