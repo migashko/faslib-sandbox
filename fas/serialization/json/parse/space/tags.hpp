@@ -22,6 +22,9 @@ struct _comment_content_;
 struct _end_space_;
 struct _space_variant_;
 
+struct _not_space_;
+struct _end_fragment_;
+
 
 }}}
 

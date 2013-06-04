@@ -18,6 +18,8 @@
 #include <fas/serialization/json/parse/space/ad_any.hpp>
 #include <fas/serialization/json/parse/space/ad_empty.hpp>
 
+#include <fas/serialization/parse/ad_end_fragment.hpp>
+
 #include <fas/serialization/json/parse/space/tags.hpp>
 
 namespace fas{ namespace json{ namespace parse{ namespace space{
@@ -33,7 +35,9 @@ struct aspect:
       advice< _end_space_, ad_end_space>,
       advice< _space_variant_, ad_space_variant>,
       advice< _any_, ad_any>,
-      advice< _empty_, ad_empty>
+      advice< _empty_, ad_empty>,
+      advice< _not_space_, ad_not_space>,
+      advice< _end_fragment_, ::fas::serialization::common::parse::ad_end_fragment< ::fas::serialization::_except_> >
   >::type > 
 {};
 

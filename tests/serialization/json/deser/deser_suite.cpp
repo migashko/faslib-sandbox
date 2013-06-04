@@ -39,7 +39,7 @@ UNIT(deser3_unit, "")
   using namespace fas::testing;
 
   int value = -1;
-  char json[]="\"name\":12345/* */";
+  char json[]="\"name\":12345/* */  /**/";
   aj::deserializer<> deser;
   try{
   deser( aj::attr< aj::name<n_name>, aj::integer<> >(), value, json);
@@ -47,6 +47,8 @@ UNIT(deser3_unit, "")
   catch(fas::serialization::exception& e)
   {
     std::cout << e.message( fas::srange(json) ) << std::endl;
+    abort();
+    throw e;
   }
   std::cout << value << std::endl;
   t << nothing();

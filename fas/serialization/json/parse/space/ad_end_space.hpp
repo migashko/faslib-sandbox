@@ -13,14 +13,23 @@
 
 namespace fas{ namespace json{ namespace parse{
 
-FAS_STRING(end_space, "\":{}[]ntf,+-0123456789")
 
-struct ad_end_space:
+FAS_STRING(not_space, "\":{}[]ntf,+-0123456789")
+
+struct ad_not_space:
   ::fas::serialization::common::parse::ad_charset< 
-    end_space, 
+    not_space, 
     ::fas::serialization::_except_
   >
 {};
+
+struct ad_end_space:
+  ::fas::serialization::common::parse::ad_variant< type_list_n<
+    _not_space_,
+    _end_fragment_
+  >::type, ::fas::serialization::_except_ >
+{};
+
 
 }}}
 

@@ -28,6 +28,8 @@ struct ad_deser
 
     t.get_aspect().template get<_status_>() = true;
 
+    std::cout << "start: " << t.get_aspect().template get<_status_>() << std::endl;
+
     r = t.get_aspect().template get< typename J::tag >()(t, J(), v, r);
 
     std::cout << "final: " << t.get_aspect().template get<_status_>() << std::endl;
