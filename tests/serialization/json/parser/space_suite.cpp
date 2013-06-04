@@ -23,33 +23,36 @@ UNIT(comment_unit, "")
   const char comment1[]="/*комментарий ~Ё你*/";
   
   std::string result;
-  t.get_aspect().template get< aj::parse::_comment_ >()(t, std::make_pair( fas::srange(comment1), fas::orange(result) ) );
-  t << equal<expect, std::string>(result, comment1) << "<<"<< result << ">>"<< FAS_TESTING_FILE_LINE;
-  //t.get_aspect().template get< aj::parse::_space_ >().toto();
+  //t.get_aspect().template get< aj::parse::_comment_ >()(t, std::make_pair( fas::srange(comment1), fas::orange(result) ) );
+  //t << equal<expect, std::string>(result, comment1) << "<<"<< result << ">>"<< FAS_TESTING_FILE_LINE;
 
   const char comment2[]="/*/**/{";
   result.clear();
-  t.get_aspect().template get< aj::parse::_comment_ >()(t, std::make_pair( fas::srange(comment2), fas::orange(result) ) );
-  t << equal<expect, std::string>(result, std::string(comment2, comment2+6)) << FAS_TESTING_FILE_LINE;
+ // t.get_aspect().template get< aj::parse::_comment_ >()(t, std::make_pair( fas::srange(comment2), fas::orange(result) ) );
+  //t << equal<expect, std::string>(result, std::string(comment2, comment2+6)) << FAS_TESTING_FILE_LINE;
 
-  const char comment4[]="/* */ /**/";
+  const char comment4[]="/* */ /*x*/";
   result.clear();
-  t.get_aspect().template get< aj::parse::_comment_ >()(t, std::make_pair( fas::srange(comment4), fas::orange(result) ) );
-  t << equal<expect, std::string>(result, std::string(comment4, comment4+10)) << FAS_TESTING_FILE_LINE;
+  std::cout << "1111" << std::endl;
+  t.get_aspect().template get< aj::parse::_space_ >()(t, std::make_pair( fas::srange(comment4), fas::orange(result) ) );
+  std::cout << "2222" << std::endl;
+  std::cout << result << "!"<< std::endl;
+  std::cout << comment4 << "!"<< std::endl;
+  t << equal<expect, std::string>(result, std::string(comment4, comment4+11)) << FAS_TESTING_FILE_LINE;
 
   const char comment3[]="/*** /";
   bool except = false;
   try
   {
     result.clear();
-    t.get_aspect().template get< aj::parse::_comment_ >()(t, std::make_pair( fas::srange(comment3), fas::orange(result) ) );
+    //t.get_aspect().template get< aj::parse::_comment_ >()(t, std::make_pair( fas::srange(comment3), fas::orange(result) ) );
   }
   catch( const as::unexpected_end_fragment& )
   {
     except = true;
   }
 
-  t << is_true<assert>(except) << FAS_TESTING_FILE_LINE;
+  //t << is_true<assert>(except) << FAS_TESTING_FILE_LINE;
 }
 
 UNIT(space_unit, "")
@@ -66,7 +69,7 @@ UNIT(space_unit, "")
 
 BEGIN_SUITE(space_suite, "")
   ADD_UNIT(comment_unit)
-  ADD_UNIT(space_unit)
+  //ADD_UNIT(space_unit)
   ADD_ADVICE( as::_except_, fas::ad_except<> )
   ADD_ASPECT( aj::parse::space::aspect_space_cp)
   ADD_ASPECT( aj::parse::aspect)

@@ -22,24 +22,35 @@ struct ad_list
   template<typename T, typename RR>
   RR operator()(T& t, RR rr)
   {
+    std::cout << "---parse--- " << (const char*)(rr.first.begin()) << std::endl;
     if ( t.get_aspect().template get<_end_>().peek(t, rr.first) )
       return rr;
 
+    std::cout << "parse {" << std::endl;
     for (;;)
     {
-      rr = t.get_aspect().template get<_entity_>()(t, rr);
+      std::cout << "[" << std::endl;
+      std::cout << "1:" << rr.first << std::endl;
 
+      rr = t.get_aspect().template get<_entity_>()(t, rr);
+      std::cout << "2:" << rr.first << std::endl;
       if ( !try_<_except_>(t) )
         break;
+      std::cout << "3:" << rr.first << std::endl;
 
       if ( t.get_aspect().template get<_end_>().peek(t, rr.first) )
         break;
+      std::cout << "4:" << rr.first << std::endl;
 
       rr = t.get_aspect().template get<_separator_>()(t, rr);
 
       if ( !try_<_except_>(t) )
         break;
+      std::cout << "5:" << rr.first << std::endl;
+
+      std::cout << "]" << std::endl;
     }
+    std::cout << "} parse" << std::endl;
     return rr;
   }
 };
