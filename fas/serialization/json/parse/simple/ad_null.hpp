@@ -16,10 +16,7 @@ namespace fas{ namespace json{ namespace parse{
 FAS_STRING(null, "null")
 
 struct ad_null:
-  ::fas::serialization::common::parse::ad_tstring< 
-    null, 
-    ::fas::serialization::_except_
-  >
+  ::fas::serialization::parse::ad_tstring< null >
 {};
 
 }}}

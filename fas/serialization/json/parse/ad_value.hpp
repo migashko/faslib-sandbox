@@ -15,7 +15,7 @@
 namespace fas{ namespace json{ namespace parse{
 
 struct ad_value:
-  ::fas::serialization::common::parse::ad_variant<
+  ::fas::serialization::parse::ad_variant<
     type_list_n<
       _object_,
       _array_,
@@ -23,8 +23,7 @@ struct ad_value:
       _string_,
       _boolean_,
       _null_
-    >::type,
-    ::fas::serialization::_except_
+    >::type
   >
 {};
 

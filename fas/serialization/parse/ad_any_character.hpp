@@ -4,19 +4,18 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 
-#ifndef FAS_SERIALIZATION_COMMON_PARSE_AD_ANY_CHARACTER_HPP
-#define FAS_SERIALIZATION_COMMON_PARSE_AD_ANY_CHARACTER_HPP
+#ifndef FAS_SERIALIZATION_PARSE_AD_ANY_CHARACTER_HPP
+#define FAS_SERIALIZATION_PARSE_AD_ANY_CHARACTER_HPP
 
 #include <fas/serialization/except/out_of_range.hpp>
 #include <fas/serialization/except/unexpected_end_fragment.hpp>
+#include <fas/serialization/tags.hpp>
 #include <fas/except/throw_.hpp>
 
-namespace fas{ namespace serialization{ namespace common{ namespace parse{
+namespace fas{ namespace serialization{ namespace parse{
 
-template<typename TgExcept>
 struct ad_any_character
 {
-  typedef TgExcept _except_;
   
   template<typename T, typename R>
   bool peek( T&, R )
@@ -38,6 +37,6 @@ struct ad_any_character
   }
 };
 
-}}}}
+}}}
 
 #endif

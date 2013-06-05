@@ -16,9 +16,8 @@ namespace fas{ namespace json{ namespace parse{
 FAS_STRING(control_character, "\"\\/bfnrtu")
 
 struct ad_control_character:
-  ::fas::serialization::common::parse::ad_charset< 
-    control_character, 
-    ::fas::serialization::_except_
+  ::fas::serialization::parse::ad_charset<
+    control_character
   >
 {};
 

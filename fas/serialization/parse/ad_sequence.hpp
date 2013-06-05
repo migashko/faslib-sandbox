@@ -1,19 +1,19 @@
-#ifndef FAS_SERIALIZATION_COMMON_PARSER_AD_SEQUENCE_HPP
-#define FAS_SERIALIZATION_COMMON_PARSER_AD_SEQUENCE_HPP
+#ifndef FAS_SERIALIZATION_PARSER_AD_SEQUENCE_HPP
+#define FAS_SERIALIZATION_PARSER_AD_SEQUENCE_HPP
+
+#include <fas/serialization/tags.hpp>
 
 #include <fas/except/try_.hpp>
 #include <fas/type_list/normalize.hpp>
 #include <fas/type_list/head.hpp>
 #include <fas/type_list/tail.hpp>
 
+namespace fas{ namespace serialization{ namespace parse{
 
-namespace fas{ namespace serialization{ namespace common{ namespace parse{
-
-template<typename TgList, typename TgExcept>
+template<typename TgList>
 struct ad_sequence
 {
   typedef typename ::fas::normalize<TgList>::type tag_list;
-  typedef TgExcept _except_;
   
   template<typename T, typename R>
   bool peek( T& t, R r)
@@ -50,6 +50,6 @@ private:
   }
 };
 
-}}}}
+}}}
 
 #endif

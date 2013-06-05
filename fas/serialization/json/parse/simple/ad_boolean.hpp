@@ -14,13 +14,10 @@
 namespace fas{ namespace json{ namespace parse{
 
 struct ad_boolean:
-  ::fas::serialization::common::parse::ad_variant<
-    type_list_n<
+  ::fas::serialization::parse::ad_variant< type_list_n<
       _true_,
       _false_
-    >::type,
-    ::fas::serialization::_except_
-  >
+  >::type  >
 {};
 
 }}}

@@ -16,10 +16,7 @@ namespace fas{ namespace json{ namespace parse{
 FAS_STRING(false_, "false")
 
 struct ad_false:
-  ::fas::serialization::common::parse::ad_tstring< 
-    false_, 
-    ::fas::serialization::_except_
-  >
+  ::fas::serialization::parse::ad_tstring< false_ >
 {};
 
 }}}

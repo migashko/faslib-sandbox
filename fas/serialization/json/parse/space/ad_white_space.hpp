@@ -17,9 +17,8 @@ namespace fas{ namespace json{ namespace parse{
 FAS_STRING(white_space, " \t\r\n\b")
 
 struct ad_white_space_cp:
-  ::fas::serialization::common::parse::ad_charset< 
-    white_space, 
-    ::fas::serialization::_except_
+  ::fas::serialization::parse::ad_charset<
+    white_space
   >
 {};
 

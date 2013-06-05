@@ -17,17 +17,14 @@ namespace fas{ namespace json{ namespace parse{
 FAS_STRING(not_space, "\":{}[]ntf,+-0123456789")
 
 struct ad_not_space:
-  ::fas::serialization::common::parse::ad_charset< 
-    not_space, 
-    ::fas::serialization::_except_
-  >
+  ::fas::serialization::parse::ad_charset< not_space>
 {};
 
 struct ad_end_space:
-  ::fas::serialization::common::parse::ad_variant< type_list_n<
+  ::fas::serialization::parse::ad_variant< type_list_n<
     _not_space_,
     _end_fragment_
-  >::type, ::fas::serialization::_except_ >
+  >::type >
 {};
 
 

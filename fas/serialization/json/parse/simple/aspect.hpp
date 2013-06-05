@@ -7,19 +7,20 @@
 #ifndef FAS_SERIALIZATION_JSON_PARSE_SIMPLE_ASPECT_HPP
 #define FAS_SERIALIZATION_JSON_PARSE_SIMPLE_ASPECT_HPP
 
-#include <fas/serialization/json/parse/simple/ad_number.hpp>
 #include <fas/serialization/json/parse/simple/ad_null.hpp>
 #include <fas/serialization/json/parse/simple/ad_boolean.hpp>
 #include <fas/serialization/json/parse/simple/ad_true.hpp>
 #include <fas/serialization/json/parse/simple/ad_false.hpp>
 #include <fas/serialization/json/parse/simple/tags.hpp>
 
+#include <fas/serialization/parse/ad_json_number.hpp>
+
 namespace fas{ namespace json{ namespace parse{ namespace simple{
 
 struct aspect:
   ::fas::aspect< type_list_n<
     advice< _null_, ad_null>,
-    advice< _number_, ad_number>,
+    advice< _number_, ::fas::serialization::parse::ad_json_number>,
     advice< _true_, ad_true>,
     advice< _false_, ad_false>,
     advice< _boolean_, ad_boolean>

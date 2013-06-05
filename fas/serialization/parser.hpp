@@ -1,14 +1,7 @@
 #ifndef FAS_SERIALIZATION_PARSER_HPP
 #define FAS_SERIALIZATION_PARSER_HPP
 
-#include <fas/serialization/tags.hpp>
-#include <fas/serialization/f_clear.hpp>
-#include <fas/range/range_traits.hpp>
-#include <fas/range/mrange.hpp>
-
-
 #include <fas/aop/aspect_class.hpp>
-#include <fas/aop/group_for_each.hpp>
 #include <fas/typemanip/empty_type.hpp>
 #include <utility>
 
@@ -32,15 +25,15 @@ public:
   
 
   template<typename RI>
-  RI operator()( RI ri )
+  RI operator()( RI r )
   {
-    return this->parse(*this, std::make_pair( ri, mrange(ri) ) ).first;
+    return super::get_aspect().template get<_parse_>()(*this, r);
   }
 
   template<typename RI, typename RO>
   std::pair<RI, RO> operator()( RI ri, RO ro )
   {
-    return this->parse(*this, std::make_pair( ri, ro ) );
+    return super::get_aspect().template get<_parse_>()(*this, ri, ro);
   }
 
   operator bool () const
@@ -54,17 +47,6 @@ public:
   }
 
 protected:
-
-  template<typename T, typename RR>
-  RR parse(T& t, RR rr)
-  {
-    typedef typename ::fas::range_traits<typename RR::first_type>::range_category  first_range_category;
-    typedef typename ::fas::range_traits<typename RR::second_type>::range_category second_range_category;
-    
-    group_for_each<_clear_>( t, f_clear() );
-    
-    return t.get_aspect().template get<_parse_>()(t, rr);
-  }
 
 private:
 

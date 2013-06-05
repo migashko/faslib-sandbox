@@ -11,17 +11,13 @@
 #include <fas/serialization/parse/ad_variant.hpp>
 #include <fas/type_list/type_list_n.hpp>
 
-
 namespace fas{ namespace json{ namespace parse{
 
 struct ad_space_variant:
-  ::fas::serialization::common::parse::ad_variant<
-    type_list_n<
+  ::fas::serialization::parse::ad_variant< type_list_n<
       _white_space_,
       _comment_
-    >::type,
-    ::fas::serialization::_except_
-  >
+  >::type >
 {};
 
 }}}

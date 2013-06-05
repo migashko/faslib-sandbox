@@ -16,7 +16,7 @@ UNIT(deser1_unit, "")
   int value = -1;
   char json[]="12345";
   aj::deserializer<> deser;
-  deser(aj::integer< as::maximum< fas::int_<12345> > >(), value, json);
+  deser(aj::integer< as::maximum< fas::int_<12345> > >(), value, fas::srange(json) );
   std::cout << value << std::endl;
   t << nothing();
 }
@@ -29,7 +29,7 @@ UNIT(deser2_unit, "")
   int value = -1;
   char json[]="\"name\"";
   aj::deserializer<> deser;
-  deser( aj::name<n_name>(), value, json);
+  deser( aj::name<n_name>(), value, fas::srange(json) );
   std::cout << value << std::endl;
   t << nothing();
 }
@@ -42,7 +42,7 @@ UNIT(deser3_unit, "")
   char json[]="\"name\":12345/* */  /**/";
   aj::deserializer<> deser;
   try{
-  deser( aj::attr< aj::name<n_name>, aj::integer<> >(), value, json);
+  deser( aj::attr< aj::name<n_name>, aj::integer<> >(), value, fas::srange(json) );
   }
   catch(fas::serialization::exception& e)
   {

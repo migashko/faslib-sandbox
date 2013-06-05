@@ -15,10 +15,11 @@
 #include <fas/serialization/json/parse/space/ad_end_comment.hpp>
 #include <fas/serialization/json/parse/space/ad_end_space.hpp>
 #include <fas/serialization/json/parse/space/ad_space_variant.hpp>
-#include <fas/serialization/json/parse/space/ad_any.hpp>
-#include <fas/serialization/json/parse/space/ad_empty.hpp>
 
+
+#include <fas/serialization/parse/ad_any_character.hpp>
 #include <fas/serialization/parse/ad_end_fragment.hpp>
+#include <fas/serialization/parse/ad_empty.hpp>
 
 #include <fas/serialization/json/parse/space/tags.hpp>
 
@@ -34,10 +35,10 @@ struct aspect:
       advice< _end_comment_, ad_end_comment>,
       advice< _end_space_, ad_end_space>,
       advice< _space_variant_, ad_space_variant>,
-      advice< _any_, ad_any>,
-      advice< _empty_, ad_empty>,
+      advice< _any_, ::fas::serialization::parse::ad_any_character >,
+      advice< _empty_, ::fas::serialization::parse::ad_empty>,
       advice< _not_space_, ad_not_space>,
-      advice< _end_fragment_, ::fas::serialization::common::parse::ad_end_fragment< ::fas::serialization::_except_> >
+      advice< _end_fragment_, ::fas::serialization::parse::ad_end_fragment >
   >::type > 
 {};
 

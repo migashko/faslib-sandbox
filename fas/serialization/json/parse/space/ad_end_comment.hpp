@@ -16,10 +16,7 @@ namespace fas{ namespace json{ namespace parse{
 FAS_STRING(end_comment, "*/")
 
 struct ad_end_comment:
-  ::fas::serialization::common::parse::ad_tstring< 
-    end_comment, 
-    ::fas::serialization::_except_
-  >
+  ::fas::serialization::parse::ad_tstring<end_comment>
 {};
 
 }}}

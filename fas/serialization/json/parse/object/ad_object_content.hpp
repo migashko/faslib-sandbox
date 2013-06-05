@@ -14,15 +14,11 @@
 
 namespace fas{ namespace json{ namespace parse{
 
-  
 struct ad_object_content:
-  ::fas::serialization::common::parse::ad_sequence<
-    type_list_n<
+  ::fas::serialization::parse::ad_sequence< type_list_n<
       _space_,
       _field_list_
-    >::type,
-    ::fas::serialization::_except_
-  >
+  >::type >
 {};
 
 }}}

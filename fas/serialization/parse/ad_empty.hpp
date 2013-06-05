@@ -4,10 +4,10 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 
-#ifndef FAS_SERIALIZATION_COMMON_PARSE_AD_EMPTY_HPP
-#define FAS_SERIALIZATION_COMMON_PARSE_AD_EMPTY_HPP
+#ifndef FAS_SERIALIZATION_PARSE_AD_EMPTY_HPP
+#define FAS_SERIALIZATION_PARSE_AD_EMPTY_HPP
 
-namespace fas{ namespace serialization{ namespace common{ namespace parse{
+namespace fas{ namespace serialization{ namespace parse{
 
 struct ad_empty
 {
@@ -24,6 +24,6 @@ struct ad_empty
   }
 };
 
-}}}}
+}}}
 
 #endif

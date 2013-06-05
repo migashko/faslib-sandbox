@@ -1,9 +1,9 @@
 #include <fas/testing.hpp>
-#include <fas/serialization/json/parse/simple/ad_number.hpp>
+#include <fas/serialization/parse/ad_json_number.hpp>
 #include <fas/except/ad_except.hpp>
 #include <fas/range.hpp>
 #include <string>
-namespace aj = ::fas::json;
+//namespace aj = ::fas::json;
 namespace as = ::fas::serialization;
 
 UNIT(ad_number_unit, "")
@@ -15,7 +15,7 @@ UNIT(ad_number_unit, "")
   char ch4[]="9999";
   
   std::string str;  
-  aj::parse::ad_number an;
+  as::parse::ad_json_number an;
   
   an(t, std::make_pair(fas::range(ch1), fas::orange(str)));
   t << equal<expect>(str, ch1) << FAS_TESTING_FILE_LINE;
@@ -46,7 +46,7 @@ UNIT(ad_bad_number_unit, "")
   
   bool flag = false;
   std::string str;  
-  aj::parse::ad_number an;
+  as::parse::ad_json_number an;
 
   try{ an(t, std::make_pair(fas::range(ch1), fas::orange(str))); } 
   catch( const as::parse_error& ) { flag =true; }

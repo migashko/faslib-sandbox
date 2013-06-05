@@ -15,14 +15,11 @@
 namespace fas{ namespace json{ namespace parse{
 
 struct ad_comment_cp:
-  ::fas::serialization::common::parse::ad_sequence<
-    type_list_n<
+  ::fas::serialization::parse::ad_sequence< type_list_n<
       _begin_comment_,
       _comment_content_,
       _end_comment_
-    >::type,
-    ::fas::serialization::_except_
-  >
+    >::type >
 {};
 
 typedef ::fas::serialization::common::parse::nocopy<ad_comment_cp> ad_comment;

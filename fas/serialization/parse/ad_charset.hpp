@@ -4,25 +4,23 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 
-#ifndef FAS_SERIALIZATION_COMMON_PARSE_AD_CHARSET_HPP
-#define FAS_SERIALIZATION_COMMON_PARSE_AD_CHARSET_HPP
+#ifndef FAS_SERIALIZATION_PARSE_AD_CHARSET_HPP
+#define FAS_SERIALIZATION_PARSE_AD_CHARSET_HPP
 
 #include <fas/serialization/except/unexpected_end_fragment.hpp>
 #include <fas/serialization/except/expected_of.hpp>
 #include <fas/serialization/except/out_of_range.hpp>
+#include <fas/serialization/tags.hpp>
 
 #include <fas/except/throw_.hpp>
-
 #include <fas/range/distance.hpp>
 #include <fas/range/string_range.hpp>
-//#include <utility>
 
-namespace fas{ namespace serialization{ namespace common{ namespace parse{
+namespace fas{ namespace serialization{ namespace parse{
 
-template<typename TString, typename TgExcept>
+template<typename TString>
 struct ad_charset
 {
-  typedef TgExcept _except_;
   typedef TString tstring;
   typedef string_range< typename TString::value_type > tstring_range;
 
@@ -63,7 +61,7 @@ struct ad_charset
   }
 };
 
-}}}}
+}}}
 
 #endif
 

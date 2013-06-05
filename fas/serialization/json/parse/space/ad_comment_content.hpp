@@ -13,11 +13,10 @@
 namespace fas{ namespace json{ namespace parse{
 
 struct ad_comment_content:
-  ::fas::serialization::common::parse::ad_list< 
+  ::fas::serialization::parse::ad_list<
     _any_,
     _empty_,
-    _end_comment_,
-    ::fas::serialization::_except_
+    _end_comment_
   >
 {};
 
