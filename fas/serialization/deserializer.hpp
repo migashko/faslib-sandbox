@@ -8,16 +8,17 @@
 namespace fas{ namespace serialization{
 
 template<
-  typename A1,
+  typename A1/*,
   typename A2 = empty_type,
   typename A3 = empty_type,
   typename A4 = empty_type,
   typename A5 = empty_type
+  */
 >
 class deserializer
-  : public aspect_class<A1, A2, A3, A4, A5 >
+  : public aspect_class<A1/*, A2, A3, A4, A5*/ >
 {
-  typedef aspect_class<A1, A2, A3, A4, A5 > super;
+  typedef aspect_class<A1/*, A2, A3, A4, A5*/ > super;
 public:
   typedef typename super::aspect aspect;
   typedef typename super::aspect::template advice_cast<_except_>::type::exception_type exception_type;

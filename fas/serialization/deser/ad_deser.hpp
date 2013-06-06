@@ -17,22 +17,24 @@
 
 namespace fas{ namespace serialization{ namespace deser{
 
+
+
+
+// template<typename TgTarget>
 struct ad_deser
 {
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)
   {
-    typedef typename ::fas::range_traits<R>::range_category  first_range_category;
+    typedef typename range_traits<R>::range_category  first_range_category;
+    //typedef typename normalize<J>::type target_list;
 
     group_for_each<_clear_>( t, f_clear() );
 
     t.get_aspect().template get<_status_>() = true;
 
-    std::cout << "start: " << t.get_aspect().template get<_status_>() << std::endl;
-
     r = t.get_aspect().template get< typename J::tag >()(t, J(), v, r);
 
-    std::cout << "final: " << t.get_aspect().template get<_status_>() << std::endl;
     if ( false == t.get_aspect().template get<_status_>() )
       return throw_<_except_>(t, syntax_error(distance(r)), r);
 

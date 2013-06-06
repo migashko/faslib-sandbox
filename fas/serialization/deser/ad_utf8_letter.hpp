@@ -49,7 +49,7 @@ private:
         return throw_<_except_>(t, unexpected_end_fragment(), rr);
 
       if (!rr.second)
-        return throw_<_except_>(t, out_of_range( distance(r.first) ), rr );
+        return throw_<_except_>(t, out_of_range( distance(rr.first) ), rr );
     }
     
     return rr;

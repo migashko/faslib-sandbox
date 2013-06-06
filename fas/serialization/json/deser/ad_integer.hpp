@@ -8,12 +8,16 @@
 
 namespace fas{ namespace json{ namespace deser{
 
+  /*
 struct ad_integer:
+
   fas::serialization::deser::ad_sequence< type_list_n<
-    ::fas::json::deser::_integer_,
+    ::fas::json::deser::_deser_integer_,
     ::fas::serialization::proval::_proval_  
   >::type>
+
 {};
+*/
 
 
 }}}

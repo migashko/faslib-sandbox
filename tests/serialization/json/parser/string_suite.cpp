@@ -35,18 +35,18 @@ UNIT(ad_utf8_letter_unit, "")
   char a1[]="~Ё你";
   std::string out;
   const char* ptr = a1;
-  ptr = utf8(t, ptr, fas::orange(out) ).first;
+  ptr = utf8(t, std::make_pair(ptr, fas::orange(out)) ).first;
   t << equal<assert>( std::string(ptr-1, ptr) , std::string(a1, a1+1) ) << FAS_TESTING_FILE_LINE;
-  ptr = utf8(t, ptr, fas::orange(out) ).first;
+  ptr = utf8(t, std::make_pair(ptr, fas::orange(out)) ).first;
   t << equal<assert>( std::string(ptr-2, ptr) , std::string(a1+1, a1+3) )  << FAS_TESTING_FILE_LINE;
-  ptr = utf8(t, ptr, fas::orange(out) ).first;
+  ptr = utf8(t, std::make_pair(ptr, fas::orange(out)) ).first;
   t << equal<assert>( std::string(ptr-3, ptr) , std::string(a1+3, a1+6) ) << FAS_TESTING_FILE_LINE;
   t << equal<assert>(out, a1) << FAS_TESTING_FILE_LINE;
 
   out.clear();
   unsigned int i2 = 0x808080F0;
   ptr = reinterpret_cast<const char*>(&i2);
-  ptr = utf8(t, ptr, fas::orange(out) ).first;
+  ptr = utf8(t, std::make_pair(ptr, fas::orange(out)) ).first;
   t << equal<assert>(out, std::string( reinterpret_cast<const char*>(&i2), reinterpret_cast<const char*>(&i2) + 4) );
 
 
@@ -56,7 +56,7 @@ UNIT(ad_utf8_letter_unit, "")
     out.clear();
     i2 = 0xC08080F0;
     ptr = reinterpret_cast<const char*>(&i2);
-    ptr = utf8(t, ptr, fas::orange(out) ).first;
+    ptr = utf8(t, std::make_pair(ptr, fas::orange(out)) ).first;
     t << equal<assert>(out, std::string( reinterpret_cast<const char*>(&i2), reinterpret_cast<const char*>(&i2) + 4) );
   }
   catch( const as::parse_error& )

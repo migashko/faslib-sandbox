@@ -15,7 +15,6 @@ struct ad_field:
     ::fas::json::deser::_colon_,
     ::fas::json::deser::_space_,
     ::fas::json::deser::_field_value_,
-    // На этом спейсе дает исключение, проверить парсилку на конец фрагмента
     ::fas::json::deser::_space_
   >::type>
 {};

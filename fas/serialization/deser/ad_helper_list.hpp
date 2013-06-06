@@ -10,6 +10,7 @@
 #include <fas/except/throw_.hpp>
 #include <fas/except/try_.hpp>
 #include <fas/range/distance.hpp>
+#include <fas/type_list/normalize.hpp>
 
 namespace fas{ namespace serialization{ namespace deser{
 
@@ -17,7 +18,7 @@ namespace fas{ namespace serialization{ namespace deser{
 template<typename TgList, typename TgEnd>
 struct ad_helper_list
 {
-  typedef organize<TgList> target_list;
+  typedef typename normalize<TgList>::type target_list;
   typedef TgEnd _end_;
   
   template<typename T, typename RR>
@@ -27,7 +28,7 @@ struct ad_helper_list
       return rr;
     
     do {
-      rr = _(t, tt, target_list() );
+      rr = _(t, rr, target_list() );
       if ( t.get_aspect().template get<_end_>().peek(t, rr.first) )
         break;
     } while ( try_<_except_>(t) );
@@ -55,7 +56,7 @@ private:
   }
 
   template<typename T, typename RR>
-  R _(T&, RR rr, empty_list)
+  RR _(T&, RR rr, empty_list)
   {
     return rr;
   }

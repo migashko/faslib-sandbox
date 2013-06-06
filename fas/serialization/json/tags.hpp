@@ -4,11 +4,15 @@
 namespace fas{ namespace json{
 
 struct _integer_;
+struct _string_;
 struct _name_;
 
 struct _field_;
 struct _prop_;
 struct _attr_;
+struct _access_;
+struct _object_;
+struct _value_;
 
 }}
 

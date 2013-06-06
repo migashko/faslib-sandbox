@@ -70,7 +70,7 @@ struct ad_json_string_content
       }
       else
       {
-        rr = t.get_aspect().template get<_utf8_>()(t, rr.first, rr.second);
+        rr = t.get_aspect().template get<_utf8_>()(t, rr);
         if ( !try_<_except_>(t) )
           return rr;
       }

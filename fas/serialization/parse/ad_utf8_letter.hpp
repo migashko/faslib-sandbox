@@ -33,10 +33,10 @@ struct ad_utf8_letter
     );
   }
 
-  template<typename T, typename RI, typename RO>
-  std::pair<RI, RO> operator()(T& t, RI ri, RO ro)
+  template<typename T, typename RR>
+  RR operator()(T& t, RR rr)
   {
-    return this->parse(t, std::make_pair(ri, ro) );
+    return this->parse(t, rr );
   }
 
 private:
