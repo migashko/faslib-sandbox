@@ -27,7 +27,6 @@ struct ad_charset
   template<typename T, typename R>
   bool peek( T&, R r)
   {
-    std::cout << "ad_charset::peek " << tstring()() << std::endl;
     if ( !r )
       return false;
 
@@ -43,7 +42,6 @@ struct ad_charset
   template<typename T, typename RR>
   RR operator()(T& t, RR rr)
   {
-    std::cout << "ad_charset::() " << tstring()() << std::endl;
     tstring_range sr = tstring_range( tstring()() );
     for (;sr;++sr)
     {

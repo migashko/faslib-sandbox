@@ -25,7 +25,6 @@ struct ad_sequence
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)
   {
-    std::cout << "{" << std::endl;
     R orig = r;
     r =  _(t, J(), v, r, tag_list() );
 
@@ -34,7 +33,6 @@ struct ad_sequence
 
     if ( !t.get_aspect().template get<_status_>() )
       return orig;
-    std::cout << "}" << std::endl;
 
     return r;
   }
@@ -46,9 +44,7 @@ private:
   {
     typedef typename ::fas::head<TagList>::type _head_;
 
-    std::cout << "seq1: " << r << std::endl;
     r = t.get_aspect().template get<_head_>()(t, J(), v, r);
-    std::cout << "seq2: " << r << std::endl;
 
     if ( !try_<_except_>(t) )
       return r;

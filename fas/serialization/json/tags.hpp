@@ -14,6 +14,9 @@ struct _access_;
 struct _object_;
 struct _value_;
 
+struct _field_list_;
+struct _item_list_;
+
 }}
 
 #endif

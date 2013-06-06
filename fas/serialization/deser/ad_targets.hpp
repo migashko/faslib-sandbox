@@ -9,14 +9,16 @@
 
 namespace fas{ namespace serialization{ namespace deser{
 
-template<typename Tg>
+// template<typename Tg>
 struct ad_targets
 {
-  typedef Tg _tag_;
+  //typedef Tg _tag_;
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)
   {
-    return t.get_aspect().template get<_tag_>()(t, typename J::targets(), v, r);
+    typedef typename J::targets target;
+    typedef typename target::tag _tag_;
+    return t.get_aspect().template get<_tag_>()(t, target(), v, r);
   }
 };
 
