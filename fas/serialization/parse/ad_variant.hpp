@@ -51,7 +51,7 @@ private:
   RR _parse(T& t, RR rr, TagList)
   {
     typedef typename ::fas::head<TagList>::type _head_;
-
+    
     if ( t.get_aspect().template get<_head_>().peek(t, rr.first) )
       return t.get_aspect().template get<_head_>()( t, rr);
 

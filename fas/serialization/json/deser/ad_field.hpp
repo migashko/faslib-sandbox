@@ -7,6 +7,7 @@
 
 namespace fas{ namespace json{ namespace deser{
 
+  /*
 struct ad_field:
   fas::serialization::deser::ad_sequence< type_list_n<
     ::fas::json::deser::_space_,
@@ -18,7 +19,7 @@ struct ad_field:
     ::fas::json::deser::_space_
   >::type>
 {};
-
+*/
 
 }}}
 

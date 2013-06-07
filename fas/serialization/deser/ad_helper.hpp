@@ -16,7 +16,7 @@ struct ad_helper
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)
   {
-    return t.get_aspect().template get<_target_>()(t, std::make_pair(r, orange(v))).first;
+    return t.get_aspect().template get<_target_>()(t, std::make_pair(r, orange(v, true))).first;
   }
 };
 

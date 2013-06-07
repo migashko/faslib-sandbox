@@ -1,7 +1,7 @@
-#ifndef FAS_SERIALIZATION_DESER_AD_BRUTE_LIST_T_HPP
-#define FAS_SERIALIZATION_DESER_AD_BRUTE_LIST_T_HPP
+#ifndef FAS_SERIALIZATION_DESER_AD_REPEAT_LIST_HPP
+#define FAS_SERIALIZATION_DESER_AD_REPEAT_LIST_HPP
 
-#include <fas/except/try_.hpp>
+#include <fas/serialization/common/except/try_throw.hpp>
 
 #include <fas/type_list/empty_list.hpp>
 #include <fas/type_list/type_list.hpp>
@@ -9,13 +9,14 @@
 #include <iostream>
 namespace fas{ namespace serialization{ namespace deser{
 
-/** для массивов и прочих штук
+/** похож на brute_list, но каждый раз начинаем сначадл диапазона
+ * Не работает
  * @tparam TgParseSep separator parser tag
  * @tparam TgParseElement list item parser tag
  * @tparam TgParseEnd end list parser tag
  */
 template<typename TgParseSep, typename TgParseItem, typename TgParseEnd>
-struct ad_brute_list
+struct ad_repeat_list
 {
   typedef TgParseSep  _separator_;
   typedef TgParseItem _parse_item_;
@@ -24,7 +25,7 @@ struct ad_brute_list
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)
   {
-    typedef typename J::target_list target_list;
+    typedef typename J::targets target_list;
     
     if ( t.get_aspect().template get<_end_>().peek(t, r) )
       return r;
@@ -85,7 +86,7 @@ private:
     else
       r = income;
 
-    return _(t, v, r, target_list(), count );
+    return _(t, v, r, target_list() );
   }
 };
   

@@ -18,8 +18,8 @@ struct ad_target_n
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)
   {
-    typedef typename J::targets targets;
-    typedef typename type_at<TgN, targets>::type target;
+    typedef typename J::target_list target_list;
+    typedef typename type_at<TgN, target_list>::type target;
     typedef typename target::tag tag;
 
     return t.get_aspect().template get<tag>()(t, target(), v, r);

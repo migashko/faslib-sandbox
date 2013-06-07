@@ -8,7 +8,7 @@ namespace fas{ namespace json{
 template<typename Name, typename Value>
 struct attr
 {
-  typedef typename type_list_n<Name, Value>::type targets;
+  typedef typename type_list_n<Name, Value>::type target_list;
   typedef _attr_ tag;
 };
 

@@ -9,9 +9,10 @@ namespace fas{ namespace json{
 template< typename TargetList>
 struct value
 {
-  typedef typename normalize<TargetList>::type targets;
+  typedef typename normalize<TargetList>::type target_list;
   typedef _value_ tag;
 };
+
 
 }}
 

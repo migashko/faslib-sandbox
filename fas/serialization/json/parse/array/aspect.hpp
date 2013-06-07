@@ -28,7 +28,8 @@ struct aspect:
     advice< _array_content_, ad_array_content>,
     advice< _item_list_, ad_item_list>,
     advice< _right_bracket_, ::fas::serialization::parse::ad_tstring< tchars<']'> > >,
-    advice< _array_, ad_array>
+    advice< _array_, ad_array>,
+    advice< _array_separator_, ad_array_separator>
   >::type > 
 {};
 

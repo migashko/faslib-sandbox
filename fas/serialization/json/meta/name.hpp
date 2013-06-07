@@ -9,7 +9,7 @@ namespace fas{ namespace json{
 template<typename Name>
 struct name: Name
 {
-  typedef empty_list targets;
+  // typedef empty_list targets;
   typedef _name_ tag;
 };
 

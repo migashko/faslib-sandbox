@@ -6,10 +6,11 @@
 
 namespace fas{ namespace json{
 
-template<typename Accessor, typename TargetList>
+template<typename Accessor, typename Target>
 struct acc: Accessor
 {
-  typedef typename normalize<TargetList>::type targets;
+  // typedef typename normalize<TargetList>::type targets;
+  typedef Target target;
   typedef _access_ tag;
 };
 

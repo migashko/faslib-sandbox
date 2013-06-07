@@ -12,10 +12,15 @@ struct _prop_;
 struct _attr_;
 struct _access_;
 struct _object_;
+struct _array_;
 struct _value_;
 
 struct _field_list_;
 struct _item_list_;
+struct _inserter_;
+struct _item_;
+
+struct _array_list_;
 
 }}
 

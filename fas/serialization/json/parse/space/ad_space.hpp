@@ -17,7 +17,7 @@ namespace fas{ namespace json{ namespace parse{
 struct ad_space_cp:
   ::fas::serialization::parse::ad_list<
     _space_variant_,
-    _empty_,
+    /*_empty_,*/
     _end_space_
   >
 {

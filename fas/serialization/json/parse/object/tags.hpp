@@ -16,6 +16,7 @@ struct _object_field_;
 struct _field_list_;
 struct _object_;
 struct _object_content_;
+struct _object_separator_;
 
 }}}
 

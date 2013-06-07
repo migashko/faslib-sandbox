@@ -26,13 +26,12 @@ struct ad_helper_list
   {
     if ( t.get_aspect().template get<_end_>().peek(t, rr.first) )
       return rr;
-    
+
     do {
       rr = _(t, rr, target_list() );
       if ( t.get_aspect().template get<_end_>().peek(t, rr.first) )
         break;
     } while ( try_<_except_>(t) );
-      
     return rr;
   }
 

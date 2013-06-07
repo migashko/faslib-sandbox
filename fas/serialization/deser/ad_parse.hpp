@@ -24,7 +24,6 @@ struct ad_parse
     if ( !t.get_aspect().template get<_parse_>().peek(t, r) )
       return r;
     
-    
     r =  t.get_aspect().template get<_parse_>()
            ( t, std::make_pair(r, mrange(r)) ).first;
 

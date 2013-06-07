@@ -6,11 +6,10 @@
 
 namespace fas{ namespace serialization{ namespace parse{
 
-template<typename TgEntity, typename TgSeparator, typename TgEnd>
+template<typename TgEntity,  typename TgEnd>
 struct ad_list
 {
   typedef TgEntity    _entity_;
-  typedef TgSeparator _separator_;
   typedef TgEnd       _end_;
   
   template<typename T, typename R>
@@ -34,10 +33,6 @@ struct ad_list
       if ( t.get_aspect().template get<_end_>().peek(t, rr.first) )
         break;
 
-      rr = t.get_aspect().template get<_separator_>()(t, rr);
-
-      if ( !try_<_except_>(t) )
-        break;
     }
     return rr;
   }

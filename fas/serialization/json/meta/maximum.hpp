@@ -9,7 +9,7 @@ namespace fas{ namespace json{
 template<typename N>
 struct maximum
 {
-  typedef proval::_value_check_;  
+  //typedef proval::_value_check_;  
   template<typename V>
   bool operator() (const V& v) const
   {

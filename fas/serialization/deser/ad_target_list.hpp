@@ -16,7 +16,7 @@ struct ad_target_list
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)
   {
-    typedef typename J::targets target_list;
+    typedef typename J::target_list target_list;
     return _(t, v, r, target_list() );
   }
 

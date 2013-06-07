@@ -13,9 +13,14 @@
 #include <fas/type_list/normalize.hpp>
 #include <fas/type_list/head.hpp>
 #include <fas/type_list/tail.hpp>
-
+#include <fas/typemanip/type2type.hpp>
+#include <fas/range/mrange.hpp>
+#include <utility>
 
 namespace fas{ namespace serialization{ namespace deser{
+
+template<typename T>
+struct parser{};
 
 template<typename TgList>
 struct ad_sequence
@@ -43,8 +48,7 @@ private:
   R _(T& t, J, V& v, R r, TagList)
   {
     typedef typename ::fas::head<TagList>::type _head_;
-
-    r = t.get_aspect().template get<_head_>()(t, J(), v, r);
+    r =  __(t, J(), v, r, type2type<_head_>() );
 
     if ( !try_<_except_>(t) )
       return r;
@@ -56,8 +60,21 @@ private:
   }
 
   template<typename T, typename J, typename V, typename R>
-  R _(T& , J, V& , R r, empty_list)
+  R _(T&, J, V& , R r, empty_list)
   {
+    return r;
+  }
+
+  template<typename T, typename J, typename V, typename R, typename TgHead>
+  R __(T& t, J, V& v, R r, type2type<TgHead> )
+  {
+    return t.get_aspect().template get<TgHead>()(t, J(), v, r);
+  }
+
+  template<typename T, typename J, typename V, typename R, typename TgHead>
+  R __(T& t, J, V&, R r, type2type<parser<TgHead> > )
+  {
+    r =  t.get_aspect().template get<TgHead>()(t, std::make_pair(r, mrange(r))).first;
     return r;
   }
 };
