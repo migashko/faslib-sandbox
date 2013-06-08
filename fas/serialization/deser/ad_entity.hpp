@@ -4,8 +4,8 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 
-#ifndef FAS_SERIALIZATION_DESER_AD_SEQUENCE_HPP
-#define FAS_SERIALIZATION_DESER_AD_SEQUENCE_HPP
+#ifndef FAS_SERIALIZATION_DESER_AD_ENTITY_HPP
+#define FAS_SERIALIZATION_DESER_AD_ENTITY_HPP
 
 #include <fas/serialization/tags.hpp>
 
@@ -23,7 +23,7 @@ template<typename T>
 struct parser{};
 
 template<typename TgList>
-struct ad_sequence
+struct ad_entity
 {
   typedef typename ::fas::normalize<TgList>::type tag_list;
 

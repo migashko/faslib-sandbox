@@ -51,7 +51,7 @@ struct ad_string_content:
 struct ad_string_helper: ::fas::serialization::deser::ad_helper<_string_content_> {};
 
 struct ad_string:
-  ad_sequence< type_list_n<
+  ad_entity< type_list_n<
       parser< ::fas::json::parse::_quote_>,
       _string_helper_,
       parser< ::fas::json::parse::_quote_>
@@ -66,7 +66,7 @@ struct _first_target_;
 struct _second_target_;
 
 struct ad_item:
-  ::fas::serialization::deser::ad_sequence< type_list_n<
+  ::fas::serialization::deser::ad_entity< type_list_n<
     ::fas::serialization::deser::parser< ::fas::json::parse::_space_>,
     _targets_,
     ::fas::serialization::deser::parser< ::fas::json::parse::_space_>,
@@ -79,44 +79,11 @@ struct ad_item_list:
     _item_,
     ::fas::json::parse::_array_item_,
     ::fas::json::parse::_right_bracket_
-  >    /*
-  ::fas::serialization::deser::ad_brute_list<
-    ::fas::json::parse::_comma_, 
-    ::fas::json::parse::_value_, 
-    ::fas::json::parse::_right_bracket_
-  >
-  */
+  >    
 {};
 
-/*
-struct ad_field_name:
-  ::fas::serialization::deser::ad_enclosed<
-    ::fas::json::parse::_space_,
-    _first_target_,
-    ::fas::json::parse::_space_
-  >
-{};
-
-struct ad_field_value:
-  ::fas::serialization::deser::ad_enclosed<
-    ::fas::json::parse::_space_,
-    _second_target_,
-    ::fas::json::parse::_space_
-  >
-{};*/
-
-/*
-struct _array_item_;
-struct ad_array_item:
-  ::fas::serialization::deser::ad_enclosed<
-    ::fas::json::parse::_space_,
-    _targets_,
-    ::fas::json::parse::_space_
-  >
-{};
-*/
 struct ad_array:
-  ad_sequence< type_list_n<
+  ad_entity< type_list_n<
       parser< ::fas::json::parse::_left_bracket_>,
       _targets_,
       parser< ::fas::json::parse::_right_bracket_>
@@ -136,7 +103,7 @@ struct ad_field:
 */
 
 struct ad_field:
-  ::fas::serialization::deser::ad_sequence< type_list_n<
+  ::fas::serialization::deser::ad_entity< type_list_n<
     ::fas::serialization::deser::parser< ::fas::json::parse::_space_>,
     _first_target_,
     ::fas::serialization::deser::parser< ::fas::json::parse::_space_>,
@@ -169,7 +136,7 @@ struct ad_array_list:
 
 
 struct ad_object:
-  ad_sequence< type_list_n<
+  ad_entity< type_list_n<
     parser< ::fas::json::parse::_left_brace_>,
     _targets_,
     parser< ::fas::json::parse::_right_brace_>
