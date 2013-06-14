@@ -2,7 +2,7 @@
 #define FAS_SERIALIZATION_JSON_DESER_AD_INTEGER_HPP
 
 
-#include <fas/serialization/deser/ad_sequence.hpp>
+//#include <fas/serialization/deser/ad_sequence.hpp>
 #include <fas/serialization/proval/tags.hpp>
 #include <fas/serialization/json/deser/tags.hpp>
 

@@ -26,6 +26,7 @@
 #include <fas/serialization/deser/ad_primary_list.hpp>
 #include <fas/serialization/deser/ad_brute_list.hpp>
 #include <fas/serialization/deser/ad_enclosed.hpp>
+#include <fas/serialization/deser/ad_entity.hpp>
 #include <fas/serialization/deser/ad_separate.hpp>
 #include <fas/serialization/deser/ad_inserter.hpp>
 #include <fas/serialization/deser/ad_equal_range.hpp>
@@ -35,8 +36,8 @@
 namespace fas{ namespace json{ namespace deser{
 
 using ::fas::serialization::deser::parser;
-using ::fas::serialization::deser::ad_sequence;
-using ::fas::serialization::deser::ad_sequence;
+// using ::fas::serialization::deser::ad_sequence;
+// using ::fas::serialization::deser::ad_sequence;
 
 struct _string_helper_;
 struct _string_content_;
@@ -51,7 +52,7 @@ struct ad_string_content:
 struct ad_string_helper: ::fas::serialization::deser::ad_helper<_string_content_> {};
 
 struct ad_string:
-  ad_entity< type_list_n<
+  ::fas::serialization::deser::ad_entity< type_list_n<
       parser< ::fas::json::parse::_quote_>,
       _string_helper_,
       parser< ::fas::json::parse::_quote_>
@@ -83,7 +84,7 @@ struct ad_item_list:
 {};
 
 struct ad_array:
-  ad_entity< type_list_n<
+  ::fas::serialization::deser::ad_entity< type_list_n<
       parser< ::fas::json::parse::_left_bracket_>,
       _targets_,
       parser< ::fas::json::parse::_right_bracket_>
@@ -136,7 +137,7 @@ struct ad_array_list:
 
 
 struct ad_object:
-  ad_entity< type_list_n<
+  ::fas::serialization::deser::ad_entity< type_list_n<
     parser< ::fas::json::parse::_left_brace_>,
     _targets_,
     parser< ::fas::json::parse::_right_brace_>
