@@ -1,5 +1,5 @@
-#ifndef FAS_SERIALIZATION_DESER_AD_REPEAT_LIST_HPP
-#define FAS_SERIALIZATION_DESER_AD_REPEAT_LIST_HPP
+#ifndef FAS_SERIALIZATION_DESER_AD_REPEAT_HPP
+#define FAS_SERIALIZATION_DESER_AD_REPEAT_HPP
 
 #include <fas/serialization/common/except/try_throw.hpp>
 
@@ -16,7 +16,7 @@ namespace fas{ namespace serialization{ namespace deser{
  * @tparam TgParseEnd end list parser tag
  */
 template<typename TgParseSep, typename TgParseItem, typename TgParseEnd>
-struct ad_repeat_list
+struct ad_repeat
 {
   typedef TgParseSep  _separator_;
   typedef TgParseItem _parse_item_;

@@ -4,14 +4,15 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 
-#ifndef FAS_SERIALIZATION_DESER_AD_TARGET_LIST_HPP
-#define FAS_SERIALIZATION_DESER_AD_TARGET_LIST_HPP
+#ifndef FAS_SERIALIZATION_DESER_AD_VALUE_HPP
+#define FAS_SERIALIZATION_DESER_AD_VALUE_HPP
 
 #include <fas/type_list/type_at.hpp>
 
 namespace fas{ namespace serialization{ namespace deser{
 
-struct ad_target_list
+  
+struct ad_value
 {
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)
@@ -44,6 +45,7 @@ private:
     return r;
   }
 };
+
 
 }}}
 

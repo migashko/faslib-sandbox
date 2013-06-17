@@ -13,6 +13,7 @@
 
 namespace fas{ namespace serialization{ namespace deser{
 
+  /*
 template<typename TgParse>
 struct ad_peek_and_parse
 {
@@ -32,7 +33,7 @@ struct ad_peek_and_parse
   }
 };
 
-
+*/
 }}}
 
 #endif

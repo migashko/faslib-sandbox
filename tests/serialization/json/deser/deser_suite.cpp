@@ -135,7 +135,7 @@ UNIT(deser5_unit, "")
   char json2[]="{   \"member4\"  /* */ :  null, /*  */  \"member2\"  /* */ :  /**/ \"~Ё你 привет мир\"/* */  /**/,  /*  */  \"member1\"  /* */ :  /**/ 4321 /**/  /**/ }";
   //char json2[]="{   /*  */  \"member1\"  /* */ :  /**/ 4321 /**/  /**/ ,  /*  */  \"member2\"  /* */ :  /**/ \"~Ё你 привет мир\"/* */  /**/ }";
   try{
-  deser( object_json(), value, fas::srange(json2) );
+    deser( object_json(), value, fas::srange(json2) );
   }
   catch(fas::serialization::exception& e)
   {
@@ -199,6 +199,6 @@ BEGIN_SUITE(deser_suite, "")
   ADD_UNIT(deser3_unit)
   ADD_UNIT(deser4_unit)
   ADD_UNIT(deser5_unit)
-/*  ADD_UNIT(deser6_unit)
-  ADD_UNIT(deser7_unit)*/
+  ADD_UNIT(deser6_unit)
+  ADD_UNIT(deser7_unit)
 END_SUITE(deser_suite)

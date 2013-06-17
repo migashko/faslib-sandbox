@@ -1,5 +1,5 @@
-#ifndef FAS_SERIALIZATION_DESER_AD_PRIMARY_LIST_T_HPP
-#define FAS_SERIALIZATION_DESER_AD_PRIMARY_LIST_T_HPP
+#ifndef FAS_SERIALIZATION_DESER_AD_SMART_HPP
+#define FAS_SERIALIZATION_DESER_AD_SMART_HPP
 
 #include <fas/except/throw_.hpp>
 #include <fas/except/try_.hpp>
@@ -15,7 +15,7 @@
 namespace fas{ namespace serialization{ namespace deser{
 
 template<typename TgTarget, typename TgParseElement, typename TgParseEnd>
-struct ad_primary_list2
+struct ad_smart
 {
   typedef TgTarget          _target_;
   typedef TgParseElement  _element_;
