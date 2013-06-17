@@ -21,7 +21,7 @@
 #include <fas/serialization/deser/ad_target_n.hpp>
 #include <fas/serialization/deser/ad_utf8_letter.hpp>
 #include <fas/serialization/deser/ad_target_list.hpp>
-#include <fas/serialization/deser/ad_targets.hpp>
+#include <fas/serialization/deser/ad_target.hpp>
 #include <fas/serialization/deser/ad_access.hpp>
 #include <fas/serialization/deser/ad_primary_list.hpp>
 #include <fas/serialization/deser/ad_brute_list.hpp>
@@ -62,14 +62,15 @@ struct ad_string:
 
 struct _target_list_;
 struct _primary_list_;
-struct _targets_;
+struct _target_;
+struct _tag_;
 struct _first_target_;
 struct _second_target_;
 
 struct ad_item:
   ::fas::serialization::deser::ad_entity< type_list_n<
     ::fas::serialization::deser::parser< ::fas::json::parse::_space_>,
-    _targets_,
+    _target_,
     ::fas::serialization::deser::parser< ::fas::json::parse::_space_>,
     ::fas::serialization::deser::parser< ::fas::json::parse::_object_separator_>
   >::type >
@@ -86,7 +87,7 @@ struct ad_item_list:
 struct ad_array:
   ::fas::serialization::deser::ad_entity< type_list_n<
       parser< ::fas::json::parse::_left_bracket_>,
-      _targets_,
+      _target_,
       parser< ::fas::json::parse::_right_bracket_>
    >::type >
 {};
@@ -121,7 +122,7 @@ struct ad_field:
 
 struct ad_field_list:
   ::fas::serialization::deser::ad_primary_list2<
-    // _target_list_,
+    _tag_,
     ::fas::json::parse::_object_field_,
     ::fas::json::parse::_right_brace_
   >
@@ -129,7 +130,7 @@ struct ad_field_list:
 
 struct ad_array_list:
   ::fas::serialization::deser::ad_primary_list2<
-    //_item_,
+    _tag_,
     ::fas::json::parse::_array_item_,
     ::fas::json::parse::_right_bracket_
   >
@@ -139,7 +140,7 @@ struct ad_array_list:
 struct ad_object:
   ::fas::serialization::deser::ad_entity< type_list_n<
     parser< ::fas::json::parse::_left_brace_>,
-    _targets_,
+    _target_,
     parser< ::fas::json::parse::_right_brace_>
    >::type >
 {};
@@ -171,7 +172,8 @@ struct aspect:
     //advice< _object_, fas::serialization::deser::ad_targets<_object_helper_> >,
     advice< _object_, ad_object >,
 
-    advice< _targets_, ::fas::serialization::deser::ad_targets >,
+    advice< _target_, ::fas::serialization::deser::ad_target >,
+    advice< _tag_, ::fas::serialization::deser::ad_tag >,
     advice< _target_list_,       ::fas::serialization::deser::ad_target_list >,
     //advice< _access_,        ::fas::serialization::deser::ad_access<_target_list_> >,
     advice< _access_,        ::fas::serialization::deser::ad_access >,

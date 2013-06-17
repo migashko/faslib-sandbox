@@ -199,6 +199,6 @@ BEGIN_SUITE(deser_suite, "")
   ADD_UNIT(deser3_unit)
   ADD_UNIT(deser4_unit)
   ADD_UNIT(deser5_unit)
-  ADD_UNIT(deser6_unit)
-  ADD_UNIT(deser7_unit)
+/*  ADD_UNIT(deser6_unit)
+  ADD_UNIT(deser7_unit)*/
 END_SUITE(deser_suite)
