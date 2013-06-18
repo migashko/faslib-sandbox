@@ -16,23 +16,25 @@ namespace fas{ namespace serialization{ namespace deser{
 
 // first priority
 template<typename TgList, typename TgEnd>
-struct ad_helper_list
+struct ad_parse_copy2range
 {
   typedef typename normalize<TgList>::type target_list;
   typedef TgEnd _end_;
   
-  template<typename T, typename RR>
-  RR operator()(T& t, RR rr)
+  //template<typename T, typename RR>
+  //RR operator()(T& t, RR rr)
+  template<typename T, typename J, typename VR, typename R>
+  R operator()(T& t, J, VR& vr, R r)
   {
-    if ( t.get_aspect().template get<_end_>().peek(t, rr.first) )
-      return rr;
+    if ( t.get_aspect().template get<_end_>().peek(t, r) )
+      return r;
 
     do {
-      rr = _(t, rr, target_list() );
-      if ( t.get_aspect().template get<_end_>().peek(t, rr.first) )
+      r = _(t, std::make_pair(r, vr), target_list() ).first;
+      if ( t.get_aspect().template get<_end_>().peek(t, r) )
         break;
     } while ( try_<_except_>(t) );
-    return rr;
+    return r;
   }
 
 private:

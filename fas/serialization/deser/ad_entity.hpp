@@ -15,6 +15,8 @@
 #include <fas/type_list/tail.hpp>
 #include <fas/typemanip/type2type.hpp>
 #include <fas/range/mrange.hpp>
+#include <fas/integral/bool_.hpp>
+
 #include <utility>
 
 namespace fas{ namespace serialization{ namespace deser{
@@ -22,7 +24,7 @@ namespace fas{ namespace serialization{ namespace deser{
 template<typename T>
 struct parser{};
 
-template<typename TgList>
+template<typename TgList, bool Variant = false>
 struct ad_entity
 {
   typedef typename ::fas::normalize<TgList>::type tag_list;
@@ -48,7 +50,7 @@ private:
   R _(T& t, J, V& v, R r, TagList)
   {
     typedef typename ::fas::head<TagList>::type _head_;
-    r =  __(t, J(), v, r, type2type<_head_>() );
+    r =  __(t, J(), v, r, type2type<_head_>(), bool_<Variant>() );
 
     if ( !try_<_except_>(t) )
       return r;
@@ -66,18 +68,49 @@ private:
   }
 
   template<typename T, typename J, typename V, typename R, typename TgHead>
-  R __(T& t, J, V& v, R r, type2type<TgHead> )
+  R __(T& t, J, V& v, R r, type2type<TgHead>, bool_<false> )
   {
     return t.get_aspect().template get<TgHead>()(t, J(), v, r);
   }
 
   template<typename T, typename J, typename V, typename R, typename TgHead>
-  R __(T& t, J, V&, R r, type2type<parser<TgHead> > )
+  R __(T& t, J, V& v, R r, type2type<TgHead>, bool_<true> )
   {
+    R orig = r;
+    r = t.get_aspect().template get<TgHead>()(t, J(), v, r);
+    if ( t.get_aspect().template get<_status_>() )
+      return r;
+    t.get_aspect().template get<_status_>() = true;
+    return orig;
+  }
+
+  template<typename T, typename J, typename V, typename R, typename TgHead>
+  R __(T& t, J, V&, R r, type2type<parser<TgHead> >, bool_<false> )
+  {
+    return t.get_aspect().template get<TgHead>()(t, std::make_pair(r, mrange(r))).first;
+  }
+
+  template<typename T, typename J, typename V, typename R, typename TgHead>
+  R __(T& t, J, V&, R r, type2type<parser<TgHead> >, bool_<true> )
+  {
+    if ( !t.get_aspect().template get<TgHead>().peek(t, r) )
+      return r;
+    return t.get_aspect().template get<TgHead>()(t, std::make_pair(r, mrange(r))).first;
+  }
+
+};
+
+/*
+template<typename TgList, bool Var>
+template<typename T, typename J, typename V, typename R, typename TgHead>
+R ad_entity<TgList, Var>::__(T& t, J, V&, R r, type2type<parser<TgHead> > )
+{
     r =  t.get_aspect().template get<TgHead>()(t, std::make_pair(r, mrange(r))).first;
     return r;
-  }
-};
+}*/
+
+
+
 
 }}}
 

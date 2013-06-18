@@ -14,7 +14,7 @@
 namespace fas{ namespace serialization{ namespace deser{
 
 // TODO: delete and use parse::ad_utf8_letter
-struct ad_utf8_letter
+/*struct ad_utf8_letter
 {
   template<typename T, typename RR>
   RR operator()(T& t, RR rr)
@@ -55,6 +55,7 @@ private:
     return rr;
   }
 };
+*/
   
 }}}
 

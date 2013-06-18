@@ -38,6 +38,7 @@ UNIT(deser2_unit, "")
   aj::deserializer<> deser;
   deser( aj::name<n_name>(), value, fas::srange(json) );
   std::cout << value << std::endl;
+  t << equal<expect>(value, -1);
   t << nothing();
 }
 
@@ -48,8 +49,9 @@ UNIT(deser2_1_unit, "")
   std::string value;
   char json[]="\"name\"";
   aj::deserializer<> deser;
-  deser( aj::string(), value, fas::srange(json) );
+  deser( aj::range<aj::string>(), value, fas::srange(json) );
   std::cout << value << std::endl;
+  t << equal<expect>(value, "name") << FAS_TESTING_FILE_LINE << std::endl << value;
   t << nothing();
 }
 
@@ -81,7 +83,7 @@ UNIT(deser4_unit, "")
   char json[]="\"name\":\"~Ё你 привет мир\"/* */  /**/";
   aj::deserializer<> deser;
   try{
-  deser( aj::attr< aj::name<n_name>, aj::string >(), value, json );
+  deser( aj::attr< aj::name<n_name>, aj::range<aj::string> >(), value, json );
   }
   catch(fas::serialization::exception& e)
   {
@@ -90,6 +92,7 @@ UNIT(deser4_unit, "")
     throw e;
   }
   std::cout << value << std::endl;
+  t << equal<expect>(value, "~Ё你 привет мир");
   t << nothing();
 }
 
@@ -102,9 +105,9 @@ struct object
 };
 
 typedef aj::acc< ::fas::member<object, int, &object::member1>, aj::integer > acc_member1;
-typedef aj::acc< ::fas::member<object, std::string, &object::member2>, aj::string > acc_member2;
+typedef aj::acc< ::fas::member<object, std::string, &object::member2>, aj::range<aj::string> > acc_member2;
 typedef aj::attr< aj::name<n_member1>, aj::acc< ::fas::member<object, int,&object::member1>, aj::integer > > member1;
-typedef aj::attr< aj::name<n_member2>, aj::acc< ::fas::member<object, std::string, &object::member2>, aj::string > > member2;
+typedef aj::attr< aj::name<n_member2>, aj::acc< ::fas::member<object, std::string, &object::member2>, aj::range<aj::string> > > member2;
 
 typedef aj::object< ::fas::type_list_n<
   member1,
@@ -144,6 +147,8 @@ UNIT(deser5_unit, "")
     throw e;
   }
   std::cout << std::endl << value.member1 <<  std::endl << value.member2 << std::endl;
+  t << equal<expect>(value.member1, 4321);
+  t << equal<expect>(value.member2, "~Ё你 привет мир");
   t << nothing();
 }
 
@@ -155,7 +160,7 @@ UNIT(deser6_unit, "")
   char json[]="[\"value1\",\"value3\"]";
   aj::deserializer<> deser;
   try{
-    deser( aj::array< aj::string >(), value, fas::srange(json) );
+    deser( aj::array< aj::range<aj::string> >(), value, fas::srange(json) );
   }
   catch(fas::serialization::exception& e)
   {
@@ -165,6 +170,8 @@ UNIT(deser6_unit, "")
   }
   std::cout << std::endl << value.size(); 
   std::cout << std::endl << value[0] << std::endl << value[1] << std::endl;
+  t << equal<expect>(value[0], "value1");
+  t << equal<expect>(value[1], "value3");
   t << nothing();
 }
 

@@ -16,8 +16,6 @@
 #include <fas/serialization/json/deser/ad_field.hpp>
 
 #include <fas/serialization/deser/ad_deser.hpp>
-#include <fas/serialization/deser/ad_peek_and_parse.hpp>
-#include <fas/serialization/deser/ad_parse.hpp>
 #include <fas/serialization/deser/ad_target_n.hpp>
 #include <fas/serialization/deser/ad_utf8_letter.hpp>
 #include <fas/serialization/deser/ad_value.hpp>
@@ -41,20 +39,55 @@ using ::fas::serialization::deser::parser;
 
 struct _string_helper_;
 struct _string_content_;
+struct _string_content_variant_;
 struct _utf8_letter_;
+struct _error_;
+
+struct ad_parse_error
+{
+  template<typename T, typename RR>
+  RR operator()(T& t, RR rr)
+  {
+    return fas::throw_< fas::serialization::_except_ >(t, fas::serialization::parse_error( fas::distance(rr.first)  ), rr );
+  }
+};
+
 
 struct ad_string_content:
-  ::fas::serialization::deser::ad_helper_list< type_list_n<
+  ::fas::serialization::deser::ad_parse_copy2range< type_list_n<
     ::fas::json::parse::_utf8_letter_
   >::type, ::fas::json::parse::_quote_ >
 {};
 
-struct ad_string_helper: ::fas::serialization::deser::ad_helper<_string_content_> {};
+/*
+struct ad_string_content_variant:
+  ::fas::serialization::deser::ad_entity< type_list_n<
+    parser< ::fas::json::parse::_utf8_letter_>
+  >::type, true >
+{};
 
+
+struct ad_string_content:
+  ::fas::serialization::deser::ad_sequence<
+    _string_content_variant_, 
+    _error_,  
+    ::fas::json::parse::_quote_ 
+  >
+{};*/
+
+
+struct ad_string_helper: ::fas::serialization::deser::ad_back_inserter<_string_content_> {};
+
+//struct ad_string_helper: ad_string_content {};
+
+// TODO: meta для вставки или back_inserter<string>
+// то же для массивов 
+// TODO: для всех - reference_wrapper
 struct ad_string:
   ::fas::serialization::deser::ad_entity< type_list_n<
       parser< ::fas::json::parse::_quote_>,
-      _string_helper_,
+      //_string_helper_,
+      _string_content_,
       parser< ::fas::json::parse::_quote_>
   >::type >
 {
@@ -166,7 +199,9 @@ struct aspect:
     advice< _access_,        ::fas::serialization::deser::ad_access >,
     advice< _string_helper_,  ad_string_helper >,
     advice< _string_content_, ad_string_content >,
+//    advice< _string_content_variant_, ad_string_content_variant >,
     advice< _string_,         ad_string >,
+    advice< _error_, ad_parse_error >,
     advice< _integer_,        ::fas::serialization::deser::ad_integer >,
     advice< _equal_range_,    ::fas::serialization::deser::ad_equal_range>,
     advice< _first_target_,     ::fas::serialization::deser::ad_target_n<int_<0> > >,

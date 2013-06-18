@@ -17,7 +17,7 @@ namespace fas{ namespace serialization{ namespace deser{
 template<typename TgTarget, typename TgParseElement, typename TgParseEnd>
 struct ad_smart
 {
-  typedef TgTarget          _target_;
+  typedef TgTarget        _target_;
   typedef TgParseElement  _element_;
   typedef TgParseEnd      _end_;
 
@@ -58,14 +58,12 @@ private:
   {
     enum { position = length<L>::value - N };
     typedef typename type_at_c<position, L>::type target;
-    // typedef typename target::tag tag;
 
     if ( t.get_aspect().template get<_end_>().peek(t, r) )
       return r;
 
     R income = r;
 
-    // r = t.get_aspect().template get<tag>()(t, target(), v, r);
     r = t.get_aspect().template get<_target_>()(t, target(), v, r);
 
     if ( !try_<_except_>(t) )

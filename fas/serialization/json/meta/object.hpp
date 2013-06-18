@@ -56,11 +56,29 @@ struct array_list
 };
 
 
-template< typename Target>
-struct back_inserter
+template< typename Target, bool Clear = true>
+struct range
 {
   typedef Target target;
-  typedef _inserter_ tag;
+  typedef _access_ tag;
+  
+  template<typename V>
+  typename typerange<V>::orange& operator()(V& v) const
+  {
+    static void* _data = 0;
+    typedef typename typerange<V>::orange type;
+    static type tmp = orange(v, Clear);
+    _data = reinterpret_cast<void*>(&tmp);
+    return *reinterpret_cast<type*>(_data);
+  }
+
+  template<typename V>
+  typename typerange<V>::range& operator()(const V& v) const
+  {
+    return range(v);
+  }
+private:
+  // mutable void* _data;
 };
 
 template< typename Target >

@@ -1,5 +1,5 @@
-#ifndef FAS_SERIALIZATION_DESER_AD_REQUIRED_LIST_T_HPP
-#define FAS_SERIALIZATION_DESER_AD_REQUIRED_LIST_T_HPP
+#ifndef FAS_SERIALIZATION_DESER_AD_REQUIRED_HPP
+#define FAS_SERIALIZATION_DESER_AD_REQUIRED_HPP
 
 #include <fas/except/throw_.hpp>
 #include <fas/except/try_.hpp>
@@ -21,7 +21,7 @@ namespace fas{ namespace serialization{ namespace deser{
  * @tparam TgParseEnd end list parser tag
  */
 template<typename TgParseSep, typename TgParseItem, typename TgParseEnd>
-struct ad_required_list
+struct ad_required
 {
   typedef TgParseSep  _separator_;
   typedef TgParseItem _parse_item_;
