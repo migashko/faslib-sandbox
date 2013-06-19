@@ -3,6 +3,7 @@
 
 #include <fas/range/orange.hpp>
 #include <fas/range/typerange.hpp>
+#include <fas/typemanip/reference_wrapper.hpp>
 
 namespace fas{ namespace serialization{ namespace deser{
 
@@ -17,7 +18,7 @@ struct ad_sequence
   typedef TgParseEnd      _end_;
 
   template<typename T, typename J, typename V, typename R>
-  R operator()(T& t, J, V& v, R r)
+  R operator()(T& t, J, reference_wrapper<V> v, R r)
   {
 
     typedef typename typerange<V>::orange range_type;
@@ -26,7 +27,7 @@ struct ad_sequence
     /*typedef typename J::target   target;
     typedef typename target::tag tag;*/
 
-    range_type vr = orange(v);
+    range_type vr = orange(v.get());
     
     for (;;)
     {
@@ -36,7 +37,7 @@ struct ad_sequence
       value_type value = value_type();
       R orig = r;
       t.get_aspect().template get<_status_>() = true;
-      r = t.get_aspect().template get<_target_>()(t, J(), value, r);
+      r = t.get_aspect().template get<_target_>()(t, J(), ref(value), r);
       
       if ( t.get_aspect().template get<_status_>() )
         *(vr++) = value;

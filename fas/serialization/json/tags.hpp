@@ -16,7 +16,7 @@ struct _array_;
 struct _value_;
 
 struct _field_list_;
-struct _item_list_;
+struct _sequence_items_;
 struct _inserter_;
 struct _item_;
 

@@ -14,20 +14,21 @@
 
 namespace fas{ namespace json{ namespace parse{
 
+  /*
 struct ad_array_separator:
   ::fas::serialization::parse::ad_variant< type_list_n<
     _comma_,
     _empty_
   >::type >
 {};
-
+*/
 
 struct ad_array_item:
   ::fas::serialization::parse::ad_sequence< type_list_n<
       _space_,
       _value_,
       _space_,
-      _array_separator_
+      _sequence_separator_
   >::type >
 {};
 

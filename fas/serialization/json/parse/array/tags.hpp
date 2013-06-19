@@ -15,7 +15,7 @@ struct _array_item_;
 struct _item_list_;
 struct _array_content_;
 struct _array_;
-struct _array_separator_;
+//struct _array_separator_;
 
 }}}
 

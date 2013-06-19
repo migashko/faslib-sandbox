@@ -17,6 +17,7 @@ namespace fas{ namespace json{ namespace parse{
 
 struct _value_;
 struct _comma_;
+struct _sequence_separator_;
 
 
 

@@ -33,8 +33,8 @@ struct aspect:
     advice< _object_field_, ad_object_field>,
     advice< _field_list_, ad_field_list>,
     advice< _object_, ad_object>,
-    advice< _object_content_, ad_object_content>,
-    advice< _object_separator_, ad_object_separator>
+    advice< _object_content_, ad_object_content>/*,
+    advice< _object_separator_, ad_object_separator>*/
   >::type > 
 {};
 

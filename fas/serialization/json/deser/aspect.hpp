@@ -23,9 +23,7 @@
 #include <fas/serialization/deser/ad_access.hpp>
 #include <fas/serialization/deser/ad_smart.hpp>
 #include <fas/serialization/deser/ad_brute_list.hpp>
-#include <fas/serialization/deser/ad_enclosed.hpp>
 #include <fas/serialization/deser/ad_entity.hpp>
-#include <fas/serialization/deser/ad_separate.hpp>
 #include <fas/serialization/deser/ad_sequence.hpp>
 #include <fas/serialization/deser/ad_equal_range.hpp>
 #include <fas/serialization/json/parse/tags.hpp>
@@ -99,17 +97,33 @@ struct _target_;
 struct _tag_;
 struct _first_target_;
 struct _second_target_;
+//struct _sequence_items_;
+
+
+
+/*
+struct ad_field:
+  ::fas::serialization::deser::ad_separate<
+    _field_name_,
+    ::fas::json::parse::_colon_,
+    _field_value_
+  >
+{};
+*/
+
+
+// array
 
 struct ad_item:
   ::fas::serialization::deser::ad_entity< type_list_n<
     parser< ::fas::json::parse::_space_>,
     _target_,
     parser< ::fas::json::parse::_space_>,
-    parser< ::fas::json::parse::_array_separator_>
+    parser< ::fas::json::parse::_sequence_separator_>
   >::type >
 {};
 
-struct ad_item_list:
+struct ad_sequence_items:
   ::fas::serialization::deser::ad_sequence<
     _item_,
     ::fas::json::parse::_array_item_,
@@ -125,41 +139,7 @@ struct ad_array:
    >::type >
 {};
 
-
-
-/*
-struct ad_field:
-  ::fas::serialization::deser::ad_separate<
-    _field_name_,
-    ::fas::json::parse::_colon_,
-    _field_value_
-  >
-{};
-*/
-
-struct ad_field:
-  ::fas::serialization::deser::ad_entity< type_list_n<
-    parser< ::fas::json::parse::_space_>,
-    _first_target_,
-    parser< ::fas::json::parse::_space_>,
-    parser< ::fas::json::parse::_colon_>,
-    parser< ::fas::json::parse::_space_>,
-    _second_target_,
-    parser< ::fas::json::parse::_space_>,
-    parser< ::fas::json::parse::_object_separator_>
-  >::type >
-{};
-
-
-
-
-struct ad_field_list:
-  ::fas::serialization::deser::ad_smart<
-    _tag_,
-    ::fas::json::parse::_object_field_,
-    ::fas::json::parse::_right_brace_
-  >
-{};
+// advanced
 
 struct ad_array_list:
   ::fas::serialization::deser::ad_smart<
@@ -170,6 +150,30 @@ struct ad_array_list:
 {};
 
 
+// object
+
+struct ad_field:
+  ::fas::serialization::deser::ad_entity< type_list_n<
+    parser< ::fas::json::parse::_space_>,
+    _first_target_,
+    parser< ::fas::json::parse::_space_>,
+    parser< ::fas::json::parse::_colon_>,
+    parser< ::fas::json::parse::_space_>,
+    _second_target_,
+    parser< ::fas::json::parse::_space_>,
+    parser< ::fas::json::parse::_sequence_separator_>
+  >::type >
+{};
+
+
+struct ad_field_list:
+  ::fas::serialization::deser::ad_smart<
+    _tag_,
+    ::fas::json::parse::_object_field_,
+    ::fas::json::parse::_right_brace_
+  >
+{};
+
 struct ad_object:
   ::fas::serialization::deser::ad_entity< type_list_n<
     parser< ::fas::json::parse::_left_brace_>,
@@ -177,7 +181,6 @@ struct ad_object:
     parser< ::fas::json::parse::_right_brace_>
    >::type >
 {};
-
 
 
 struct aspect:
@@ -189,7 +192,6 @@ struct aspect:
     alias<  _prop_, _field_>,
     alias<  _attr_, _field_>,
     advice< _field_list_, ad_field_list >,
-    advice< _item_list_, ad_item_list >,
     advice< _item_, ad_item >,
     // alias<  _value_, _target_list_>,
     advice< _object_, ad_object >,
@@ -208,7 +210,8 @@ struct aspect:
     advice< _second_target_,    ::fas::serialization::deser::ad_target_n<int_<1> > >,
     // Перенести в serializer
     advice< ::fas::serialization::_deser_, ::fas::serialization::deser::ad_deser/*<_target_list_>*/ >,
-    value_advice< ::fas::serialization::_status_, bool>
+    value_advice< ::fas::serialization::_status_, bool>,
+    advice< _sequence_items_, ad_sequence_items >
   >::type >
 {};
 

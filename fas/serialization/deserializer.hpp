@@ -4,6 +4,7 @@
 #include <fas/serialization/tags.hpp>
 #include <fas/serialization/except/tags.hpp>
 #include <fas/aop/aspect_class.hpp>
+#include <fas/typemanip/reference_wrapper.hpp>
 
 namespace fas{ namespace serialization{
 
@@ -26,7 +27,7 @@ public:
   template<typename J, typename V, typename R>
   R operator()(J, V& v, R r)
   {
-    return super::get_aspect().template get<_deser_>()(*this, J(), v, r);
+    return super::get_aspect().template get<_deser_>()(*this, J(), ref(v), r);
   }
 
   operator bool () const

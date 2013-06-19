@@ -40,11 +40,11 @@ struct item
 };
 
 template< typename Target>
-struct item_list
+struct sequence_items
 {
   //typedef typename normalize<TargetList>::type target_list;
   typedef Target target;
-  typedef _item_list_ tag;
+  typedef _sequence_items_ tag;
 };
 
 template< typename TargetList>
@@ -63,22 +63,16 @@ struct range
   typedef _access_ tag;
   
   template<typename V>
-  typename typerange<V>::orange& operator()(V& v) const
+  typename typerange<V>::orange operator()(reference_wrapper<V> v) const
   {
-    static void* _data = 0;
-    typedef typename typerange<V>::orange type;
-    static type tmp = orange(v, Clear);
-    _data = reinterpret_cast<void*>(&tmp);
-    return *reinterpret_cast<type*>(_data);
+    return orange(v.get(), Clear);
   }
 
   template<typename V>
-  typename typerange<V>::range& operator()(const V& v) const
+  typename typerange<V>::range operator()(reference_wrapper<const V> v) const
   {
-    return range(v);
+    return range(v.get());
   }
-private:
-  // mutable void* _data;
 };
 
 template< typename Target >
@@ -91,7 +85,7 @@ struct array
     TargetList
   >::type targets;
   */
-  typedef item_list< Target > target;
+  typedef sequence_items< Target > target;
 
   typedef _array_ tag;
 };
