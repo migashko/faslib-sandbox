@@ -15,7 +15,7 @@ struct ad_access
   R operator()(T& t, J, V v, R r)
   {
     //std::cout << "ad_access" << std::endl;
-    return t.get_aspect().template get<_tag_>()(t, J(), J()(v), r);
+    return t.get_aspect().template get<_tag_>()(t, J(), ref(J()(v)), r);
   }
 };
 

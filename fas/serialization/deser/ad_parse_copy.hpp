@@ -30,7 +30,10 @@ struct ad_parse_copy
       return r;
 
     do {
-      r = _(t, std::make_pair(r, vr), target_list() ).first;
+      // r = _(t, std::make_pair(r, vr), target_list() ).first;
+      std::pair<R, typename VR::type> rp = _(t, std::make_pair(r, vr.get() ), target_list() );
+      r = rp.first;
+      vr = rp.second;
       if ( t.get_aspect().template get<_end_>().peek(t, r) )
         break;
     } while ( try_<_except_>(t) );
