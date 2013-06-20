@@ -52,7 +52,7 @@ struct ad_parse_error
 
 
 struct ad_string_content:
-  ::fas::serialization::deser::ad_parse_copy2range< type_list_n<
+  ::fas::serialization::deser::ad_parse_copy< type_list_n<
     ::fas::json::parse::_utf8_letter_
   >::type, ::fas::json::parse::_quote_ >
 {};
@@ -74,7 +74,8 @@ struct ad_string_content:
 {};*/
 
 
-struct ad_string_helper: ::fas::serialization::deser::ad_back_inserter<_string_content_> {};
+//struct ad_string_helper: ::fas::serialization::deser::ad_back_inserter<_string_content_> {};
+struct ad_string_helper: ::fas::serialization::deser::ad_access<_string_content_> {};
 
 //struct ad_string_helper: ad_string_content {};
 
@@ -84,8 +85,8 @@ struct ad_string_helper: ::fas::serialization::deser::ad_back_inserter<_string_c
 struct ad_string:
   ::fas::serialization::deser::ad_entity< type_list_n<
       parser< ::fas::json::parse::_quote_>,
-      //_string_helper_,
-      _string_content_,
+      _string_helper_,
+      // _string_content_,
       parser< ::fas::json::parse::_quote_>
   >::type >
 {
@@ -114,6 +115,43 @@ struct ad_field:
 
 // array
 
+// Иницализация элемена массива
+template<typename Tg, typename TgParse>
+struct ad_assign_or_parse
+{
+  template<typename T, typename J, typename VR, typename R>
+  R operator()(T& t, J, VR& vr, R r)
+  {
+    typedef TgParse _parse_;
+    //typedef typename typerange<VR>::value_type value_type;
+    typedef typename VR::value_type value_type;
+    value_type value = value_type();
+    t.get_aspect().template get< ::fas::serialization::_status_>() = true;
+    R orig = r;
+    r = t.get_aspect().template get<Tg>()(t, J(), ref(value), r);
+    if ( !t.get_aspect().template get< ::fas::serialization::_status_>() )
+    {
+      t.get_aspect().template get< ::fas::serialization::_status_>() = true;
+      // TODO: сделать _parse_(t, tag<TgParse>(), r);
+      r = t.get_aspect().template get<_parse_>() (t, std::make_pair(orig, mrange(orig)) ).first;
+    }
+    else
+    {
+      *(vr++) = value;
+    }
+    return r;
+  }
+};
+
+struct _item_assign_;
+struct ad_item_assign: ad_assign_or_parse< _target_, ::fas::json::parse::_array_item_> {};
+
+
+struct _empty_;
+
+struct _item2_;
+struct ad_item2: ::fas::serialization::deser::ad_access</*_item2_*/_empty_> {};
+
 struct ad_item:
   ::fas::serialization::deser::ad_entity< type_list_n<
     parser< ::fas::json::parse::_space_>,
@@ -123,13 +161,31 @@ struct ad_item:
   >::type >
 {};
 
-struct ad_sequence_items:
+struct ad_sequence_items2:
   ::fas::serialization::deser::ad_sequence<
-    _item_,
+    // _item_,
+    /*
+    _target_,
     ::fas::json::parse::_array_item_,
+    */
+    _item_assign_,
     ::fas::json::parse::_right_bracket_
   >    
 {};
+
+
+struct ad_empty
+{
+  template<typename T, typename J, typename V, typename R>
+  R operator()(T& , J, V , R r)
+  {
+    return r;
+  }
+};
+
+
+struct _sequence_items2_;
+struct ad_sequence_items: ::fas::serialization::deser::ad_access<_sequence_items2_> {};
 
 struct ad_array:
   ::fas::serialization::deser::ad_entity< type_list_n<
@@ -193,12 +249,13 @@ struct aspect:
     alias<  _attr_, _field_>,
     advice< _field_list_, ad_field_list >,
     advice< _item_, ad_item >,
+    advice< _item2_, ad_item2 >,
     // alias<  _value_, _target_list_>,
     advice< _object_, ad_object >,
     advice< _target_, ::fas::serialization::deser::ad_target >,
     advice< _tag_, ::fas::serialization::deser::ad_tag >,
     advice< _value_,       ::fas::serialization::deser::ad_value >,
-    advice< _access_,        ::fas::serialization::deser::ad_access >,
+    advice< _access_,        ::fas::serialization::deser::ad_access<_target_> >,
     advice< _string_helper_,  ad_string_helper >,
     advice< _string_content_, ad_string_content >,
 //    advice< _string_content_variant_, ad_string_content_variant >,
@@ -209,9 +266,14 @@ struct aspect:
     advice< _first_target_,     ::fas::serialization::deser::ad_target_n<int_<0> > >,
     advice< _second_target_,    ::fas::serialization::deser::ad_target_n<int_<1> > >,
     // Перенести в serializer
+    type_list_n<
     advice< ::fas::serialization::_deser_, ::fas::serialization::deser::ad_deser/*<_target_list_>*/ >,
     value_advice< ::fas::serialization::_status_, bool>,
-    advice< _sequence_items_, ad_sequence_items >
+    advice< _sequence_items_, ad_sequence_items >,
+    advice< _sequence_items2_, ad_sequence_items2 >,
+    advice< _empty_, ad_empty>,
+    advice< _item_assign_, ad_item_assign>
+    >::type
   >::type >
 {};
 

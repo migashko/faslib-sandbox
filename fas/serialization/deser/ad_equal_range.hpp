@@ -18,7 +18,7 @@ namespace fas{ namespace serialization{ namespace deser{
 struct ad_equal_range
 {
   template<typename T, typename J, typename V, typename R>
-  R operator()(T& t, J, V& , R r)
+  R operator()(T& t, J, V , R r)
   {
     return _equal_range(t, srange( J()() ), r );
   }

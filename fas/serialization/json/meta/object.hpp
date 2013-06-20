@@ -8,6 +8,8 @@
 #include <fas/type_list/empty_list.hpp>
 #include <fas/range.hpp>
 
+#include "sequence.hpp"
+
 namespace fas{ namespace json{
 
 template< typename TargetList>
@@ -37,15 +39,34 @@ struct item
   //typedef typename normalize<TargetList>::type target_list;
   typedef Target target;
   typedef _item_ tag;
+
+  /*
+  template<typename R>
+  typename R::value_type operator()(R r) const
+  {
+    return *r;
+  }*/
 };
 
+
 template< typename Target>
-struct sequence_items
+struct sequence_items: sequence<Target, _sequence_items_>
 {
   //typedef typename normalize<TargetList>::type target_list;
+  /*
   typedef Target target;
   typedef _sequence_items_ tag;
+  */
 };
+
+template< typename Target >
+struct array
+{
+  typedef sequence_items< item<Target> > target;
+
+  typedef _array_ tag;
+};
+
 
 template< typename TargetList>
 struct array_list
@@ -65,30 +86,19 @@ struct range
   template<typename V>
   typename typerange<V>::orange operator()(reference_wrapper<V> v) const
   {
-    return orange(v.get(), Clear);
+    typename typerange<V>::orange tmp = orange(v.get(), Clear);
+    *tmp = "aaaa";
+    return tmp;
+    // return orange(v.get(), Clear);
   }
 
-  template<typename V>
+  /*template<typename V>
   typename typerange<V>::range operator()(reference_wrapper<const V> v) const
   {
     return range(v.get());
-  }
+  }*/
 };
 
-template< typename Target >
-struct array
-{
-  // typedef typename normalize<TargetList>::type targets;
-  /*typedef typename if_c<
-    is_type_list<TargetList>::value,
-    field_list<TargetList>,
-    TargetList
-  >::type targets;
-  */
-  typedef sequence_items< Target > target;
-
-  typedef _array_ tag;
-};
 
 
 }}

@@ -5,7 +5,6 @@
 
 namespace fas{ namespace json{
 
-//template<typename J = empty_list>
 struct integer
 {
   typedef _integer_ tag;

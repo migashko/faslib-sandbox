@@ -1,5 +1,5 @@
-#ifndef FAS_SERIALIZATION_DESER_AD_HELPER_LIST_HPP
-#define FAS_SERIALIZATION_DESER_AD_HELPER_LIST_HPP
+#ifndef FAS_SERIALIZATION_DESER_AD_PARSE_COPY_HPP
+#define FAS_SERIALIZATION_DESER_AD_PARSE_COPY_HPP
 
 #include <fas/serialization/except/out_of_range.hpp>
 #include <fas/serialization/except/unexpected_end_fragment.hpp>
@@ -16,7 +16,7 @@ namespace fas{ namespace serialization{ namespace deser{
 
 // first priority
 template<typename TgList, typename TgEnd>
-struct ad_parse_copy2range
+struct ad_parse_copy
 {
   typedef typename normalize<TgList>::type target_list;
   typedef TgEnd _end_;
@@ -24,7 +24,7 @@ struct ad_parse_copy2range
   //template<typename T, typename RR>
   //RR operator()(T& t, RR rr)
   template<typename T, typename J, typename VR, typename R>
-  R operator()(T& t, J, VR& vr, R r)
+  R operator()(T& t, J, VR vr, R r)
   {
     if ( t.get_aspect().template get<_end_>().peek(t, r) )
       return r;

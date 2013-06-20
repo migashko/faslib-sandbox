@@ -6,14 +6,16 @@
 
 namespace fas{ namespace serialization{ namespace deser{
 
+template<typename TgNext>
 struct ad_access
 {
+  typedef TgNext _tag_;
+  
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V v, R r)
   {
-    typedef typename J::target target;
-    typedef typename target::tag tag;
-    return t.get_aspect().template get<tag>()(t, target(), J()(v), r);
+    //std::cout << "ad_access" << std::endl;
+    return t.get_aspect().template get<_tag_>()(t, J(), J()(v), r);
   }
 };
 

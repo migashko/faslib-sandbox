@@ -32,6 +32,7 @@ struct ad_entity
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V v, R r)
   {
+    // std::cout << "ad_entity" << std::endl;
     R orig = r;
     r =  _(t, J(), v, r, tag_list() );
 
