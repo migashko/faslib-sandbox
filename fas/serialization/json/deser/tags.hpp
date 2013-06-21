@@ -5,6 +5,11 @@
 
 namespace fas{ namespace json{ namespace deser{
 
+struct _push2range_;
+
+  
+// old
+  
 struct _deser_integer_;
 //struct _quote_;
 struct _equal_range_;
