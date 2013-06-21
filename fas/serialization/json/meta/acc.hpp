@@ -11,6 +11,7 @@ struct acc: Accessor
 {
   typedef Target target;
   typedef _access_ tag;
+  /*
   typedef typename Accessor::value_type value_type;
 
   template<typename V>
@@ -24,6 +25,7 @@ struct acc: Accessor
   {
     return cref(Accessor::operator()(v.get()));
   }
+  */
  
 };
 

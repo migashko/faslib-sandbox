@@ -30,7 +30,7 @@ struct ad_entity
   typedef typename ::fas::normalize<TgList>::type tag_list;
 
   template<typename T, typename J, typename V, typename R>
-  R operator()(T& t, J, V v, R r)
+  R operator()(T& t, J, V& v, R r)
   {
     // std::cout << "ad_entity" << std::endl;
     R orig = r;
@@ -48,7 +48,7 @@ struct ad_entity
 private:
 
   template<typename T, typename J, typename V, typename R, typename TagList>
-  R _(T& t, J, V v, R r, TagList)
+  R _(T& t, J, V& v, R r, TagList)
   {
     typedef typename ::fas::head<TagList>::type _head_;
     r =  __(t, J(), v, r, type2type<_head_>(), bool_<Variant>() );
@@ -63,19 +63,19 @@ private:
   }
 
   template<typename T, typename J, typename V, typename R>
-  R _(T&, J, V , R r, empty_list)
+  R _(T&, J, V& , R r, empty_list)
   {
     return r;
   }
 
   template<typename T, typename J, typename V, typename R, typename TgHead>
-  R __(T& t, J, V v, R r, type2type<TgHead>, bool_<false> )
+  R __(T& t, J, V& v, R r, type2type<TgHead>, bool_<false> )
   {
     return t.get_aspect().template get<TgHead>()(t, J(), v, r);
   }
 
   template<typename T, typename J, typename V, typename R, typename TgHead>
-  R __(T& t, J, V v, R r, type2type<TgHead>, bool_<true> )
+  R __(T& t, J, V& v, R r, type2type<TgHead>, bool_<true> )
   {
     R orig = r;
     r = t.get_aspect().template get<TgHead>()(t, J(), v, r);
@@ -86,13 +86,13 @@ private:
   }
 
   template<typename T, typename J, typename V, typename R, typename TgHead>
-  R __(T& t, J, V, R r, type2type<parser<TgHead> >, bool_<false> )
+  R __(T& t, J, V&, R r, type2type<parser<TgHead> >, bool_<false> )
   {
     return t.get_aspect().template get<TgHead>()(t, std::make_pair(r, mrange(r))).first;
   }
 
   template<typename T, typename J, typename V, typename R, typename TgHead>
-  R __(T& t, J, V, R r, type2type<parser<TgHead> >, bool_<true> )
+  R __(T& t, J, V&, R r, type2type<parser<TgHead> >, bool_<true> )
   {
     if ( !t.get_aspect().template get<TgHead>().peek(t, r) )
       return r;

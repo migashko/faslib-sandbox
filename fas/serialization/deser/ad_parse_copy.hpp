@@ -23,17 +23,17 @@ struct ad_parse_copy
   
   //template<typename T, typename RR>
   //RR operator()(T& t, RR rr)
-  template<typename T, typename J, typename VR, typename R>
-  R operator()(T& t, J, VR vr, R r)
+  template<typename T, typename J, typename V, typename R>
+  R operator()(T& t, J, V& v, R r)
   {
     if ( t.get_aspect().template get<_end_>().peek(t, r) )
       return r;
 
     do {
       // r = _(t, std::make_pair(r, vr), target_list() ).first;
-      std::pair<R, typename VR::type> rp = _(t, std::make_pair(r, vr.get() ), target_list() );
+      std::pair<R, V> rp = _(t, std::make_pair(r, v ), target_list() );
       r = rp.first;
-      vr = rp.second;
+      v = rp.second;
       if ( t.get_aspect().template get<_end_>().peek(t, r) )
         break;
     } while ( try_<_except_>(t) );

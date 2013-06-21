@@ -12,7 +12,7 @@ struct _push2range_;
   
 struct _deser_integer_;
 //struct _quote_;
-struct _equal_range_;
+
 struct _field_name_;
 struct _field_value_;
 

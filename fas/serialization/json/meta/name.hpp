@@ -12,6 +12,18 @@ struct name: Name
   typedef _name_ tag;
 };
 
+template<typename S>
+struct jstring: S
+{
+  typedef _jstring_ tag;
+};
+
+template<typename S>
+struct tstring: S
+{
+  typedef _tstring_ tag;
+};
+
 }}
 
 #endif

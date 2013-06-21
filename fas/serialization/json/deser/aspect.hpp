@@ -11,7 +11,7 @@
 #include <fas/serialization/deser/ad_parse_copy.hpp>
 
 #include <fas/serialization/json/deser/ad_integer.hpp>
-#include <fas/serialization/json/deser/ad_name.hpp>
+#include <fas/serialization/json/deser/ad_jstring.hpp>
 #include <fas/serialization/json/deser/ad_field.hpp>
 
 #include <fas/serialization/deser/ad_deser.hpp>
@@ -24,7 +24,7 @@
 #include <fas/serialization/deser/ad_brute_list.hpp>
 #include <fas/serialization/deser/ad_entity.hpp>
 #include <fas/serialization/deser/ad_sequence.hpp>
-#include <fas/serialization/deser/ad_equal_range.hpp>
+#include <fas/serialization/deser/ad_tstring.hpp>
 #include <fas/serialization/deser/ad_value2range.hpp>
 #include <fas/serialization/deser/ad_push2range.hpp>
 #include <fas/serialization/deser/ad_process_or_parse.hpp>
@@ -92,10 +92,10 @@ struct ad_string:
 
 struct _target_list_;
 struct _primary_list_;
+//
+//struct _tag_;
 
-struct _tag_;
-struct _field_key_;
-struct _field_value_;
+//struct _field_value_;
 
 
 
@@ -170,7 +170,7 @@ struct ad_array_list:
 
 
 // object
-
+/*
 struct ad_field:
   ::fas::serialization::deser::ad_entity< type_list_n<
     parser< ::fas::json::parse::_space_>,
@@ -183,16 +183,18 @@ struct ad_field:
     parser< ::fas::json::parse::_sequence_separator_>
   >::type >
 {};
-
-
-struct ad_field_list:
+*/
+/*
+struct ad_field_list_smart:
   ::fas::serialization::deser::ad_smart<
     _tag_,
     ::fas::json::parse::_object_field_,
     ::fas::json::parse::_right_brace_
   >
 {};
+*/
 
+/*
 struct ad_object:
   ::fas::serialization::deser::ad_entity< type_list_n<
     parser< ::fas::json::parse::_left_brace_>,
@@ -200,24 +202,24 @@ struct ad_object:
     parser< ::fas::json::parse::_right_brace_>
    >::type >
 {};
-
+*/
 
 struct aspect:
   ::fas::aspect< type_list_n<
     array::aspect,
     object::aspect,
-    advice< _name_,     ad_name >,
+    advice< _jstring_,     ad_jstring >,
     advice< _field_,    ad_field >,
     // advice< _array_, ad_array >,
     advice< _array_list_, ad_array_list>,
     alias<  _prop_, _field_>,
     alias<  _attr_, _field_>,
-    advice< _field_list_, ad_field_list >,
+    //advice< _field_list_smart_, ad_field_list_smart >,
     // advice< _item_, ad_item >,
     //advice< _item_impl_, ad_item_impl >,
     //advice< _value2range_, ad_value2range >,
     // alias<  _value_, _target_list_>,
-    advice< _object_, ad_object >,
+    //advice< _object_, ad_object >,
     advice< _target_, ::fas::serialization::deser::ad_target >,
     advice< _tag_, ::fas::serialization::deser::ad_tag >,
     advice< _value_,       ::fas::serialization::deser::ad_value >,
@@ -228,9 +230,9 @@ struct aspect:
     advice< _string_,         ad_string >,
     advice< _error_, ad_parse_error >,
     advice< _integer_,        ::fas::serialization::deser::ad_integer >,
-    advice< _equal_range_,    ::fas::serialization::deser::ad_equal_range>,
-    advice< _field_key_,     ::fas::serialization::deser::ad_target_n<int_<0> > >,
-    advice< _field_value_,    ::fas::serialization::deser::ad_target_n<int_<1> > >,
+    advice< _tstring_,    ::fas::serialization::deser::ad_tstring>,
+    // advice< _field_key_,     ::fas::serialization::deser::ad_target_n<int_<0> > >,
+    // advice< _field_value_,    ::fas::serialization::deser::ad_target_n<int_<1> > >,
     // Перенести в serializer
     type_list_n<
     advice< ::fas::serialization::_deser_, ::fas::serialization::deser::ad_deser/*<_target_list_>*/ >,

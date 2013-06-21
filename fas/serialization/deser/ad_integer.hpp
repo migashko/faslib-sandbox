@@ -6,9 +6,9 @@ namespace fas{ namespace serialization{ namespace deser{
 struct ad_integer
 {
   template<typename T, typename J, typename V, typename R>
-  R operator()(T&, J, V v, R r)
+  R operator()(T&, J, V& v, R r)
   {
-    return this->deserealize(v.get(), r);
+    return this->deserealize(v, r);
   }
 
 private:

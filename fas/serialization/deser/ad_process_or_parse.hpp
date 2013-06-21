@@ -21,7 +21,7 @@ template<typename Tg, typename TgParse>
 struct ad_process_or_parse
 {
   template<typename T, typename J, typename V, typename R>
-  R operator()(T& t, J, V v, R r)
+  R operator()(T& t, J, V& v, R r)
   {
     t.get_aspect().template get<_status_>() = true;
     R orig = r;

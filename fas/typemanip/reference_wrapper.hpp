@@ -3,6 +3,7 @@
 
 namespace fas
 {
+  /*
      
   template<typename _Tp>
     inline _Tp*
@@ -73,6 +74,7 @@ namespace fas
     inline reference_wrapper<const _Tp>
     cref(reference_wrapper<_Tp> __t) 
     { return cref(__t.get()); }
+    */
 
 }
 #endif 

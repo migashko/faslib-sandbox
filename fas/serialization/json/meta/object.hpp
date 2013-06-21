@@ -15,8 +15,9 @@ namespace fas{ namespace json{
 template< typename TargetList>
 struct field_list
 {
+  // TODO: list categories
   typedef typename normalize<TargetList>::type target_list;
-  typedef _field_list_ tag;
+  typedef _field_list_smart_ tag;
 };
 
 
@@ -76,7 +77,7 @@ struct array_list
   typedef _array_list_ tag;
 };
 
-
+/*
 template< typename Target, bool Clear = true>
 struct range
 {
@@ -89,16 +90,9 @@ struct range
     typename typerange<V>::orange tmp = orange(v.get(), Clear);
     *tmp = "aaaa";
     return tmp;
-    // return orange(v.get(), Clear);
   }
-
-  /*template<typename V>
-  typename typerange<V>::range operator()(reference_wrapper<const V> v) const
-  {
-    return range(v.get());
-  }*/
 };
-
+*/
 
 
 }}

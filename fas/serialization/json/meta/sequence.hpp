@@ -1,7 +1,7 @@
 #ifndef FAS_SERIALIZATION_JSON_META_SEQUENCE_HPP
 #define FAS_SERIALIZATION_JSON_META_SEQUENCE_HPP
 
-#include <fas/typemanip/reference_wrapper.hpp>
+//#include <fas/typemanip/reference_wrapper.hpp>
 #include <fas/range/typerange.hpp>
 #include <fas/range/range.hpp>
 #include <fas/range/orange.hpp>
@@ -14,12 +14,12 @@ struct sequence
   typedef Target target;
   typedef Tg tag;
 
-  
+  /*
   template<typename V>
   typename typerange<V>::orange operator()( reference_wrapper<V> v ) const
   {
     return orange( v.get() );
-  }
+  }*/
   
 
   /*

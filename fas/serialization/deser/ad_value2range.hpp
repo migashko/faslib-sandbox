@@ -10,11 +10,11 @@ template<typename Tg>
 struct ad_value2range
 {
   template<typename T, typename J, typename V, typename R>
-  R operator()(T& t, J, V v, R r)
+  R operator()(T& t, J, V& v, R r)
   {
-    typedef typename V::type value_type;
-    typename typerange<value_type>::orange vr = orange(v.get());
-    return t.get_aspect().template get<Tg>()( t, J(), ref(vr), r);
+    //typedef V value_type;
+    typename typerange<V>::orange vr = orange(v);
+    return t.get_aspect().template get<Tg>()( t, J(), vr, r);
   }
 };
   

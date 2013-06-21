@@ -20,7 +20,7 @@ namespace fas{ namespace serialization{ namespace deser{
 struct ad_deser
 {
   template<typename T, typename J, typename V, typename R>
-  R operator()(T& t, J, V v, R r)
+  R operator()(T& t, J, V& v, R r)
   {
     typedef typename range_traits<R>::range_category  first_range_category;
 
