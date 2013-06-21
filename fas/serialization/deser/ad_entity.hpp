@@ -98,20 +98,7 @@ private:
       return r;
     return t.get_aspect().template get<TgHead>()(t, std::make_pair(r, mrange(r))).first;
   }
-
 };
-
-/*
-template<typename TgList, bool Var>
-template<typename T, typename J, typename V, typename R, typename TgHead>
-R ad_entity<TgList, Var>::__(T& t, J, V&, R r, type2type<parser<TgHead> > )
-{
-    r =  t.get_aspect().template get<TgHead>()(t, std::make_pair(r, mrange(r))).first;
-    return r;
-}*/
-
-
-
 
 }}}
 

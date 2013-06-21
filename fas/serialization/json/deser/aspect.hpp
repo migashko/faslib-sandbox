@@ -27,14 +27,17 @@
 #include <fas/serialization/deser/ad_equal_range.hpp>
 #include <fas/serialization/deser/ad_value2range.hpp>
 #include <fas/serialization/deser/ad_push2range.hpp>
+#include <fas/serialization/deser/ad_process_or_parse.hpp>
 #include <fas/serialization/json/parse/tags.hpp>
+
+
+/// ////////////////////////
+#include <fas/serialization/json/deser/array/aspect.hpp>
 
 
 namespace fas{ namespace json{ namespace deser{
 
 using ::fas::serialization::deser::parser;
-// using ::fas::serialization::deser::ad_sequence;
-// using ::fas::serialization::deser::ad_sequence;
 
 struct _string_helper_;
 struct _string_content_;
@@ -60,38 +63,9 @@ struct ad_string_content:
   >::type, ::fas::json::parse::_quote_ >
 {};
 
-/*
-struct ad_string_content_variant:
-  ::fas::serialization::deser::ad_entity< type_list_n<
-    parser< ::fas::json::parse::_utf8_letter_>
-  >::type, true >
-{};
 
-
-struct ad_string_content:
-  ::fas::serialization::deser::ad_sequence<
-    _string_content_variant_, 
-    _error_,  
-    ::fas::json::parse::_quote_ 
-  >
-{};*/
-
-struct _value2range_;
-/*
-template<typename Tg>
-struct ad_value2range
-{
-  template<typename T, typename J, typename V, typename R>
-  R operator()(T& t, J, V v, R r)
-  {
-    typedef typename V::type value_type;
-    typename typerange<value_type>::orange vr = orange(v.get());
-    return t.get_aspect().template get<Tg>()( t, J(), ref(vr), r);
-  }
-};
-*/
-
-struct _push2range_;
+struct _value2range_; // в json
+struct _push2range_;  // в json::deser
 
 struct ad_empty
 {
@@ -102,11 +76,7 @@ struct ad_empty
   }
 };
 
-
-//struct ad_string_helper: ::fas::serialization::deser::ad_back_inserter<_string_content_> {};
-//struct ad_string_helper: ::fas::serialization::deser::ad_access<_string_content_> {};
 struct ad_string_helper: ::fas::serialization::deser::ad_value2range<_string_content_> {};
-//struct ad_string_helper: ad_string_content {};
 
 // TODO: meta для вставки или back_inserter<string>
 // то же для массивов 
@@ -115,7 +85,6 @@ struct ad_string:
   ::fas::serialization::deser::ad_entity< type_list_n<
       parser< ::fas::json::parse::_quote_>,
       _string_helper_,
-      // _string_content_,
       parser< ::fas::json::parse::_quote_>
   >::type >
 {
@@ -123,28 +92,16 @@ struct ad_string:
 
 struct _target_list_;
 struct _primary_list_;
-struct _target_;
+
 struct _tag_;
 struct _first_target_;
 struct _second_target_;
-//struct _sequence_items_;
 
-
-
-/*
-struct ad_field:
-  ::fas::serialization::deser::ad_separate<
-    _field_name_,
-    ::fas::json::parse::_colon_,
-    _field_value_
-  >
-{};
-*/
 
 
 // array
 
-
+/*
 template<typename Tg, typename TgParse>
 struct ad_process_or_parse
 {
@@ -161,129 +118,40 @@ struct ad_process_or_parse
       r = t.get_aspect().template get<TgParse>() (t, std::make_pair(orig, mrange(orig)) ).first;
     }
     return r;
-    
-    /*
-    typedef TgParse _parse_;
-    //typedef typename typerange<VR>::value_type value_type;
-    typedef typename VR::value_type value_type;
-    value_type value = value_type();
-    t.get_aspect().template get< ::fas::serialization::_status_>() = true;
-    R orig = r;
-    r = t.get_aspect().template get<Tg>()(t, J(), ref(value), r);
-    if ( !t.get_aspect().template get< ::fas::serialization::_status_>() )
-    {
-      t.get_aspect().template get< ::fas::serialization::_status_>() = true;
-      // TODO: сделать _parse_(t, tag<TgParse>(), r);
-      r = t.get_aspect().template get<_parse_>() (t, std::make_pair(orig, mrange(orig)) ).first;
-    }
-    else
-    {
-      *(vr.get()++) = value;
-    }
-    return r;
-    */
   }
 };
+*/
 
 
 struct _process_item_;
 struct ad_process_item:
-  ad_process_or_parse< /*_target_*/_push2range_, ::fas::json::parse::_array_item_>
+  ::fas::serialization::deser::ad_process_or_parse< _push2range_, ::fas::json::parse::_array_item_>
 {};
 
 
-
-
-// Иницализация элемена массива
-/*
-template<typename Tg, typename TgParse>
-struct ad_assign_or_parse
-{
-  template<typename T, typename J, typename VR, typename R>
-  R operator()(T& t, J, reference_wrapper<VR> vr, R r)
-  {
-    typedef TgParse _parse_;
-    //typedef typename typerange<VR>::value_type value_type;
-    typedef typename VR::value_type value_type;
-    value_type value = value_type();
-    t.get_aspect().template get< ::fas::serialization::_status_>() = true;
-    R orig = r;
-    r = t.get_aspect().template get<Tg>()(t, J(), ref(value), r);
-    if ( !t.get_aspect().template get< ::fas::serialization::_status_>() )
-    {
-      t.get_aspect().template get< ::fas::serialization::_status_>() = true;
-      // TODO: сделать _parse_(t, tag<TgParse>(), r);
-      r = t.get_aspect().template get<_parse_>() (t, std::make_pair(orig, mrange(orig)) ).first;
-    }
-    else
-    {
-      *(vr.get()++) = value;
-    }
-    return r;
-  }
-};
-*/
-/*
-struct _item_assign_;
-struct ad_item_assign: ad_assign_or_parse< _target_, ::fas::json::parse::_array_item_> {};
-*/
-
-
-
-/*
-struct _value2range_;
-//struct ad_item2: ::fas::serialization::deser::ad_access<_item2_> {};
-struct ad_value2range: ad_value2range<_target_> {};
-
-struct _item3_;
 struct ad_item:
   ::fas::serialization::deser::ad_entity< type_list_n<
     parser< ::fas::json::parse::_space_>,
-    _push2range_,
-    parser< ::fas::json::parse::_space_>,
-    parser< ::fas::json::parse::_sequence_separator_>
-  >::type >
-{};
-
-struct ad_sequence_items:
-  ::fas::serialization::deser::ad_sequence<
-    _process_item_,
-    ::fas::json::parse::_right_bracket_
-  >    
-{};
-
-*/
-
-
-/*
-struct _sequence_items2_;
-struct ad_sequence_items2: ::fas::serialization::deser::ad_access<_sequence_items2_> {};
-*/
-
-
-struct ad_item/*_impl*/:
-  ::fas::serialization::deser::ad_entity< type_list_n<
-    parser< ::fas::json::parse::_space_>,
-    /* _target_,-*/
-    //_empty_,
     _target_,
     parser< ::fas::json::parse::_space_>,
     parser< ::fas::json::parse::_sequence_separator_>
   >::type >
 {};
 
-
-struct ad_item_impl: ::fas::serialization::deser::ad_push2range<_item_impl_> {};
-
-struct _sequence_items_impl_;
-struct ad_sequence_items_impl:
+struct _process_sequence_items_;
+struct ad_process_sequence_items:
   ::fas::serialization::deser::ad_sequence<
     _process_item_,
     ::fas::json::parse::_right_bracket_
   >    
 {};
 
-struct ad_sequence_items: ::fas::serialization::deser::ad_value2range<_sequence_items_impl_> {};
+struct ad_sequence_items:
+  ::fas::serialization::deser::ad_value2range<_process_sequence_items_>
+{
+  
+};
+/*
 
 struct ad_array:
   ::fas::serialization::deser::ad_entity< type_list_n<
@@ -292,6 +160,7 @@ struct ad_array:
       parser< ::fas::json::parse::_right_bracket_>
    >::type >
 {};
+*/
 
 // advanced
 
@@ -339,15 +208,16 @@ struct ad_object:
 
 struct aspect:
   ::fas::aspect< type_list_n<
+    array::aspect,
     advice< _name_,     ad_name >,
     advice< _field_,    ad_field >,
-    advice< _array_, ad_array >,
+    // advice< _array_, ad_array >,
     advice< _array_list_, ad_array_list>,
     alias<  _prop_, _field_>,
     alias<  _attr_, _field_>,
     advice< _field_list_, ad_field_list >,
     advice< _item_, ad_item >,
-    advice< _item_impl_, ad_item_impl >,
+    //advice< _item_impl_, ad_item_impl >,
     //advice< _value2range_, ad_value2range >,
     // alias<  _value_, _target_list_>,
     advice< _object_, ad_object >,
@@ -369,7 +239,7 @@ struct aspect:
     advice< ::fas::serialization::_deser_, ::fas::serialization::deser::ad_deser/*<_target_list_>*/ >,
     value_advice< ::fas::serialization::_status_, bool>,
     advice< _sequence_items_, ad_sequence_items >,
-    advice< _sequence_items_impl_, ad_sequence_items_impl >,
+    advice< _process_sequence_items_, ad_process_sequence_items >,
     //advice< _sequence_items2_, ad_sequence_items2 >,
     advice< _empty_, ad_empty>,
     advice< _process_item_, ad_process_item>,
