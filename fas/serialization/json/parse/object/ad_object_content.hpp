@@ -8,14 +8,14 @@
 #define FAS_SERIALIZATION_JSON_PARSE_AD_OBJECT_CONTENT_HPP
 
 #include <fas/serialization/except/tags.hpp>
-#include <fas/serialization/parse/ad_sequence.hpp>
+#include <fas/serialization/parse/ad_entity.hpp>
 #include <fas/type_list/type_list_n.hpp>
 
 
 namespace fas{ namespace json{ namespace parse{
 
 struct ad_object_content:
-  ::fas::serialization::parse::ad_sequence< type_list_n<
+  ::fas::serialization::parse::ad_entity< type_list_n<
       _space_,
       _field_list_
   >::type >

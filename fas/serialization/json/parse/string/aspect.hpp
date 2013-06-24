@@ -27,9 +27,14 @@ struct aspect:
     advice< _utf8_letter_, ::fas::serialization::parse::ad_utf8_letter >,
     advice< _four_hex_digits_, ::fas::serialization::parse::ad_four_hex_digits >,
     advice< _quote_, ::fas::serialization::parse::ad_tstring< tchars<'"'> > >,
+    advice< _backslash_, ::fas::serialization::parse::ad_tstring< tchars<'\\'> > >,
+    advice< _backslash_u_, ::fas::serialization::parse::ad_tstring< tchars<'\\','u'> > >,
     advice< _control_character_, ad_control_character>,
     advice< _string_content_, ad_string_content>,
-    advice< _string_, ad_string>
+    advice< _string_element_, ad_string_element>,
+    advice< _string_, ad_string>,
+    advice< _uhex_, ad_uhex>,
+    advice< _escapes_, ad_escapes>
   >::type > 
 {};
 

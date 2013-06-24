@@ -150,15 +150,16 @@ UNIT(ad_control_charaster_unit, "")
   aj::parse::ad_control_character acc;
 
   typedef char chs_type[10];
-  chs_type chs="\"\\/bfnrtu";
+  chs_type chs="\"\\/bfnrt";
   std::srand( static_cast<int>(time(0)) );
   std::random_shuffle(chs, chs + sizeof(chs)-1   );
   std::string result;
-  typedef fas::typerange<chs_type>::range irange;
+  //typedef fas::typerange<chs_type>::range irange;
+  typedef fas::string_range<char*> irange;
   typedef fas::typerange<std::string>::orange orange;
   typedef std::pair< irange, orange> pair_range;
 
-  pair_range pr( fas::range(chs, chs + sizeof(chs)-1 ), fas::orange(result));
+  pair_range pr( fas::srange(chs/*, chs + sizeof(chs)-1*/ ), fas::orange(result));
 
   while (pr.first)
     pr = acc(t, pr);
@@ -175,7 +176,8 @@ UNIT(ad_string_content_unit, "")
   std::string result;
   asc(t, std::make_pair( fas::srange(chs), fas::orange(result) ) );
   chs[std::strlen(chs)-1]='\0';
-  t << equal<expect, std::string>(result, chs) << "[" << result <<"]"<< FAS_TESTING_FILE_LINE;
+  std::cout << "std::strlen(chs) " << std::strlen(chs) << std::endl;
+  t << equal<expect, std::string>(result, chs) << "[" << result <<"!=" << chs <<"]"<< FAS_TESTING_FILE_LINE;
 }
 
 UNIT(ad_string_unit, "")
@@ -183,10 +185,15 @@ UNIT(ad_string_unit, "")
   using namespace fas::testing;
   aj::parse::ad_string as;
   typedef char chs_type[100];
-  chs_type chs="\"~Ё你\\ueF43\\b\\\"\"";
+//  chs_type chs="\"~Ё你\\ueF43\\b\\\"\"/*  */";
+//  chs_type org="\"~Ё你\\ueF43\\b\\\"\"";
+  std::cout << std::endl << "\\\"" << std::endl;
+  chs_type chs="\"\\\"~Ё你\\ueF43\\b\"/*  */";
+  chs_type org="\"\\\"~Ё你\\ueF43\\b\"";
   std::string result;
   as(t, std::make_pair( fas::srange(chs), fas::orange(result) ) );
-  t << equal<expect, std::string>(result, chs) << "[" << result <<"]" << chs<< FAS_TESTING_FILE_LINE;
+  t << equal<expect, std::string>(result, org) << "[" << result <<"!=" << org <<"]" << FAS_TESTING_FILE_LINE;
+  //std::cout << "[" << result << "]"<< std::endl;
 }
 
 BEGIN_SUITE(string_suite, "")

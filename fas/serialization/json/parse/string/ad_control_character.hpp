@@ -13,13 +13,16 @@
 
 namespace fas{ namespace json{ namespace parse{
 
-FAS_STRING(control_character, "\"\\/bfnrtu")
+
+// FAS_STRING(control_character, "\"\\/bfnrtu")
+FAS_STRING(control_character, "\"\\/bfnrt")
 
 struct ad_control_character:
   ::fas::serialization::parse::ad_charset<
     control_character
   >
 {};
+
 
 }}}
 

@@ -9,16 +9,16 @@
 
 #include <fas/serialization/except/tags.hpp>
 #include <fas/serialization/json/parse/tags.hpp>
-#include <fas/serialization/parse/ad_sequence.hpp>
+#include <fas/serialization/parse/ad_entity.hpp>
 
 namespace fas{ namespace json{ namespace parse{
 
 struct ad_string:
-  ::fas::serialization::parse::ad_sequence< type_list_n<
+  ::fas::serialization::parse::ad_entity< type_list_n<
       _quote_,
       _string_content_,
       _quote_
-  >::type >
+  >::type>
 {};
   
 }}}

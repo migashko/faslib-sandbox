@@ -14,7 +14,13 @@ struct _four_hex_digits_;
 struct _control_character_;
 struct _quote_;
 struct _string_content_;
+struct _string_element_;
 struct _string_;
+
+struct _backslash_u_;
+struct _backslash_;
+struct _escapes_;
+struct _uhex_;
 
 }}}
 
