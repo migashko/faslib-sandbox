@@ -10,7 +10,7 @@
 
 namespace fas{ namespace serialization{ namespace parse{
 
-template<typename TgList/*, bool NearPeek*/>
+template<typename TgList>
 struct ad_entity
 {
   typedef typename ::fas::normalize<TgList>::type tag_list;
@@ -18,17 +18,13 @@ struct ad_entity
   template<typename T, typename R>
   bool peek( T& t, R r)
   {
-    // return _peek(t, r, tag_list() );
-    // однозначно идентифицируется первым элементом 
     typedef typename ::fas::head<tag_list>::type _first_;
     return t.get_aspect().template get<_first_>().peek(t, r);
-    
   }
 
   template<typename T, typename RR>
   RR operator()(T& t, RR rr)
   {
-    //std::cout << "entity:" << &*rr.first << std::endl;
     return _(t, rr, tag_list() );
   }
   
@@ -38,7 +34,6 @@ private:
   RR _(T& t, RR rr, TagList)
   {
     typedef typename ::fas::head<TagList>::type _head_;
-    //std::cout << "entity next:" << &*rr.first << std::endl;
 
     rr = t.get_aspect().template get<_head_>()(t, rr);
 
@@ -46,7 +41,6 @@ private:
       return rr;
 
     return _(t, rr, typename ::fas::tail<TagList>::type() );
-
   }
 
   template<typename T, typename RR>
@@ -54,28 +48,6 @@ private:
   {
     return rr;
   }
-
-  /*
-  template<typename T, typename R, typename TagList>
-  bool _peek(T& t, R r, TagList)
-  {
-    typedef typename ::fas::head<TagList>::type _head_;
-    if ( !t.get_aspect().template get<_head_>().peek(t, r) )
-      return false;
-    if ( NearPeek )
-        return true;
-    return _peek(t, r, typename ::fas::tail<TagList>::type() );
-
-
-  }
-
-  template<typename T, typename R>
-  bool _peek(T&, R, ::fas::empty_list)
-  {
-    return true;
-  }
-  */
-
 };
 
 }}}

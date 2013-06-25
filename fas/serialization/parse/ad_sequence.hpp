@@ -26,7 +26,6 @@ struct ad_sequence
 
     for (;;)
     {
-      //std::cout << "next:" << &*rr.first << std::endl;
       rr = t.get_aspect().template get<_entity_>()(t, rr);
       
       if ( !try_<_except_>(t) )
