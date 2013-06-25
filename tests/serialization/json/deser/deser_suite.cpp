@@ -114,6 +114,19 @@ typedef aj::object< ::fas::type_list_n<
   member2
 >::type > object_json;
 
+/*----------tmp-----------*/
+
+typedef aj::object<
+  aj::field_list< 
+    type_list_n<
+      aj::field< aj::name<n_member1>, aj::acc< ::fas::member<object, int, &object::member1>, aj::integer > >
+    >::type,
+    aj::sequence::smart,
+    ag::required_field
+  >
+>
+
+/*----------tmp-----------*/
 
 UNIT(deser5_unit, "")
 {
