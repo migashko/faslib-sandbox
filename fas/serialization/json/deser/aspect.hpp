@@ -28,6 +28,7 @@
 #include <fas/serialization/deser/ad_value2range.hpp>
 #include <fas/serialization/deser/ad_push2range.hpp>
 #include <fas/serialization/deser/ad_process_or_parse.hpp>
+#include <fas/serialization/deser/target_list/ad_least_once.hpp>
 #include <fas/serialization/json/parse/tags.hpp>
 
 
@@ -128,7 +129,8 @@ struct aspect:
       advice< ::fas::serialization::_deser_, ::fas::serialization::deser::ad_deser >,
       value_advice< ::fas::serialization::_status_, bool>,
       advice< _empty_, ad_empty>,
-      advice< _push2range_, ::fas::serialization::deser::ad_push2range< _target_ > >
+      advice< _push2range_, ::fas::serialization::deser::ad_push2range< _target_ > >,
+      advice< _least_once_, ::fas::serialization::deser::ad_least_once<_target_> >
     >::type
   >::type >
 {};

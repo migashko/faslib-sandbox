@@ -116,15 +116,17 @@ typedef aj::object< ::fas::type_list_n<
 
 /*----------tmp-----------*/
 
+/*
 typedef aj::object<
   aj::field_list< 
     type_list_n<
       aj::field< aj::name<n_member1>, aj::acc< ::fas::member<object, int, &object::member1>, aj::integer > >
     >::type,
     aj::sequence::smart,
-    ag::required_field
+    aj::required_field
   >
 >
+*/
 
 /*----------tmp-----------*/
 
