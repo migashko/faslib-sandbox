@@ -14,10 +14,13 @@ struct sequence
     each,  // для каждого (массивы)
     brute, // пытается десериализовать каждый элемент 
     repeat // Походит по списку и возвращается к началу 
-    
   } type;
   
 };
+
+template<sequence::type ST, typename TgAlt, typename TgParseEnd>
+struct ad_sequence;
+
   
 }}}
 
