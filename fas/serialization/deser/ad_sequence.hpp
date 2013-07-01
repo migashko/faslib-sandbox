@@ -8,7 +8,7 @@
 namespace fas{ namespace serialization{ namespace deser{
 
 template<typename Target, typename TgParseEnd>
-struct ad_sequence
+struct ad_sequence1
 {
   typedef Target          _target_;
   // typedef TgParseElement  _element_;

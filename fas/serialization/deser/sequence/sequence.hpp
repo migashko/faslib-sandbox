@@ -9,7 +9,7 @@ namespace fas{ namespace serialization{ namespace deser{
 // Если не получилось, то target
 struct sequence
 {
-  enum {
+  typedef enum {
     smart, // для объектов
     each,  // для каждого (массивы)
     brute, // пытается десериализовать каждый элемент 
@@ -18,7 +18,7 @@ struct sequence
   
 };
 
-template<sequence::type ST, typename TgAlt, typename TgParseEnd>
+template<sequence::type ST, /* typename TgAlt,*/ typename TgParseEnd>
 struct ad_sequence;
 
   

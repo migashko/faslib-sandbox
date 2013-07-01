@@ -11,6 +11,16 @@
 #include "sequence.hpp"
 
 namespace fas{ namespace json{
+  
+struct optional
+{
+  typedef _optional_ tag;
+};
+
+struct parse_field
+{
+  typedef _parse_field_ tag;
+};
 
 template< typename TargetList>
 struct field_list
@@ -18,6 +28,7 @@ struct field_list
   // TODO: list categories
   typedef typename normalize<TargetList>::type target_list;
   typedef _field_list_smart_ tag;
+  typedef parse_field alt_target; // TODO: 
 };
 
 

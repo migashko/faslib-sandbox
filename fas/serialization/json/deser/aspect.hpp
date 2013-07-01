@@ -12,7 +12,6 @@
 
 #include <fas/serialization/json/deser/ad_integer.hpp>
 #include <fas/serialization/json/deser/ad_jstring.hpp>
-//#include <fas/serialization/json/deser/ad_field.hpp>
 
 #include <fas/serialization/deser/ad_deser.hpp>
 #include <fas/serialization/deser/ad_target_n.hpp>
@@ -20,11 +19,15 @@
 #include <fas/serialization/deser/ad_value.hpp>
 #include <fas/serialization/deser/ad_target.hpp>
 #include <fas/serialization/deser/ad_access.hpp>
-#include <fas/serialization/deser/ad_smart.hpp>
+//#include <fas/serialization/deser/sequence/sequence.hpp>
 #include <fas/serialization/deser/ad_brute_list.hpp>
 #include <fas/serialization/deser/ad_entity.hpp>
 #include <fas/serialization/deser/ad_sequence.hpp>
 #include <fas/serialization/deser/ad_tstring.hpp>
+#include <fas/serialization/deser/ad_nothing.hpp>
+#include <fas/serialization/deser/ad_parser.hpp>
+
+
 #include <fas/serialization/deser/ad_value2range.hpp>
 #include <fas/serialization/deser/ad_push2range.hpp>
 #include <fas/serialization/deser/ad_process_or_parse.hpp>
@@ -65,6 +68,11 @@ struct ad_string_content:
   >::type, ::fas::json::parse::_quote_ >
 {};
 
+struct ad_parse_field:
+  ::fas::serialization::deser::ad_parser<
+    ::fas::json::parse::_object_field_
+  >
+{};
 
 struct _value2range_; // в json
 
@@ -95,14 +103,16 @@ struct _target_list_;
 struct _primary_list_;
 
 // advanced
-
+/*
 struct ad_array_list:
-  ::fas::serialization::deser::ad_smart<
+  ::fas::serialization::deser::ad_sequence_smart<
+    ::fas::serialization::deser::sequence::smart
     _tag_,
     ::fas::json::parse::_array_item_,
     ::fas::json::parse::_right_bracket_
   >
 {};
+*/
 
 
 
@@ -111,8 +121,10 @@ struct aspect:
     array::aspect,
     object::aspect,
     advice< _jstring_,     ad_jstring >,
+    advice< _optional_,    ::fas::serialization::deser::ad_nothing>,
+    advice< _parse_field_, ad_parse_field >,
     //advice< _field_,    ad_field >,
-    advice< _array_list_, ad_array_list>,
+    //advice< _array_list_, ad_array_list>,
     alias<  _prop_, _field_>,
     alias<  _attr_, _field_>,
     advice< _target_, ::fas::serialization::deser::ad_target >,

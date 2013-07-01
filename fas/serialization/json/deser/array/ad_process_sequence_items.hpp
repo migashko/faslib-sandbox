@@ -7,10 +7,10 @@
 
 namespace fas{ namespace json{ namespace deser{
 
-using ::fas::serialization::deser::ad_sequence;
+using ::fas::serialization::deser::ad_sequence1;
 
 struct ad_process_sequence_items:
-  ad_sequence<
+  ad_sequence1<
     _process_item_,
     ::fas::json::parse::_right_bracket_
   >    
