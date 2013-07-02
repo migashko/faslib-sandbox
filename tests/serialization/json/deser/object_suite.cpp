@@ -42,10 +42,19 @@ typedef object< ::fas::type_list_n<
   attr< 
     name<n_requred2>, 
     acc< fas::member<object1, std::string, &object1::requred2>, string>
+  >,
+  attr< 
+    name<n_optional1>, 
+    acc< fas::member<object1, int, &object1::optional1>, integer>
+  >,
+  attr< 
+    name<n_optional2>, 
+    acc< fas::member<object1, std::string, &object1::optional2>, string>
   >
 >::type > object1_json;
-
 }
+
+const char json1[]="{\"optional1\":11, \"requred2\":\"~Ё你 привет мир\",\"requred1\":4321}";
 
 UNIT(object1_unit, "")
 {
@@ -53,19 +62,19 @@ UNIT(object1_unit, "")
   aj::deserializer<> deser;
 
   object1 value ;
-  char json2[]="{   \"member4\"  /* */ :  null, /*  */  \"requred2\"  /* */ :  /**/ \"~Ё你 привет мир\"/* */  /**/,  /*  */  \"requred1\"  /* */ :  /**/ 4321 /**/  /**/ }";
   try{
-    deser( object1_json::object1_json(), value, fas::srange(json2) );
+    deser( object1_json::object1_json(), value, fas::srange(json1) );
   }
   catch(fas::serialization::exception& e)
   {
-    std::cout << e.message( fas::srange(json2) ) << std::endl;
+    std::cout << e.message( fas::srange(json1) ) << std::endl;
     abort();
     throw e;
   }
   std::cout << std::endl << value.requred1 <<  std::endl << value.requred2 << std::endl;
-  t << equal<expect>(value.requred1, 4321);
-  t << equal<expect>(value.requred2, "~Ё你 привет мир");
+  t << equal<expect>(value.requred1, 4321) << FAS_TESTING_FILE_LINE;
+  t << equal<expect>(value.requred2, "~Ё你 привет мир") << FAS_TESTING_FILE_LINE;
+  t << equal<expect>(value.optional1, 11) << FAS_TESTING_FILE_LINE;
   t << nothing();
 }
 

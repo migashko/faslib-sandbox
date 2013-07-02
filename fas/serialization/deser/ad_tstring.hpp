@@ -15,6 +15,14 @@ namespace fas{ namespace serialization{ namespace deser{
 // Переименовать
 struct ad_tstring
 {
+  template<typename T, typename J, typename V>
+  void operator()(T& t, J, V& v)
+  {
+    typedef typename J::target target;
+    typedef typename target::tag tag;
+    t.get_aspect().template get<tag>()(t, target(), v);
+  }
+
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& , R r)
   {

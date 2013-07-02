@@ -35,6 +35,7 @@ struct ad_sequence<sequence::smart, /*TgAlt,*/ TgParseEnd>
 
 private:
 
+  // Отработали все элементы
   template<typename T, typename V, typename R, typename TgAlt>
   R _(T& t, V& v, R r, empty_list, TgAlt, int_<0> )
   {
@@ -46,15 +47,17 @@ private:
     return r;
   }
 
+  // Дошли до конца списка
   template<typename T, typename V, typename R, typename L, typename TgAlt>
   R _(T& t, V& v, R r, L, TgAlt, int_<0> )
   {
     // здесь альтенатива, по умочанию парсинг
-      typedef typename TgAlt::tag alt_tag;
-      r = t.get_aspect().template get< alt_tag >()(t, TgAlt(), v, r );
+    typedef typename TgAlt::tag alt_tag;
+    r = t.get_aspect().template get< alt_tag >()(t, TgAlt(), v, r );
     
+    // Если дошли до конца, отрабатываем необработанные элементы
     if ( t.get_aspect().template get<_end_>().peek(t, r) )
-      return r;
+      return _(t, v, L(), r);
 
     return _(t, v, r, L(), TgAlt(), int_<length<L>::value>());
   }
@@ -84,14 +87,34 @@ private:
       return _(t, v, income, L(), TgAlt(), int_<N-1>() );
     }
 
+    /* не нужен
     if ( t.get_aspect().template get<_end_>().peek(t, r) )
       return r;
+    */
 
     // Ок. удаляем текущий из списка, продолжаем с начала списка
     typedef typename erase_c<position, L>::type  target_list;
     
     return _(t, v, r, target_list(), TgAlt(), int_<length<target_list>::value>() );
   }
+  
+/// finalize
+  template<typename T, typename V, typename L, typename R >
+  R _(T& t, V& v, L, R r )
+  {
+    typedef typename head<L>::type target;
+    typedef typename target::tag _tag_;
+    t.get_aspect().template get<_tag_>()(t, target(), v);
+    return _(t, v, typename tail<L>::type(), r);
+  }
+  
+  template<typename T, typename V, typename R >
+  R _(T& , V&, empty_list, R r )
+  {
+    return r;
+  }
+
+
 };
 
 }}}

@@ -29,6 +29,12 @@ struct ad_entity
 {
   typedef typename ::fas::normalize<TgList>::type tag_list;
 
+  template<typename T, typename J, typename V>
+  void operator()(T& t, J, V& v)
+  {
+    _(t, J(), v, TgList() );
+  }
+
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)
   {
@@ -98,6 +104,32 @@ private:
       return r;
     return t.get_aspect().template get<TgHead>()(t, std::make_pair(r, mrange(r))).first;
   }
+  
+// proval
+
+  template<typename T, typename J, typename V, typename L>
+  void _(T& t, J, V& v, L)
+  {
+    __(t, J(), v,  type2type< typename head<L>::type> () );
+    _(t, J(), v, typename tail<L>::type() );
+  }
+
+  template<typename T, typename J, typename V>
+  void _(T& , J, V& , empty_list)
+  {
+  }
+
+  template<typename T, typename J, typename V, typename Tg>
+  void __(T&, J, V&, type2type<parser<Tg> >)
+  {
+  }
+
+  template<typename T, typename J, typename V, typename Tg>
+  void __(T& t, J, V& v, type2type<Tg >)
+  {
+    t.get_aspect().template get< Tg >()(t, J(), v);
+  }
+
 };
 
 }}}
