@@ -20,6 +20,11 @@ struct ad_parse_copy
 {
   typedef typename normalize<TgList>::type target_list;
   typedef TgEnd _end_;
+
+  template<typename T, typename J, typename V>
+  void operator()(T& , J, V& )
+  {
+  }
   
   //template<typename T, typename RR>
   //RR operator()(T& t, RR rr)

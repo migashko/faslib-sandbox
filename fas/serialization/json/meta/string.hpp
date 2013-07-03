@@ -5,10 +5,12 @@
 #include <fas/serialization/json/meta/sequence.hpp>
 #include <fas/typemanip/empty_type.hpp>
 
+#include <fas/serialization/json/meta/optional.hpp>
 
 namespace fas{ namespace json{
 
-struct string: sequence<empty_type, _string_>
+template<typename Target = optional>
+struct string: sequence<Target, _string_>
 {
   /*
   typedef empty_list targets;

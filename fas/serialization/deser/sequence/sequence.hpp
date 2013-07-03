@@ -18,7 +18,7 @@ struct sequence
   
 };
 
-template<sequence::type ST, /* typename TgAlt,*/ typename TgParseEnd>
+template<sequence::type ST, typename TgParseEnd>
 struct ad_sequence;
 
   

@@ -12,10 +12,6 @@
 
 namespace fas{ namespace json{
   
-struct optional
-{
-  typedef _optional_ tag;
-};
 
 struct parse_field
 {

@@ -15,8 +15,8 @@
 
 namespace fas{ namespace serialization{ namespace deser{
 
-template</*typename TgAlt,*/ typename TgParseEnd>
-struct ad_sequence<sequence::smart, /*TgAlt,*/ TgParseEnd>
+template<typename TgParseEnd>
+struct ad_sequence<sequence::smart, TgParseEnd>
 {
   //typedef TgAlt           _alt_;
   typedef TgParseEnd      _end_;

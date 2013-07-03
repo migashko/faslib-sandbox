@@ -9,11 +9,18 @@ namespace fas{ namespace serialization{ namespace deser{
 template<typename Tg>
 struct ad_value2range
 {
+  template<typename T, typename J, typename V>
+  void operator()(T& t, J, V& v)
+  {
+    typename typerange<V>::orange vr = orange(v);
+    return t.get_aspect().template get<Tg>()( t, J(), vr);
+  }
+
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)
   {
     //typedef V value_type;
-    typename typerange<V>::orange vr = orange(v);
+    typename typerange<V>::orange vr = orange(v, true);
     return t.get_aspect().template get<Tg>()( t, J(), vr, r);
   }
 };

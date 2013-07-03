@@ -10,7 +10,7 @@ namespace fas{ namespace serialization{ namespace deser{
 struct ad_nothing
 {
   // алтернатива
-  template<typename T, typename J, typename V, typename R>
+  template<typename T, typename J, typename V>
   void operator()(T&, J, V&) 
   {
     

@@ -37,19 +37,19 @@ FAS_NAME(optional2)
 typedef object< ::fas::type_list_n<
   attr< 
     name<n_requred1>, 
-    acc< fas::member<object1, int, &object1::requred1>, integer>
+    acc< fas::member<object1, int, &object1::requred1>, integer<> >
   >,
   attr< 
     name<n_requred2>, 
-    acc< fas::member<object1, std::string, &object1::requred2>, string>
+    acc< fas::member<object1, std::string, &object1::requred2>, string<> >
   >,
   attr< 
     name<n_optional1>, 
-    acc< fas::member<object1, int, &object1::optional1>, integer>
+    acc< fas::member<object1, int, &object1::optional1>, integer<> >
   >,
   attr< 
     name<n_optional2>, 
-    acc< fas::member<object1, std::string, &object1::optional2>, string>
+    acc< fas::member<object1, std::string, &object1::optional2>, string<> >
   >
 >::type > object1_json;
 }
