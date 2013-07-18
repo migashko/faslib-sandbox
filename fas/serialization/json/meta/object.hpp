@@ -18,6 +18,11 @@ struct parse_field
   typedef _parse_field_ tag;
 };
 
+struct parse_item
+{
+  typedef _parse_item_ tag;
+};
+
 template< typename TargetList>
 struct field_list
 {
@@ -56,10 +61,19 @@ struct item
   }*/
 };
 
-
-template< typename Target>
-struct sequence_items: sequence<Target, _sequence_items_>
+/*
+struct value2range
 {
+  typedef _value2range_ tag;
+}*/
+
+template< typename TargetList>
+struct sequence_items// : sequence<Target, _sequence_items_>
+{
+  typedef typename normalize<TargetList>::type target_list;
+  typedef _sequence_items_ tag;
+
+  typedef parse_item alt_target;
   //typedef typename normalize<TargetList>::type target_list;
   /*
   typedef Target target;

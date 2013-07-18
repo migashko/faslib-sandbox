@@ -12,6 +12,7 @@ struct _tstring_;
 struct _jstring_;
 struct _object_;
 struct _parse_field_;
+struct _parse_item_;
 struct _optional_;
 struct _field_;
 struct _field_list_smart_;

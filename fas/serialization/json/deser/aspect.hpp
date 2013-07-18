@@ -15,7 +15,7 @@
 
 #include <fas/serialization/deser/ad_deser.hpp>
 #include <fas/serialization/deser/ad_target_n.hpp>
-#include <fas/serialization/deser/ad_utf8_letter.hpp>
+//#include <fas/serialization/deser/ad_utf8_letter.hpp>
 #include <fas/serialization/deser/ad_value.hpp>
 #include <fas/serialization/deser/ad_target.hpp>
 #include <fas/serialization/deser/ad_access.hpp>
@@ -74,6 +74,12 @@ struct ad_parse_field:
   >
 {};
 
+struct ad_parse_item:
+  ::fas::serialization::deser::ad_parser<
+    ::fas::json::parse::_array_item_
+  >
+{};
+
 struct _value2range_; // в json
 
 struct ad_empty
@@ -123,6 +129,7 @@ struct aspect:
     advice< _jstring_,     ad_jstring >,
     advice< _optional_,    ::fas::serialization::deser::ad_nothing>,
     advice< _parse_field_, ad_parse_field >,
+    advice< _parse_item_, ad_parse_item>,
     //advice< _field_,    ad_field >,
     //advice< _array_list_, ad_array_list>,
     alias<  _prop_, _field_>,

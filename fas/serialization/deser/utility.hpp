@@ -11,7 +11,6 @@ R protar(T& t, J, V& v, R r)
   return t.get_aspect().template get<_tag_>()(t, target(), v, r);
 }
 
-
 template<typename T, typename L, typename V, typename R>
 R protar_list(T& t, L, V& v, R r)
 {
@@ -36,7 +35,7 @@ R protar_list(T& , empty_list, V&,  R r )
 ///
   
 template<typename T, typename J, typename V, typename R >
-R proval(T& t, V& v, Target, R r )
+R proval(T& t, J, V& v, R r )
 {
   typedef J target;
   typedef typename target::tag _tag_;
@@ -45,11 +44,11 @@ R proval(T& t, V& v, Target, R r )
 }
 
   
-template<typename T, typename L, typename V, typename R >
-R proval_list(T& t, L, V& v,  R r )
+template<typename T, typename J, typename V, typename R >
+R proval_list(T& t, J, V& v,  R r )
 {
-  typedef typename head<L>::type target;
-  typedef typename tail<L>::type target_list;
+  typedef typename head<J>::type target;
+  typedef typename tail<J>::type target_list;
   proval(t, target(), v,r);
   return proval_list(t, target_list(), v, r);
 }

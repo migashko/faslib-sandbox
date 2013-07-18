@@ -8,10 +8,11 @@
 
 namespace fas{ namespace json{
 
-template< typename Target, typename Tg>
+template< typename TargetList, typename Tg>
 struct sequence
 {
-  typedef Target target;
+  
+  typedef typename normalize<TargetList>::type target_list;
   typedef Tg tag;
 
   /*

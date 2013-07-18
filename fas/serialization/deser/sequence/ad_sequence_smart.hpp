@@ -18,7 +18,6 @@ namespace fas{ namespace serialization{ namespace deser{
 template<typename TgParseEnd>
 struct ad_sequence<sequence::smart, TgParseEnd>
 {
-  //typedef TgAlt           _alt_;
   typedef TgParseEnd      _end_;
 
   template<typename T, typename J, typename V, typename R>
@@ -87,11 +86,6 @@ private:
       return _(t, v, income, L(), TgAlt(), int_<N-1>() );
     }
 
-    /* не нужен
-    if ( t.get_aspect().template get<_end_>().peek(t, r) )
-      return r;
-    */
-
     // Ок. удаляем текущий из списка, продолжаем с начала списка
     typedef typename erase_c<position, L>::type  target_list;
     
@@ -113,7 +107,6 @@ private:
   {
     return r;
   }
-
 
 };
 
