@@ -81,10 +81,27 @@ struct sequence_items// : sequence<Target, _sequence_items_>
   */
 };
 
+// TODO: ограничения на размер контенера
+//       container< ..., int_<10> >
+template<typename T>
+struct container
+{
+  typedef T target;
+  typedef _value2range_ tag;
+};
+
+template<typename T>
+struct push_back
+{
+  typedef T target;
+  typedef _push2range_ tag;
+};
+
+// сделать Вторым параметром список целей, пост условий
 template< typename Target >
 struct array
 {
-  typedef sequence_items< item<Target> > target;
+  typedef container< sequence_items< push_back< item<Target> > > > target;
 
   typedef _array_ tag;
 };

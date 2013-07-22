@@ -1,10 +1,12 @@
-#ifndef FAS_SERIALIZATION_DESER_AD_SMART_HPP
-#define FAS_SERIALIZATION_DESER_AD_SMART_HPP
+#ifndef FAS_SERIALIZATION_DESER_AD_SEQUENCE_SMART_HPP
+#define FAS_SERIALIZATION_DESER_AD_SEQUENCE_SMART_HPP
 
 #include <fas/except/throw_.hpp>
 #include <fas/except/try_.hpp>
 #include <fas/serialization/tags.hpp>
 
+#include <fas/type_list/head.hpp>
+#include <fas/type_list/tail.hpp>
 #include <fas/type_list/erase_c.hpp>
 #include <fas/type_list/type_at_c.hpp>
 #include <fas/type_list/length.hpp>

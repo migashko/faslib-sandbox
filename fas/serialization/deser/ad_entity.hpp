@@ -38,7 +38,6 @@ struct ad_entity
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)
   {
-    std::cout << "entity beg " << &*r << std::endl;
     R orig = r;
     r =  _(t, J(), v, r, tag_list() );
 
@@ -48,7 +47,6 @@ struct ad_entity
     if ( !t.get_aspect().template get<_status_>() )
       return orig;
 
-    std::cout << "entity end " << &*r << std::endl;
     return r;
   }
 
@@ -57,7 +55,6 @@ private:
   template<typename T, typename J, typename V, typename R, typename TagList>
   R _(T& t, J, V& v, R r, TagList)
   {
-    std::cout << "entity next " << &*r << std::endl;
     typedef typename ::fas::head<TagList>::type _head_;
     r =  __(t, J(), v, r, type2type<_head_>(), bool_<Variant>() );
 
@@ -85,8 +82,6 @@ private:
   template<typename T, typename J, typename V, typename R, typename TgHead>
   R __(T& t, J, V& v, R r, type2type<TgHead>, bool_<true> )
   {
-        std::cout << "entity next2 " << &*r << std::endl;
-
     R orig = r;
     r = t.get_aspect().template get<TgHead>()(t, J(), v, r);
     if ( t.get_aspect().template get<_status_>() )
@@ -98,21 +93,18 @@ private:
   template<typename T, typename J, typename V, typename R, typename TgHead>
   R __(T& t, J, V&, R r, type2type<parser<TgHead> >, bool_<false> )
   {
-        std::cout << "entity next 2.2 " << &*r << std::endl;
    return t.get_aspect().template get<TgHead>()(t, std::make_pair(r, mrange(r))).first;
   }
 
   template<typename T, typename J, typename V, typename R, typename TgHead>
   R __(T& t, J, V&, R r, type2type<parser<TgHead> >, bool_<true> )
   {
-        std::cout << "entity next 2.3 " << &*r << std::endl;
-
     if ( !t.get_aspect().template get<TgHead>().peek(t, r) )
       return r;
     return t.get_aspect().template get<TgHead>()(t, std::make_pair(r, mrange(r))).first;
   }
   
-// proval
+// proval 
 
   template<typename T, typename J, typename V, typename L>
   void _(T& t, J, V& v, L)

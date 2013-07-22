@@ -18,9 +18,10 @@ namespace fas{ namespace json{ namespace deser{ namespace array{
 struct aspect:
   ::fas::aspect< type_list_n<
     advice< _item_, ad_item >,
-    advice< _process_item_, ad_process_item>,
-    advice< _process_sequence_items_, ad_process_sequence_items>,
-    advice< _sequence_items_, ad_sequence_items >,
+//    advice< _process_item_, ad_process_item>,
+//    advice< _process_sequence_items_, ad_process_sequence_items>,
+//    advice< _sequence_items_, ad_sequence_items >,
+    advice< _sequence_items_, ad_process_sequence_items >,
     advice< _array_, ad_array >
   >::type >
 {};

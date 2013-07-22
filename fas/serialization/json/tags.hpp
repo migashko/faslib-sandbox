@@ -21,6 +21,9 @@ struct _field_list_smart_;
 struct _target_;
 struct _tag_;
 struct _nothing_;
+struct _push2range_;
+struct _value2range_; // в json
+
 /// old
 
 

@@ -24,7 +24,31 @@ struct ad_value2range
     return t.get_aspect().template get<Tg>()( t, J(), vr, r);
   }
 };
-  
+
+
+struct ad_value2range2
+{
+  template<typename T, typename J, typename V>
+  void operator()(T& t, J, V& v)
+  {
+    typedef typename J::target target;
+    typedef typename target::tag _tag_;
+    typename typerange<V>::orange vr = orange(v);
+    return t.get_aspect().template get<_tag_>()( t, target(), vr);
+  }
+
+  template<typename T, typename J, typename V, typename R>
+  R operator()(T& t, J, V& v, R r)
+  {
+    typedef typename J::target target;
+    typedef typename target::tag _tag_;
+    //typedef V value_type;
+    typename typerange<V>::orange vr = orange(v, true);
+    return t.get_aspect().template get<_tag_>()( t, target(), vr, r);
+  }
+};
+
+
 }}}
 
 #endif

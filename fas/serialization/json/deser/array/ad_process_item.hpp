@@ -8,13 +8,15 @@
 namespace fas{ namespace json{ namespace deser{
 
 using ::fas::serialization::deser::ad_process_or_parse;
-
+// удалить
+/*
 struct ad_process_item:
   ad_process_or_parse< 
     _push2range_, 
     ::fas::json::parse::_array_item_
   >
 {};
+*/
 
 }}}
 

@@ -172,7 +172,7 @@ UNIT(deser6_unit, "")
   using namespace fas::testing;
 
   std::vector<std::string> value;
-  char json[]="[\"value1\"    ,    \"value3\"]";
+  char json[]="[\"value1\"    ,  10,   \"value3\"]";
   aj::deserializer<> deser;
   try{
     deser( aj::array< aj::string<> >(), value, fas::srange(json) );

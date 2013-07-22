@@ -7,10 +7,10 @@
 namespace fas{ namespace json{ namespace deser{
 
 using ::fas::serialization::deser::ad_value2range;
-
+/*
 struct ad_sequence_items:
   ad_value2range<_process_sequence_items_>
-{};
+{};*/
 
 }}}
 

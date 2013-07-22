@@ -22,7 +22,7 @@
 //#include <fas/serialization/deser/sequence/sequence.hpp>
 #include <fas/serialization/deser/ad_brute_list.hpp>
 #include <fas/serialization/deser/ad_entity.hpp>
-#include <fas/serialization/deser/ad_sequence.hpp>
+#include <fas/serialization/deser/sequence/ad_sequence_each.hpp>
 #include <fas/serialization/deser/ad_tstring.hpp>
 #include <fas/serialization/deser/ad_nothing.hpp>
 #include <fas/serialization/deser/ad_parser.hpp>
@@ -80,7 +80,6 @@ struct ad_parse_item:
   >
 {};
 
-struct _value2range_; // в json
 
 struct ad_empty
 {
@@ -148,7 +147,10 @@ struct aspect:
       advice< ::fas::serialization::_deser_, ::fas::serialization::deser::ad_deser >,
       value_advice< ::fas::serialization::_status_, bool>,
       advice< _empty_, ad_empty>,
-      advice< _push2range_, ::fas::serialization::deser::ad_push2range< _target_ > >,
+//      advice< _push2range_, ::fas::serialization::deser::ad_push2range< _target_ > >,
+//      advice< _value2range_, ::fas::serialization::deser::ad_value2range< _target_ > >,
+      advice< _push2range_, ::fas::serialization::deser::ad_push2range2 >,
+      advice< _value2range_, ::fas::serialization::deser::ad_value2range2 >,
       advice< _least_once_, ::fas::serialization::deser::ad_least_once<_target_> >
     >::type
   >::type >
