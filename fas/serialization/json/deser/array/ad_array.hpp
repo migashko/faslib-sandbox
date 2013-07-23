@@ -8,11 +8,13 @@
 namespace fas{ namespace json{ namespace deser{
 
 using ::fas::serialization::deser::parser;
-using ::fas::serialization::deser::ad_entity;
+using ::fas::serialization::deser::target;
+//using ::fas::serialization::deser::ad_entity;
+using ::fas::serialization::deser::ad_entity2;
 
-struct ad_array: ad_entity< type_list_n<
+struct ad_array: ad_entity2< type_list_n<
   parser< ::fas::json::parse::_left_bracket_>,
-  _target_,
+  /*_target_-*/ target,
   parser< ::fas::json::parse::_right_bracket_>
 >::type >
 {};

@@ -18,17 +18,44 @@
 #include <fas/integral/bool_.hpp>
 
 #include <utility>
+#include "utility.hpp"
 
 namespace fas{ namespace serialization{ namespace deser{
 
-template<typename T>
-struct parser{};
-
-template<typename TgList, bool Variant = false>
-struct ad_entity
+template<typename TgList>
+struct ad_entity2
 {
   typedef typename ::fas::normalize<TgList>::type tag_list;
+  
+  template<typename T, typename J, typename V>
+  void operator()(T& t, J, V& v)
+  {
+    entity_(t, J(), v, tag_list() );
+  }
 
+  template<typename T, typename J, typename V, typename R>
+  R operator()(T& t, J, V& v, R r)
+  {
+    R orig = r;
+    r =  entity_(t, J(), v, r, tag_list() );
+
+    if ( !try_<_except_>(t) )
+      return orig;
+
+    if ( !t.get_aspect().template get<_status_>() )
+      return orig;
+
+    return r;
+  }
+};
+
+template<typename TgList, bool Variant = false>
+struct ad_entity_old
+{
+  
+  typedef typename ::fas::normalize<TgList>::type tag_list;
+
+  
   template<typename T, typename J, typename V>
   void operator()(T& t, J, V& v)
   {

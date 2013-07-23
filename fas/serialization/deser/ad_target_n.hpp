@@ -12,6 +12,7 @@
 
 namespace fas{ namespace serialization{ namespace deser{
 
+  /*
 template<typename TgN>
 struct ad_target_n
 {
@@ -38,6 +39,8 @@ struct ad_target_n
 private:
 
 };
+
+*/
 
 }}}
 

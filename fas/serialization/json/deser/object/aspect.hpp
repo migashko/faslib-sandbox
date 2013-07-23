@@ -17,8 +17,8 @@ namespace fas{ namespace json{ namespace deser{ namespace object{
 struct aspect:
   ::fas::aspect< type_list_n<
     alias< _name_, _jstring_ >,
-    advice<_field_key_, ad_field_key>,
-    advice<_field_value_, ad_field_value>,
+    //advice<_field_key_, ad_field_key>,
+    //advice<_field_value_, ad_field_value>,
     advice<_field_, ad_field>,
     advice<_field_list_smart_, ad_field_list_smart >,
     advice<_object_, ad_object>

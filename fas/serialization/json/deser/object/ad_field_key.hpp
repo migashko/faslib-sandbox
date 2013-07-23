@@ -6,11 +6,13 @@
 
 namespace fas{ namespace json{ namespace deser{
 
+  /*
 using ::fas::serialization::deser::ad_target_n;
 
 struct ad_field_key: 
   ad_target_n<int_<0> >
 {};
+*/
 
 }}}
 

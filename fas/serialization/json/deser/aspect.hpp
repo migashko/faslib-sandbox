@@ -43,6 +43,7 @@
 namespace fas{ namespace json{ namespace deser{
 
 using ::fas::serialization::deser::parser;
+using ::fas::serialization::deser::deser;
 
 struct _string_helper_;
 struct _string_content_;
@@ -68,6 +69,21 @@ struct ad_string_content:
   >::type, ::fas::json::parse::_quote_ >
 {};
 
+struct ad_string_helper: ::fas::serialization::deser::ad_value2range<_string_content_> {};
+
+// TODO: meta для вставки или back_inserter<string>
+// то же для массивов 
+// TODO: для всех - reference_wrapper
+struct ad_string:
+  ::fas::serialization::deser::ad_entity2< type_list_n<
+      parser< ::fas::json::parse::_quote_>,
+      deser<_string_helper_>,
+      parser< ::fas::json::parse::_quote_>
+  >::type >
+{
+};
+
+
 struct ad_parse_field:
   ::fas::serialization::deser::ad_parser<
     ::fas::json::parse::_object_field_
@@ -90,19 +106,6 @@ struct ad_empty
   }
 };
 
-struct ad_string_helper: ::fas::serialization::deser::ad_value2range<_string_content_> {};
-
-// TODO: meta для вставки или back_inserter<string>
-// то же для массивов 
-// TODO: для всех - reference_wrapper
-struct ad_string:
-  ::fas::serialization::deser::ad_entity< type_list_n<
-      parser< ::fas::json::parse::_quote_>,
-      _string_helper_,
-      parser< ::fas::json::parse::_quote_>
-  >::type >
-{
-};
 
 struct _target_list_;
 struct _primary_list_;
