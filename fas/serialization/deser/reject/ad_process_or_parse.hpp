@@ -17,6 +17,8 @@
 
 namespace fas{ namespace serialization{ namespace deser{
 
+  
+/*
 template<typename Tg, typename TgParse>
 struct ad_process_or_parse
 {
@@ -39,6 +41,9 @@ struct ad_process_or_parse
     return r;
   }
 };
+
+*/
+
 
 }}}
 

@@ -6,31 +6,11 @@
 
 namespace fas{ namespace serialization{ namespace deser{
 
-template<typename Tg>
-struct ad_push2range
+struct ad_insert
 {
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)
   {
-    //typedef typename V::type::value_type value_type;
-    //value_type value = value_type();
-    typedef typename V::value_type value_type;
-    value_type value = value_type();
-    r = t.get_aspect().template get<Tg>()(t, J(), value, r);
-    if ( t.get_aspect().template get<_status_>() )
-      *(v++) = value;
-    return r;
-  }
-};
-
-
-struct ad_push2range2
-{
-  template<typename T, typename J, typename V, typename R>
-  R operator()(T& t, J, V& v, R r)
-  {
-    //typedef typename V::type::value_type value_type;
-    //value_type value = value_type();
     typedef typename J::target target;
     typedef typename target::tag _tag_;
 
@@ -38,7 +18,14 @@ struct ad_push2range2
     value_type value = value_type();
     r = t.get_aspect().template get<_tag_>()(t, target(), value, r);
     if ( t.get_aspect().template get<_status_>() )
-      *(v++) = value;
+    {
+      if ( v )
+        *(v++) = value;
+      else
+      {
+        // TODO: out_of_range
+      }
+    }
     return r;
   }
 };

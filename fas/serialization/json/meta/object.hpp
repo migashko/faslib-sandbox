@@ -10,18 +10,38 @@
 
 #include "sequence.hpp"
 
+#include <fas/serialization/json/parse/tags.hpp>
+
 namespace fas{ namespace json{
   
 
 struct parse_field
 {
-  typedef _parse_field_ tag;
+  typedef _parser_ tag;
+  typedef ::fas::json::parse::_object_field_ parser_tag;
 };
 
 struct parse_item
 {
-  typedef _parse_item_ tag;
+//  typedef _parse_item_ tag;
+  typedef _parser_ tag;
+  typedef ::fas::json::parse::_array_item_ parser_tag;
 };
+
+struct parse_string
+{};
+
+struct parse_bool
+{};
+
+struct parse_null
+{};
+
+struct parse_array
+{};
+
+struct parse_object
+{};
 
 template< typename TargetList>
 struct field_list
@@ -84,24 +104,31 @@ struct sequence_items// : sequence<Target, _sequence_items_>
 // TODO: ограничения на размер контенера
 //       container< ..., int_<10> >
 template<typename T>
-struct container
+struct back_inserter
 {
   typedef T target;
-  typedef _value2range_ tag;
+  typedef _back_inserter_ tag;
 };
 
 template<typename T>
-struct push_back
+struct front_inserter
+{
+  // TODO:
+};
+
+
+template<typename T>
+struct insert
 {
   typedef T target;
-  typedef _push2range_ tag;
+  typedef _insert_ tag;
 };
 
 // сделать Вторым параметром список целей, пост условий
 template< typename Target >
 struct array
 {
-  typedef container< sequence_items< push_back< item<Target> > > > target;
+  typedef back_inserter< sequence_items< insert< item<Target> > > > target;
 
   typedef _array_ tag;
 };
@@ -134,14 +161,14 @@ struct string_content
 template<typename ProvalList = optional>
 struct string
 {
-  typedef container< string_content > target;
+  typedef back_inserter< string_content > target;
   typedef _string_ tag;
 };
 
 template<typename Target, typename ProvalList = optional>
 struct string_ex
 {
-  typedef container< Target > target;
+  typedef Target target;
   typedef _string_ tag;
 };
 

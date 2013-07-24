@@ -14,19 +14,20 @@
 #include <fas/aop/group_for_each.hpp>
 #include <fas/except/throw_.hpp>
 #include <fas/range.hpp>
+#include <fas/range/mrange.hpp>
 
 namespace fas{ namespace serialization{ namespace deser{
 
 
-template<typename Tg>
+//template<typename Tg>
 struct ad_parser
 {
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V&, R r)
   {
-    return t.get_aspect().template get<Tg>()(t, std::make_pair(r, mrange(r))).first;
+    typedef typename J::parser_tag _tag_;
+    return t.get_aspect().template get<_tag_>()(t, std::make_pair(r, mrange(r))).first;
   }  
-
 };
 
 

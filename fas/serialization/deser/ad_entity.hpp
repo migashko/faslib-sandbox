@@ -30,23 +30,152 @@ struct ad_entity2
   template<typename T, typename J, typename V>
   void operator()(T& t, J, V& v)
   {
-    entity_(t, J(), v, tag_list() );
+    _(t, J(), v, tag_list() );
   }
 
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)
   {
     R orig = r;
-    r =  entity_(t, J(), v, r, tag_list() );
+    
+    r =  _(t, J(), v, r, tag_list() );
 
-    if ( !try_<_except_>(t) )
-      return orig;
-
+    //if ( !try_<_except_>(t) )
+    //  return orig;
+    
     if ( !t.get_aspect().template get<_status_>() )
       return orig;
+    
 
     return r;
   }
+  
+private:
+  
+  template<typename T, typename J, typename V, typename R, typename L>
+  R _(T& t, J, V& v, R r, L)
+  {
+    typedef typename head<L>::type head_item;
+    typedef typename tail<L>::type tail_list;
+    
+    r = entity_(t, J(), v, r, head_item());
+
+    if ( !try_<_except_>(t) )
+      return r;
+
+    if ( !t.get_aspect().template get<_status_>() )
+      return r;
+    
+    return _(t, J(), v, r, tail_list());
+  }
+
+  template<typename T, typename J, typename V, typename R>
+  R _(T&, J, V&, R r, empty_list)
+  {
+    return r;
+  }
+  
+// proval
+
+  template<typename T, typename J, typename V, typename L>
+  void _(T& t, J, V& v, L)
+  {
+    typedef typename head<L>::type head_item;
+    typedef typename tail<L>::type tail_list;
+    
+    entity_(t, J(), v, head_item());
+
+    if ( !try_<_except_>(t) )
+      return;
+    
+    _(t, J(), v, tail_list());
+  }
+
+  template<typename T, typename J, typename V>
+  void _(T&, J, V&, empty_list)
+  {
+    
+  }
+};
+
+template<typename TgList>
+struct ad_entity_variant
+{
+  typedef typename ::fas::normalize<TgList>::type tag_list;
+  
+  template<typename T, typename J, typename V>
+  void operator()(T& t, J, V& v)
+  {
+    //_(t, J(), v, tag_list() );
+  }
+
+  template<typename T, typename J, typename V, typename R>
+  R operator()(T& t, J, V& v, R r)
+  {
+    R orig = r;
+    
+    r =  _(t, J(), v, r, tag_list() );
+
+    //if ( !try_<_except_>(t) )
+    //  return orig;
+    
+    if ( !t.get_aspect().template get<_status_>() )
+      return orig;
+    
+
+    return r;
+  }
+  
+private:
+  
+  template<typename T, typename J, typename V, typename R, typename L>
+  R _(T& t, J, V& v, R r, L)
+  {
+    typedef typename head<L>::type head_item;
+    typedef typename tail<L>::type tail_list;
+    
+    t.get_aspect().template get<_status_>() = true;
+    
+    r = entity_(t, J(), v, r, head_item());
+
+    if ( !try_<_except_>(t) )
+      return r;
+
+    if ( t.get_aspect().template get<_status_>() )
+      return r;
+    
+    return _(t, J(), v, r, tail_list());
+  }
+
+  template<typename T, typename J, typename V, typename R>
+  R _(T&, J, V&, R r, empty_list)
+  {
+    return r;
+  }
+  
+// proval
+
+  /*
+  template<typename T, typename J, typename V, typename L>
+  void _(T& t, J, V& v, L)
+  {
+    typedef typename head<L>::type head_item;
+    typedef typename tail<L>::type tail_list;
+    
+    entity_(t, J(), v, head_item());
+
+    if ( !try_<_except_>(t) )
+      return;
+    
+    _(t, J(), v, tail_list());
+  }
+
+  template<typename T, typename J, typename V>
+  void _(T&, J, V&, empty_list)
+  {
+    
+  }
+  */
 };
 
 template<typename TgList, bool Variant = false>

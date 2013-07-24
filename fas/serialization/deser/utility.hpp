@@ -89,6 +89,7 @@ R entity_(T& t, J, V& v, R r, deser<Tg>)
   return t.get_aspect().template get<Tg>()(t, J(), v, r);
 }
 
+/*
 template<typename T, typename J, typename V, typename R>
 R entity_(T&, J, V&, R r, empty_list)
 {
@@ -111,7 +112,7 @@ R entity_(T& t, J, V& v, R r, L)
   r = entity_(t, J(), v, r, head_item());
   
   return entity_(t, J(), v, r, tail_list());
-}
+}*/
 
 // entity proval
 
@@ -157,7 +158,7 @@ void entity_(T& t, J, V& v, deser<Tg>)
 {
   t.get_aspect().template get<Tg>()(t, J(), v);
 }
-
+/*
 template<typename T, typename J, typename V>
 void entity_(T&, J, V&, empty_list)
 {
@@ -175,6 +176,7 @@ void entity_(T& t, J, V& v, L)
   entity_(t, J(), v, head_item());
   entity_(t, J(), v, tail_list());
 }
+*/
 
 
 ///

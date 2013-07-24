@@ -14,6 +14,7 @@
 
 namespace fas{ namespace serialization{ namespace deser{
 
+  /*
 // first priority
 template<typename TgList, typename TgEnd>
 struct ad_parse_copy
@@ -70,6 +71,7 @@ private:
     return rr;
   }
 };
+*/
   
 }}}
 

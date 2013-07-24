@@ -15,8 +15,7 @@
 namespace fas{ namespace serialization{ namespace parse{
 
 struct ad_any_character
-{
-  
+{ 
   template<typename T, typename R>
   bool peek( T&, R )
   {

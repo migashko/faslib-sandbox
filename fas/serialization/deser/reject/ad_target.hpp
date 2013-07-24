@@ -9,6 +9,7 @@
 
 namespace fas{ namespace serialization{ namespace deser{
 
+  /*
 struct ad_tag
 {  
   template<typename T, typename J, typename V>
@@ -44,7 +45,7 @@ struct ad_target
     return t.get_aspect().template get<_tag_>()(t, target(), v, r);
   }
 };
-
+*/
 
 }}}
 

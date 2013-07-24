@@ -20,11 +20,12 @@ struct _string_content_;
 struct _string_helper_;
 
 // Основные вспомогательные
-struct _target_;
-struct _tag_;
+//struct _target_;
+//struct _tag_;
+struct _parser_;
 struct _nothing_;
-struct _push2range_;
-struct _value2range_; // в json
+struct _insert_;
+struct _back_inserter_; // в json
 
 /// old
 

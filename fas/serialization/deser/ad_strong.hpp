@@ -19,6 +19,7 @@ namespace fas{ namespace serialization{ namespace deser{
  * @tparam TgParseElement list item parser tag
  * @tparam TgParseEnd end list parser tag
  */
+/*
 template<typename TgParseSep, typename TgParseItem, typename TgParseEnd>
 struct ad_strong
 {
@@ -90,6 +91,7 @@ private:
     return _(t, v, r, target_list(), int_<length<target_list>::value>() );
   }
 };
+*/
 
 }}}
 
