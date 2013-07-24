@@ -49,7 +49,16 @@ UNIT(deser2_1_unit, "")
   std::string value;
   char json[]="\"name\"";
   aj::deserializer<> deser;
-  deser( aj::string<>(), value, fas::srange(json) );
+  try
+  {
+    deser( aj::string<>(), value, fas::srange(json) );
+  }
+  catch( const ::fas::serialization::exception& e)
+  {
+    std::cout << std::endl;
+    std::cout << e.what() << std::endl;
+    std::cout << e.message( fas::srange(json) ) << std::endl;
+  }
   std::cout << value << std::endl;
   t << equal<expect>(value, "name") << FAS_TESTING_FILE_LINE << std::endl << value;
   t << nothing();

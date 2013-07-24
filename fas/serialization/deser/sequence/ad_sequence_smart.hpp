@@ -22,6 +22,13 @@ struct ad_sequence<sequence::smart, TgParseEnd>
 {
   typedef TgParseEnd      _end_;
 
+  template<typename T, typename J, typename V>
+  void operator()(T& , J, V& )
+  {
+    // proval
+  }
+
+
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)
   {

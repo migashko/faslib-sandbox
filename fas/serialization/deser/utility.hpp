@@ -12,15 +12,21 @@
 
 namespace fas{ namespace serialization{ namespace deser{
 
+// Обертки для тегов
 struct target{};
 
 template<int>
 struct target_n{};
 
 struct ignore_status{};
+struct false_status{};
 
 template<typename T>
 struct parser{};
+
+template<typename T>
+struct copy_parse{};
+
 
 template<typename T>
 struct deser{};
@@ -52,10 +58,29 @@ R entity_(T& t, J, V&, R r, ignore_status)
   return r;
 }
 
+template<typename T, typename J, typename V, typename R>
+R entity_(T& t, J, V&, R r, false_status)
+{
+  t.get_aspect().template get<_status_>()=false;
+  return r;
+}
+
 template<typename T, typename J, typename V, typename R, typename Tg>
 R entity_(T& t, J, V&, R r, parser<Tg>)
 {
   return t.get_aspect().template get<Tg>()(t, std::make_pair(r, mrange(r))).first;
+}
+
+template<typename T, typename J, typename V, typename R, typename Tg>
+R entity_(T& t, J, V& v, R r, copy_parse<Tg>)
+{
+  std::pair<R, V> res = t.get_aspect().template get<Tg>()(t, std::make_pair(r, v));
+  v = res.second;
+  return res.first;
+  /*
+  // TODO: ref
+  return t.get_aspect().template get<Tg>()(t, std::make_pair(r, v)).first;
+  */
 }
 
 template<typename T, typename J, typename V, typename R, typename Tg>
@@ -112,8 +137,18 @@ void entity_(T&, J, V&, ignore_status)
 {
 }
 
+template<typename T, typename J, typename V>
+void entity_(T&, J, V&, false_status)
+{
+}
+
 template<typename T, typename J, typename V, typename Tg>
 void entity_(T&, J, V&, parser<Tg>)
+{
+}
+
+template<typename T, typename J, typename V, typename Tg>
+void entity_(T&, J, V&, copy_parse<Tg>)
 {
 }
 

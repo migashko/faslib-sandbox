@@ -20,13 +20,19 @@ struct ad_sequence<sequence::each, TgParseEnd>
 {
   typedef TgParseEnd      _end_;
 
+  template<typename T, typename J, typename V>
+  void operator()(T& , J, V& )
+  {
+    // proval
+  }
+
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)
   {
     typedef typename J::target_list target_list;
     typedef typename J::alt_target alt_target;
 
-        for (;;)
+    for (;;)
     {
       r = _(t, v, r, target_list(), alt_target());
       
@@ -57,6 +63,7 @@ private:
       return _(t, v, r, target_list(), empty_type() );
     
     t.get_aspect().template get<_status_>() = true;
+    
     return _(t, v, r, target_list(), Alt() );
   }
 
@@ -89,7 +96,6 @@ private:
   template<typename T, typename V, typename R, typename Alt>
   R _(T& t, V& v, R r, empty_list, Alt)
   {
-    std::cout << "ALT" << std::endl;
     typedef Alt target;
     typedef typename target::tag _tag_;
     return t.get_aspect().template get<_tag_>()(t, target(), v, r);

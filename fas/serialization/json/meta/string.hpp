@@ -9,14 +9,20 @@
 
 namespace fas{ namespace json{
 
-template<typename Target = optional>
+
+  /*
+template<typename Target >
+struct string_content
+{
+  
+}*/
+
+/*template<typename Target = optional>
 struct string: sequence<Target, _string_>
 {
-  /*
-  typedef empty_list targets;
-  typedef _string_ tag;
-  */
+
 };
+*/
 
 }}
 

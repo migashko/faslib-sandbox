@@ -45,8 +45,7 @@ namespace fas{ namespace json{ namespace deser{
 using ::fas::serialization::deser::parser;
 using ::fas::serialization::deser::deser;
 
-struct _string_helper_;
-struct _string_content_;
+
 struct _string_content_variant_;
 struct _utf8_letter_;
 struct _error_;
@@ -63,6 +62,7 @@ struct ad_parse_error
 };
 
 
+/*
 struct ad_string_content:
   ::fas::serialization::deser::ad_parse_copy< type_list_n<
     ::fas::json::parse::_utf8_letter_
@@ -70,6 +70,22 @@ struct ad_string_content:
 {};
 
 struct ad_string_helper: ::fas::serialization::deser::ad_value2range<_string_content_> {};
+*/
+
+struct ad_string_helper:
+  ::fas::serialization::deser::ad_entity2< type_list_n<
+      ::fas::serialization::deser::copy_parse< ::fas::json::parse::_utf8_letter_>/*, ::fas::serialization::deser::ignore_status
+    , ::fas::serialization::deser::false_status*/
+  >::type>
+{};
+
+
+struct ad_string_content:
+  ad_sequence<
+    sequence::each,
+    ::fas::json::parse::_quote_
+  >
+{};
 
 // TODO: meta для вставки или back_inserter<string>
 // то же для массивов 
@@ -77,7 +93,7 @@ struct ad_string_helper: ::fas::serialization::deser::ad_value2range<_string_con
 struct ad_string:
   ::fas::serialization::deser::ad_entity2< type_list_n<
       parser< ::fas::json::parse::_quote_>,
-      deser<_string_helper_>,
+      /*deser<_string_helper_>*/target,
       parser< ::fas::json::parse::_quote_>
   >::type >
 {

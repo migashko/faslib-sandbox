@@ -115,6 +115,45 @@ struct array_list
   typedef _array_list_ tag;
 };
 
+
+struct string_helper
+{
+  typedef _string_helper_ tag;
+};
+
+//template<typename TargetList = empty_list>
+struct string_content
+{
+  typedef type_list<string_helper> target_list;
+  typedef _string_content_ tag;
+  // Костыль - должн быть exception (типа invalid_string)
+  typedef parse_field alt_target; // TODO: 
+};
+
+
+template<typename ProvalList = optional>
+struct string
+{
+  typedef container< string_content > target;
+  typedef _string_ tag;
+};
+
+template<typename Target, typename ProvalList = optional>
+struct string_ex
+{
+  typedef container< Target > target;
+  typedef _string_ tag;
+};
+
+template<typename TString, typename ProvalList = optional>
+struct const_string
+{
+  // чета типа
+  // typedef tstring_content<Target> target;
+  typedef _string_ tag;
+};
+
+
 /*
 template< typename Target, bool Clear = true>
 struct range
