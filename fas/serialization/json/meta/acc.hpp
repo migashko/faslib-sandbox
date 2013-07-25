@@ -11,22 +11,6 @@ struct acc: Accessor
 {
   typedef Target target;
   typedef _access_ tag;
-  /*
-  typedef typename Accessor::value_type value_type;
-
-  template<typename V>
-  reference_wrapper<value_type> operator()(reference_wrapper<V> v) const
-  {
-    return ref(Accessor::operator()(v.get()));
-  }
-
-  template<typename V>
-  reference_wrapper<const value_type> operator()(reference_wrapper<const V> v) const
-  {
-    return cref(Accessor::operator()(v.get()));
-  }
-  */
- 
 };
 
 }}

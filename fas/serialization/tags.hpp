@@ -3,6 +3,10 @@
 
 namespace fas{ namespace serialization{
 
+struct _container_;
+
+//
+  
 struct _except_;
 struct _clear_;
 struct _status_;

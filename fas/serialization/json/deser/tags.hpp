@@ -5,7 +5,6 @@
 
 namespace fas{ namespace json{ namespace deser{
 
-
   
 // old
   

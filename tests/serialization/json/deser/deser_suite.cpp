@@ -72,7 +72,7 @@ UNIT(deser3_unit, "")
   char json[]="\"name\":12345/* */  /**/";
   aj::deserializer<> deser;
   try{
-  deser( aj::attr< aj::name<n_name>, aj::integer<> >(), value, fas::srange(json) );
+  deser( aj::field< aj::name<n_name>, aj::integer<> >(), value, fas::srange(json) );
   }
   catch(fas::serialization::exception& e)
   {
@@ -92,7 +92,7 @@ UNIT(deser4_unit, "")
   char json[]="\"name\":\"~Ё你 привет мир\"/* */  /**/";
   aj::deserializer<> deser;
   try{
-  deser( aj::attr< aj::name<n_name>, aj::string<> >(), value, json );
+  deser( aj::field< aj::name<n_name>, aj::string<> >(), value, json );
   }
   catch(fas::serialization::exception& e)
   {
@@ -115,8 +115,8 @@ struct object
 
 typedef aj::acc< ::fas::member<object, int, &object::member1>, aj::integer<> > acc_member1;
 typedef aj::acc< ::fas::member<object, std::string, &object::member2>, aj::string<> > acc_member2;
-typedef aj::attr< aj::name<n_member1>, aj::acc< ::fas::member<object, int,&object::member1>, aj::integer<> > > member1;
-typedef aj::attr< aj::name<n_member2>, aj::acc< ::fas::member<object, std::string, &object::member2>, aj::string<> > > member2;
+typedef aj::field< aj::name<n_member1>, aj::acc< ::fas::member<object, int,&object::member1>, aj::integer<> > > member1;
+typedef aj::field< aj::name<n_member2>, aj::acc< ::fas::member<object, std::string, &object::member2>, aj::string<> > > member2;
 
 typedef aj::object< ::fas::type_list_n<
   member1,

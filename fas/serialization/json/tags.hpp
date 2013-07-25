@@ -1,7 +1,11 @@
 #ifndef FAS_SERIALIZATION_JSON_TAGS_HPP
 #define FAS_SERIALIZATION_JSON_TAGS_HPP
 
+#include <fas/serialization/tags.hpp>
+
 namespace fas{ namespace json{
+
+using ::fas::serialization::_container_;
 
 // Основные общие 
 struct _array_;
@@ -25,7 +29,7 @@ struct _string_helper_;
 struct _parser_;
 struct _nothing_;
 struct _insert_;
-struct _back_inserter_; // в json
+//struct _back_inserter_; // в json
 
 /// old
 

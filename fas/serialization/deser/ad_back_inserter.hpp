@@ -6,7 +6,7 @@
 
 namespace fas{ namespace serialization{ namespace deser{
 
-struct ad_back_inserter
+struct ad_container
 {
   
   template<typename T, typename J, typename V>

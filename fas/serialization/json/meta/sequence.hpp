@@ -8,6 +8,7 @@
 
 namespace fas{ namespace json{
 
+/*
 template< typename TargetList, typename Tg>
 struct sequence
 {
@@ -15,23 +16,8 @@ struct sequence
   typedef typename normalize<TargetList>::type target_list;
   typedef Tg tag;
 
-  /*
-  template<typename V>
-  typename typerange<V>::orange operator()( reference_wrapper<V> v ) const
-  {
-    return orange( v.get() );
-  }*/
-  
-
-  /*
-  template<typename V>
-  typename typerange<V>::range operator()( reference_wrapper<const V> v ) const
-  {
-    return range(v.get());
-  }
-  */
 };
-
+*/
 }}
 
 #endif

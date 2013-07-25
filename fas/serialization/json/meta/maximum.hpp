@@ -6,6 +6,7 @@
 
 namespace fas{ namespace json{
 
+/*
 template<typename N>
 struct maximum
 {
@@ -16,7 +17,7 @@ struct maximum
     return v >= N::value;
   }
 };
-
+*/
 
 }}
 

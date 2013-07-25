@@ -35,19 +35,19 @@ FAS_NAME(optional1)
 FAS_NAME(optional2)
 
 typedef object< ::fas::type_list_n<
-  attr< 
+  field< 
     name<n_requred1>, 
     acc< fas::member<object1, int, &object1::requred1>, integer<> >
   >,
-  attr< 
+  field< 
     name<n_requred2>, 
     acc< fas::member<object1, std::string, &object1::requred2>, string<> >
   >,
-  attr< 
+  field< 
     name<n_optional1>, 
     acc< fas::member<object1, int, &object1::optional1>, integer<> >
   >,
-  attr< 
+  field< 
     name<n_optional2>, 
     acc< fas::member<object1, std::string, &object1::optional2>, string<> >
   >

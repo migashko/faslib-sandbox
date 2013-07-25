@@ -4,6 +4,7 @@
 #include <fas/serialization/json/tags.hpp>
 #include <fas/type_list/normalize.hpp>
 #include <fas/typemanip/if_c.hpp>
+#include <fas/typemanip/member.hpp>
 #include <fas/type_list/is_type_list.hpp>
 #include <fas/type_list/empty_list.hpp>
 #include <fas/range.hpp>
@@ -11,6 +12,16 @@
 #include "sequence.hpp"
 
 #include <fas/serialization/json/parse/tags.hpp>
+
+// ---
+#include <fas/serialization/meta/container.hpp>
+
+namespace fas{ namespace json{
+
+using ::fas::serialization::container;
+
+}}
+// ---
 
 namespace fas{ namespace json{
 
@@ -20,22 +31,19 @@ namespace fas{ namespace json{
 
 // TODO: ограничения на размер контенера
 //       container< ..., int_<10> >
-template<typename T>
-struct back_inserter
-{
-  typedef T target;
-  typedef _back_inserter_ tag;
-};
 
+/*
+сделать reverse да и все
 template<typename T>
 struct front_inserter
 {
   // TODO:
 };
+*/
 
 
 template<typename T>
-struct insert
+struct element
 {
   typedef T target;
   typedef _insert_ tag;
@@ -46,49 +54,49 @@ struct insert
 /// parser
 ///
   
-struct parse_field
+struct ignore_field
 {
   typedef _parser_ tag;
   typedef ::fas::json::parse::_object_field_ parser_tag;
 };
 
-struct parse_item
+struct ignore_item
 {
   typedef _parser_ tag;
   typedef ::fas::json::parse::_array_item_ parser_tag;
 };
 
-struct parse_string
+struct ignore_string
 {
   typedef _parser_ tag;
   typedef ::fas::json::parse::_string_ parser_tag;
 };
 
-struct parse_bool
+struct ignore_bool
 {
   typedef _parser_ tag;
   typedef ::fas::json::parse::_boolean_ parser_tag;
 };
 
-struct parse_null
+struct ignore_null
 {
   typedef _parser_ tag;
   typedef ::fas::json::parse::_null_ parser_tag;
 };
 
-struct parse_array
+struct ignore_array
 {
   typedef _parser_ tag;
   typedef ::fas::json::parse::_array_ parser_tag;
 };
 
-struct parse_object
+struct ignore_object
 {
   typedef _parser_ tag;
   typedef ::fas::json::parse::_object_ parser_tag;
 };
 
-struct parse_value
+struct ignore_value
 {
   typedef _parser_ tag;
   typedef ::fas::json::parse::_value_ parser_tag;
@@ -123,7 +131,7 @@ struct string_content
   typedef _string_content_ tag;
   
   // Костыль - должн быть exception (типа invalid_string)
-  typedef parse_field alt_target; // TODO:
+  typedef ignore_field alt_target; // TODO:
 };
 
 
@@ -131,7 +139,7 @@ template<typename ProvalList = empty_list>
 struct string
 {
   typedef typename normalize<ProvalList>::type proval_list;
-  typedef back_inserter< string_content > target;
+  typedef container< string_content > target;
   typedef _string_ tag;
 };
 
@@ -163,13 +171,27 @@ struct name: equal_string<Name>
 {
 };
 
-template< typename TargetList>
+template<typename Name, typename Value>
+struct field
+{
+  typedef typename type_list_n<Name, Value>::type target_list;
+  typedef _attr_ tag;
+};
+
+template<typename TString, typename V, typename VT, VT V::* m, typename Value>
+struct mem_field
+  : field< name<TString>, acc< member<V, VT, m>, Value> >
+{
+};
+
+
+template< typename TargetList, typename Alt = ignore_field>
 struct field_list
 {
   // TODO: list categories
   typedef typename normalize<TargetList>::type target_list;
   typedef _field_list_smart_ tag;
-  typedef parse_field alt_target; // TODO: 
+  typedef ignore_field alt_target; // TODO: 
 };
 
 
@@ -185,6 +207,8 @@ struct object
   typedef _object_ tag;
 };
 
+// array
+
 template< typename Target>
 struct item
 {
@@ -192,12 +216,12 @@ struct item
   typedef _item_ tag;
 };
 
-template<typename TargetList>
+template<typename TargetList, typename Alt = ignore_item>
 struct sequence_items
 {
   typedef typename normalize<TargetList>::type target_list;
   typedef _sequence_items_ tag;
-  typedef parse_item alt_target;
+  typedef Alt alt_target;
 };
 
 
@@ -205,7 +229,7 @@ struct sequence_items
 template< typename Target >
 struct array
 {
-  typedef back_inserter< sequence_items< insert< item<Target> > > > target;
+  typedef container< sequence_items< element< item< Target > > > > target;
 
   typedef _array_ tag;
 };
