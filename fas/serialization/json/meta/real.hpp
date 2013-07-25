@@ -8,12 +8,14 @@
 
 namespace fas{ namespace json{
 
+  /*
 struct real
 {
   typedef metalist::number metatype;
   typedef ser::_real_ serializer_tag;
   typedef deser::_real_ deserializer_tag;
 };
+*/
 
 }}
 

@@ -9,12 +9,6 @@ namespace fas{ namespace json{
 // Заменить на optional< integer<restrict>, defaults >
 // например optional< nullable< integer<restrict>, default1>, default2 >
 //          required< nullable< integer<restrict>, default1>, default2 >
-template<typename Target = optional>
-struct integer
-{
-  typedef Target target;
-  typedef _integer_ tag;
-};
 
 }}
 

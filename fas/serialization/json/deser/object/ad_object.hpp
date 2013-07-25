@@ -7,16 +7,16 @@
 
 namespace fas{ namespace json{ namespace deser{
 
-using ::fas::serialization::deser::parser;
+using ::fas::serialization::deser::parse;
+using ::fas::serialization::deser::parse_if;
 using ::fas::serialization::deser::target;
-//using ::fas::serialization::deser::ad_entity;
 using ::fas::serialization::deser::ad_entity2;
 
 struct ad_object:
   ad_entity2< type_list_n<
-    parser< ::fas::json::parse::_left_brace_>,
-    /*_target_*/target,
-    parser< ::fas::json::parse::_right_brace_>
+    parse_if< ::fas::json::parse::_left_brace_>,
+    target,
+    parse< ::fas::json::parse::_right_brace_>
    >::type >
 {};
 

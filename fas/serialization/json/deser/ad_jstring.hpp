@@ -9,6 +9,7 @@
 
 namespace fas{ namespace json{ namespace deser{
 
+  /*
 struct ad_jstring:
   fas::serialization::deser::ad_entity2< type_list_n<
     fas::serialization::deser::parser< ::fas::json::parse::_quote_>,
@@ -16,6 +17,7 @@ struct ad_jstring:
     fas::serialization::deser::parser< ::fas::json::parse::_quote_>
   >::type >
 {};
+*/
 
 
 }}}

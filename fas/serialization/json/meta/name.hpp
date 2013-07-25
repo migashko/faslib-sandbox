@@ -7,6 +7,7 @@
 
 namespace fas{ namespace json{
 
+/*
 template<typename Name>
 struct name: Name
 {
@@ -27,6 +28,7 @@ struct tstring: S
   typedef optional target;
   typedef _tstring_ tag;
 };
+*/
 
 }}
 

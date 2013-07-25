@@ -18,14 +18,19 @@ struct target{};
 template<int>
 struct target_n{};
 
+/*
 struct ignore_status{};
 struct false_status{};
+*/
 
 template<typename T>
-struct parser{};
+struct parse{};
 
 template<typename T>
-struct copy_parse{};
+struct parse_copy{};
+
+template<typename T>
+struct parse_if{};
 
 
 template<typename T>
@@ -50,7 +55,7 @@ R entity_(T& t, J, V& v, R r, target_n<N>)
   return t.get_aspect().template get<_tag_>()(t, target(), v, r);
 }
 
-
+/*
 template<typename T, typename J, typename V, typename R>
 R entity_(T& t, J, V&, R r, ignore_status)
 {
@@ -64,23 +69,29 @@ R entity_(T& t, J, V&, R r, false_status)
   t.get_aspect().template get<_status_>()=false;
   return r;
 }
+*/
 
 template<typename T, typename J, typename V, typename R, typename Tg>
-R entity_(T& t, J, V&, R r, parser<Tg>)
+R entity_(T& t, J, V&, R r, parse<Tg>)
 {
   return t.get_aspect().template get<Tg>()(t, std::make_pair(r, mrange(r))).first;
 }
 
 template<typename T, typename J, typename V, typename R, typename Tg>
-R entity_(T& t, J, V& v, R r, copy_parse<Tg>)
+R entity_(T& t, J, V&, R r, parse_if<Tg>)
+{
+  if ( t.get_aspect().template get<Tg>().peek(t, r) )
+    return t.get_aspect().template get<Tg>()(t, std::make_pair(r, mrange(r))).first;
+  t.get_aspect().template get<_status_>() = false;
+  return r;
+}
+
+template<typename T, typename J, typename V, typename R, typename Tg>
+R entity_(T& t, J, V& v, R r, parse_copy<Tg>)
 {
   std::pair<R, V> res = t.get_aspect().template get<Tg>()(t, std::make_pair(r, v));
   v = res.second;
   return res.first;
-  /*
-  // TODO: ref
-  return t.get_aspect().template get<Tg>()(t, std::make_pair(r, v)).first;
-  */
 }
 
 template<typename T, typename J, typename V, typename R, typename Tg>
@@ -88,31 +99,6 @@ R entity_(T& t, J, V& v, R r, deser<Tg>)
 {
   return t.get_aspect().template get<Tg>()(t, J(), v, r);
 }
-
-/*
-template<typename T, typename J, typename V, typename R>
-R entity_(T&, J, V&, R r, empty_list)
-{
-  return r;
-}
-
-// return r - после последнкго успешного (перед первым fail)
-template<typename T, typename J, typename V, typename R, typename L>
-R entity_(T& t, J, V& v, R r, L)
-{
-  if ( !try_<_except_>(t) )
-    return r;
-
-  if ( !t.get_aspect().template get<_status_>() )
-    return r;
-
-  typedef typename head<L>::type head_item;
-  typedef typename tail<L>::type tail_list;
-  
-  r = entity_(t, J(), v, r, head_item());
-  
-  return entity_(t, J(), v, r, tail_list());
-}*/
 
 // entity proval
 
@@ -133,6 +119,7 @@ void entity_(T& t, J, V& v, target_n<N>)
   t.get_aspect().template get<_tag_>()(t, target(), v);
 }
 
+/*
 template<typename T, typename J, typename V>
 void entity_(T&, J, V&, ignore_status)
 {
@@ -142,14 +129,20 @@ template<typename T, typename J, typename V>
 void entity_(T&, J, V&, false_status)
 {
 }
+*/
 
 template<typename T, typename J, typename V, typename Tg>
-void entity_(T&, J, V&, parser<Tg>)
+void entity_(T&, J, V&, parse<Tg>)
 {
 }
 
 template<typename T, typename J, typename V, typename Tg>
-void entity_(T&, J, V&, copy_parse<Tg>)
+void entity_(T&, J, V&, parse_copy<Tg>)
+{
+}
+
+template<typename T, typename J, typename V, typename Tg>
+void entity_(T&, J, V&, parse_if<Tg>)
 {
 }
 

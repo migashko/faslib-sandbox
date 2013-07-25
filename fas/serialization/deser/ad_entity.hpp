@@ -178,6 +178,7 @@ private:
   */
 };
 
+/*
 template<typename TgList, bool Variant = false>
 struct ad_entity_old
 {
@@ -286,6 +287,7 @@ private:
   }
 
 };
+*/
 
 }}}
 

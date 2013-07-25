@@ -3,9 +3,12 @@
 
 //#include <fas/typemanip/reference_wrapper.hpp>
 #include <fas/serialization/tags.hpp>
+#include <fas/range.hpp>
 
 namespace fas{ namespace serialization{ namespace deser{
 
+// Переименовать, т.к. это может быть замена если v - srange например
+// puset? push or set
 struct ad_insert
 {
   template<typename T, typename J, typename V, typename R>
@@ -14,7 +17,7 @@ struct ad_insert
     typedef typename J::target target;
     typedef typename target::tag _tag_;
 
-    typedef typename V::value_type value_type;
+    typedef typename range_traits<V>::value_type value_type;
     value_type value = value_type();
     r = t.get_aspect().template get<_tag_>()(t, target(), value, r);
     if ( t.get_aspect().template get<_status_>() )

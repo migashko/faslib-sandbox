@@ -23,7 +23,7 @@
 //#include <fas/serialization/deser/ad_brute_list.hpp>
 #include <fas/serialization/deser/ad_entity.hpp>
 #include <fas/serialization/deser/sequence/ad_sequence_each.hpp>
-#include <fas/serialization/deser/ad_tstring.hpp>
+#include <fas/serialization/deser/ad_equal_content.hpp>
 #include <fas/serialization/deser/ad_nothing.hpp>
 #include <fas/serialization/deser/ad_parser.hpp>
 
@@ -43,7 +43,7 @@
 
 namespace fas{ namespace json{ namespace deser{
 
-using ::fas::serialization::deser::parser;
+using ::fas::serialization::deser::parse;
 using ::fas::serialization::deser::deser;
 
 
@@ -75,7 +75,7 @@ struct ad_string_helper: ::fas::serialization::deser::ad_value2range<_string_con
 
 struct ad_string_helper:
   ::fas::serialization::deser::ad_entity_variant< type_list_n<
-      ::fas::serialization::deser::copy_parse< ::fas::json::parse::_utf8_letter_>
+      ::fas::serialization::deser::parse_copy< ::fas::json::parse::_utf8_letter_>
   >::type>
 {};
 
@@ -92,9 +92,9 @@ struct ad_string_content:
 // TODO: для всех - reference_wrapper
 struct ad_string:
   ::fas::serialization::deser::ad_entity2< type_list_n<
-      parser< ::fas::json::parse::_quote_>,
+      parse_if< ::fas::json::parse::_quote_>,
       /*deser<_string_helper_>*/target,
-      parser< ::fas::json::parse::_quote_>
+      parse< ::fas::json::parse::_quote_>
   >::type >
 {
 };
@@ -146,7 +146,7 @@ struct aspect:
   ::fas::aspect< type_list_n<
     array::aspect,
     object::aspect,
-    advice< _jstring_,     ad_jstring >,
+    //advice< _jstring_,     ad_jstring >,
     advice< _optional_,    ::fas::serialization::deser::ad_nothing>,
     advice< _parser_, ::fas::serialization::deser::ad_parser>,
     //advice< _parse_field_, ad_parse_field >,
@@ -165,7 +165,7 @@ struct aspect:
     advice< _string_,         ad_string >,
     //advice< _error_, ad_parse_error >,
     advice< _integer_,        ::fas::serialization::deser::ad_integer >,
-    advice< _tstring_,    ::fas::serialization::deser::ad_tstring>,
+    advice< _equal_content_,    ::fas::serialization::deser::ad_equal_content>,
     type_list_n<
       advice< ::fas::serialization::_deser_, ::fas::serialization::deser::ad_deser >,
       value_advice< ::fas::serialization::_status_, bool>,
