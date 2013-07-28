@@ -27,7 +27,55 @@ struct ad_parser
   {
     typedef typename J::parser_tag _tag_;
     return t.get_aspect().template get<_tag_>()(t, std::make_pair(r, mrange(r))).first;
-  }  
+  }
+  
+private:
+
+  template<typename T, typename J, typename V, typename R>
+  R _(T& t, J, V& v, R r, false_, false_)
+  {
+    typedef typename J::parser_tag _tag_;
+    return t.get_aspect().template get<_tag_>()(t, std::make_pair(r, mrange(r))).first;
+  }
+
+  template<typename T, typename J, typename V, typename R>
+  R _(T& t, J, V& v, R r, true_, false_)
+  {
+    typedef typename J::parser_tag _tag_;
+    if ( !t.get_aspect().template get<_tag_>().peek(t, r))
+      t.get_aspect().template get<_status_>() = false;
+    else
+      r = t.get_aspect().template get<_tag_>()(t, std::make_pair(r, mrange(r))).first;
+    return r;
+  }
+ 
+// copy
+
+  template<typename T, typename J, typename V, typename R>
+  R _(T& t, J, V& v, R r, false_, true_)
+  {
+    typedef typename J::parser_tag _tag_;
+    std::pair<R, V> res = t.get_aspect().template get<_tag_>()(t, std::make_pair(r, v));
+    v = res.second;
+    return res.first;
+  }
+
+  template<typename T, typename J, typename V, typename R>
+  R _(T& t, J, V& v, R r, true_, true_)
+  {
+    typedef typename J::parser_tag _tag_;
+
+    if ( !t.get_aspect().template get<_tag_>().peek(t, r))
+      t.get_aspect().template get<_status_>() = false;
+    else
+    {
+      std::pair<R, V> res = t.get_aspect().template get<_tag_>()(t, std::make_pair(r, v));
+      v = res.second;
+      r = res.first;
+    }
+    return r;
+  }
+
 };
 
 

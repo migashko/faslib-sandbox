@@ -34,8 +34,8 @@ struct ad_deser
       return throw_<_except_>(t, syntax_error(distance(r)), r);
 
     return r;
-
   }
+  
 };
 
 }}}

@@ -9,7 +9,7 @@ namespace fas{ namespace serialization{ namespace deser{
 
 // Переименовать, т.к. это может быть замена если v - srange например
 // puset? push or set
-struct ad_insert
+struct ad_element
 {
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)

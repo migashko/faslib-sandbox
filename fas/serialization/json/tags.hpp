@@ -6,6 +6,7 @@
 namespace fas{ namespace json{
 
 using ::fas::serialization::_container_;
+using ::fas::serialization::_element_;
 
 // Основные общие 
 struct _array_;
@@ -27,8 +28,9 @@ struct _string_helper_;
 //struct _target_;
 //struct _tag_;
 struct _parser_;
+struct _ignore_;
 struct _nothing_;
-struct _insert_;
+
 //struct _back_inserter_; // в json
 
 /// old

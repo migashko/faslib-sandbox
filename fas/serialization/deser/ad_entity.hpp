@@ -22,6 +22,147 @@
 
 namespace fas{ namespace serialization{ namespace deser{
 
+struct ad_entity3
+{  
+  template<typename T, typename J, typename V>
+  void operator()(T& t, J, V& v)
+  {
+    /*
+    typedef typename J::entity_list entity_list;
+    _(t, J(), v, entity_list() );
+    */
+  }
+
+  template<typename T, typename J, typename V, typename R>
+  R operator()(T& t, J, V& v, R r)
+  {
+    typedef typename J::entity_list entity_list;
+
+    R orig = r;
+    
+    r =  _(t, J(), v, r, entity_list() );
+
+    if ( !t.get_aspect().template get<_status_>() )
+      return orig;
+
+    return r;
+  }
+  
+private:
+  
+  template<typename T, typename J, typename V, typename R, typename L>
+  R _(T& t, J, V& v, R r, L)
+  {
+    typedef typename head<L>::type head_item;
+    typedef typename tail<L>::type tail_list;
+    
+    //typedef typename head_item::target target;
+    typedef typename head_item::tag _tag_;
+    
+    r = t.get_aspect().template get<_tag_>()( t, head_item(), v, r);
+    /*
+    r = entity_(t, J(), v, r, head_item());
+    */
+
+    if ( !try_<_except_>(t) )
+      return r;
+
+    if ( !t.get_aspect().template get<_status_>() )
+      return r;
+    
+    return _(t, J(), v, r, tail_list());
+  }
+
+  template<typename T, typename J, typename V, typename R>
+  R _(T&, J, V&, R r, empty_list)
+  {
+    return r;
+  }
+  
+// proval
+
+/*
+  template<typename T, typename J, typename V, typename L>
+  void _(T& t, J, V& v, L)
+  {
+    typedef typename head<L>::type head_item;
+    typedef typename tail<L>::type tail_list;
+    
+    // typedef typename head_item::target target;
+    // typedef typename target::tag _tag_;
+    typedef typename head_item::tag _tag_;
+
+    
+    t.get_aspect().template get<_tag_>()( t, head_item(), v);
+    //entity_(t, J(), v, head_item());
+
+    if ( !try_<_except_>(t) )
+      return;
+    
+    _(t, J(), v, tail_list());
+  }
+
+  template<typename T, typename J, typename V>
+  void _(T&, J, V&, empty_list)
+  {
+    
+  }
+  */
+};
+
+struct ad_entity3_variant
+{  
+  template<typename T, typename J, typename V>
+  void operator()(T& t, J, V& v)
+  {
+  }
+
+  template<typename T, typename J, typename V, typename R>
+  R operator()(T& t, J, V& v, R r)
+  {
+    typedef typename J::entity_list entity_list;
+
+    R orig = r;
+    
+    //t.get_aspect().template get<_status_>() = false;
+    
+    r =  _(t, J(), v, r, entity_list() );
+
+    if ( !t.get_aspect().template get<_status_>() )
+      return orig;
+
+    return r;
+  }
+  
+private:
+  
+  template<typename T, typename J, typename V, typename R, typename L>
+  R _(T& t, J, V& v, R r, L)
+  {
+    typedef typename head<L>::type head_item;
+    typedef typename tail<L>::type tail_list;
+    typedef typename head_item::tag _tag_;
+    
+    t.get_aspect().template get<_status_>() = true;
+    
+    r = t.get_aspect().template get<_tag_>()( t, head_item(), v, r);
+
+    if ( !try_<_except_>(t) )
+      return r;
+
+    if ( t.get_aspect().template get<_status_>() )
+      return r;
+    
+    return _(t, J(), v, r, tail_list());
+  }
+
+  template<typename T, typename J, typename V, typename R>
+  R _(T&, J, V&, R r, empty_list)
+  {
+    return r;
+  }  
+};
+
 template<typename TgList>
 struct ad_entity2
 {
@@ -40,9 +181,6 @@ struct ad_entity2
     
     r =  _(t, J(), v, r, tag_list() );
 
-    //if ( !try_<_except_>(t) )
-    //  return orig;
-    
     if ( !t.get_aspect().template get<_status_>() )
       return orig;
     

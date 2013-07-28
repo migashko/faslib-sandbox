@@ -16,10 +16,17 @@
 // ---
 #include <fas/serialization/meta/container.hpp>
 
+
+#include <fas/serialization/deser/utility.hpp>
+#include <fas/serialization/tags.hpp>
+
 namespace fas{ namespace json{
 
 using ::fas::serialization::container;
-
+/*
+using ::fas::serialization::deser::parse;
+using ::fas::serialization::deser::target;
+ */ 
 }}
 // ---
 
@@ -46,61 +53,51 @@ template<typename T>
 struct element
 {
   typedef T target;
-  typedef _insert_ tag;
+  typedef _element_ tag;
 };
 
 
 ///
 /// parser
 ///
+
+template<typename Tg, typename If = false_, typename Copy = false_>
+struct parse2
+{
+  typedef If parse_if;
+  typedef Copy copy;
   
-struct ignore_field
-{
+  typedef Tg parser_tag;
   typedef _parser_ tag;
-  typedef ::fas::json::parse::_object_field_ parser_tag;
 };
 
-struct ignore_item
+template<typename Tg>
+struct ignore
 {
-  typedef _parser_ tag;
-  typedef ::fas::json::parse::_array_item_ parser_tag;
+  typedef true_ parse_if;
+  typedef false_ copy;
+
+  typedef Tg parser_tag;
+  // Это алиас на _parser_, нужен для сериализатора
+  typedef _ignore_ tag;
 };
 
-struct ignore_string
-{
-  typedef _parser_ tag;
-  typedef ::fas::json::parse::_string_ parser_tag;
-};
+struct ignore_field: ignore< ::fas::json::parse::_object_field_ >{};
 
-struct ignore_bool
-{
-  typedef _parser_ tag;
-  typedef ::fas::json::parse::_boolean_ parser_tag;
-};
+struct ignore_item: ignore< ::fas::json::parse::_array_item_ >{};
 
-struct ignore_null
-{
-  typedef _parser_ tag;
-  typedef ::fas::json::parse::_null_ parser_tag;
-};
+struct ignore_string: ignore< ::fas::json::parse::_string_ >{};
 
-struct ignore_array
-{
-  typedef _parser_ tag;
-  typedef ::fas::json::parse::_array_ parser_tag;
-};
+struct ignore_boolean: ignore< ::fas::json::parse::_boolean_ >{};
 
-struct ignore_object
-{
-  typedef _parser_ tag;
-  typedef ::fas::json::parse::_object_ parser_tag;
-};
+struct ignore_null: ignore< ::fas::json::parse::_null_ >{};
 
-struct ignore_value
-{
-  typedef _parser_ tag;
-  typedef ::fas::json::parse::_value_ parser_tag;
-};
+struct ignore_array: ignore< ::fas::json::parse::_array_ >{};
+
+struct ignore_object: ignore< ::fas::json::parse::_object_ >{};
+
+struct ignore_value: ignore< ::fas::json::parse::_value_ >{};
+
 
 ///
 /// basic
@@ -124,7 +121,16 @@ struct real
 
 struct string_content
 {
-  struct string_helper{ typedef _string_helper_ tag; };
+  struct string_helper
+  {
+    //typedef _string_helper_ tag; 
+    
+    typedef ::fas::serialization::_entity3_variant_ tag; // сделать алиас на _item_
+    typedef typename type_list_n<
+      parse2< ::fas::json::parse::_utf8_letter_, false_, true_>
+    >::type entity_list;
+    
+  };
 
   typedef type_list<string_helper> target_list;
   
@@ -209,11 +215,30 @@ struct object
 
 // array
 
+/*
+ * struct ad_item: ad_entity2< type_list_n<
+  parse< ::fas::json::parse::_space_>,
+  target,
+  parse< ::fas::json::parse::_space_>,
+  parse< ::fas::json::parse::_sequence_separator_>
+>::type >
+ */
+
 template< typename Target>
 struct item
 {
+  //typedef ::fas::serialization::deser::parse  parse;
+  //typedef ::fas::serialization::deser::target target;
+
   typedef Target target;
-  typedef _item_ tag;
+  //typedef _item_ tag;
+  typedef ::fas::serialization::_entity3_ tag; // сделать алиас на _item_
+  typedef typename type_list_n<
+    parse2< ::fas::json::parse::_space_>,
+    Target,  // Убрать target, вставить реальный Target
+    parse2< ::fas::json::parse::_space_>,
+    parse2< ::fas::json::parse::_sequence_separator_>
+  >::type entity_list;
 };
 
 template<typename TargetList, typename Alt = ignore_item>
