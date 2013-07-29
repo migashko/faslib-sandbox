@@ -25,7 +25,7 @@ namespace fas{ namespace serialization{ namespace deser{
 struct ad_entity3
 {  
   template<typename T, typename J, typename V>
-  void operator()(T& t, J, V& v)
+  void operator()(T& /*t*/, J, V& /*v*/)
   {
     /*
     typedef typename J::entity_list entity_list;
@@ -123,8 +123,6 @@ struct ad_entity3_variant
     typedef typename J::entity_list entity_list;
 
     R orig = r;
-    
-    //t.get_aspect().template get<_status_>() = false;
     
     r =  _(t, J(), v, r, entity_list() );
 

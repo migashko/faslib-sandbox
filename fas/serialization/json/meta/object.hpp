@@ -127,17 +127,20 @@ struct string_content
     
     typedef ::fas::serialization::_entity3_variant_ tag; // сделать алиас на _item_
     typedef typename type_list_n<
-      parse2< ::fas::json::parse::_utf8_letter_, false_, true_>
+      parse2< ::fas::json::parse::_utf8_letter_, true_, true_>
     >::type entity_list;
     
   };
 
   typedef type_list<string_helper> target_list;
   
-  typedef _string_content_ tag;
+  //typedef _string_content_ tag;
+  typedef ::fas::serialization::_sequence_each_ tag;
   
   // Костыль - должн быть exception (типа invalid_string)
   typedef ignore_field alt_target; // TODO:
+  
+  typedef ::fas::json::parse::_quote_ stop_tag;
 };
 
 
@@ -182,6 +185,24 @@ struct field
 {
   typedef typename type_list_n<Name, Value>::type target_list;
   typedef _attr_ tag;
+  typedef typename type_list_n</*
+    parse2< ::fas::json::parse::_space_>,
+    Target,  // Убрать target, вставить реальный Target
+    parse2< ::fas::json::parse::_space_>,
+    parse2< ::fas::json::parse::_sequence_separator_>
+    */
+ 
+    parse2< ::fas::json::parse::_space_>,
+    Name,
+    parse2< ::fas::json::parse::_space_>,
+    parse2< ::fas::json::parse::_colon_>,
+    parse2< ::fas::json::parse::_space_>,
+    Value,
+    parse2< ::fas::json::parse::_space_>,
+    parse2< ::fas::json::parse::_sequence_separator_>
+ 
+  >::type entity_list;
+
 };
 
 template<typename TString, typename V, typename VT, VT V::* m, typename Value>
@@ -211,6 +232,12 @@ struct object
   >::type target;
   
   typedef _object_ tag;
+  
+  typedef typename type_list_n<
+    parse2< ::fas::json::parse::_left_brace_, true_>,
+    target,  
+    parse2< ::fas::json::parse::_right_brace_>
+  >::type entity_list;
 };
 
 // array
@@ -232,7 +259,8 @@ struct item
 
   typedef Target target;
   //typedef _item_ tag;
-  typedef ::fas::serialization::_entity3_ tag; // сделать алиас на _item_
+  //typedef ::fas::serialization::_entity3_ tag; // сделать алиас на _item_
+  typedef _item_ tag;
   typedef typename type_list_n<
     parse2< ::fas::json::parse::_space_>,
     Target,  // Убрать target, вставить реальный Target
@@ -245,8 +273,13 @@ template<typename TargetList, typename Alt = ignore_item>
 struct sequence_items
 {
   typedef typename normalize<TargetList>::type target_list;
-  typedef _sequence_items_ tag;
+  //typedef _sequence_items_ tag;
   typedef Alt alt_target;
+  
+  // TODO: alias на _sequence_items_
+  typedef ::fas::serialization::_sequence_each_ tag;
+  typedef ::fas::json::parse::_right_bracket_ stop_tag;
+
 };
 
 
@@ -257,6 +290,14 @@ struct array
   typedef container< sequence_items< element< item< Target > > > > target;
 
   typedef _array_ tag;
+
+  
+  typedef typename type_list_n<
+    parse2< ::fas::json::parse::_left_bracket_, true_>,
+    target,  
+    parse2< ::fas::json::parse::_right_bracket_>
+  >::type entity_list;
+
 };
 
 

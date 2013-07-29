@@ -19,9 +19,13 @@ struct aspect:
     // alias< _name_, _jstring_ >,
     //advice<_field_key_, ad_field_key>,
     //advice<_field_value_, ad_field_value>,
-    advice<_field_, ad_field>,
+    //advice<_field_, ad_field>,
+    alias<_field_,  ::fas::serialization::_entity3_>,
+
     advice<_field_list_smart_, ad_field_list_smart >,
-    advice<_object_, ad_object>
+    //advice<_object_, ad_object>
+    alias<_object_, ::fas::serialization::_entity3_>
+
   >::type >
 {};
 

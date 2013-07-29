@@ -4,10 +4,12 @@
 
 namespace fas{ namespace serialization{ namespace deser{
 
+  /*
 struct ad_before
 {
    
 };
+*/
 
 }}}
 

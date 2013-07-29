@@ -4,6 +4,7 @@
 
 namespace fas{ namespace serialization{ namespace deser{
 
+  /*
 struct ad_after
 {
   template<typename T, typename J, typename V>
@@ -13,7 +14,7 @@ struct ad_after
     
   }
 };
-
+*/
 }}}
 
 #endif

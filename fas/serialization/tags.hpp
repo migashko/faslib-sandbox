@@ -7,6 +7,8 @@ struct _container_;
 struct _element_;
 struct _entity3_; // это основной - переименовать
 struct _entity3_variant_;
+struct _sequence_each_;
+
 //
   
 struct _except_;
