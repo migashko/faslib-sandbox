@@ -22,14 +22,14 @@
 //#include <fas/serialization/deser/sequence/sequence.hpp>
 //#include <fas/serialization/deser/ad_brute_list.hpp>
 #include <fas/serialization/deser/ad_entity.hpp>
-#include <fas/serialization/deser/sequence/ad_sequence_each.hpp>
+#include <fas/serialization/deser/ad_sequence_each.hpp>
 #include <fas/serialization/deser/ad_equal_content.hpp>
-#include <fas/serialization/deser/ad_nothing.hpp>
+//#include <fas/serialization/deser/ad_nothing.hpp>
 #include <fas/serialization/deser/ad_parser.hpp>
 
 
 #include <fas/serialization/deser/ad_container.hpp>
-#include <fas/serialization/deser/ad_insert.hpp>
+#include <fas/serialization/deser/ad_element.hpp>
 //#include <fas/serialization/deser/ad_process_or_parse.hpp>
 //#include <fas/serialization/deser/target_list/ad_least_once.hpp>
 #include <fas/serialization/json/parse/tags.hpp>
@@ -43,8 +43,8 @@
 
 namespace fas{ namespace json{ namespace deser{
 
-using ::fas::serialization::deser::parse;
-using ::fas::serialization::deser::deser;
+//using ::fas::serialization::deser::parse;
+///using ::fas::serialization::deser::deser;
 
 
 struct _string_content_variant_;
@@ -73,32 +73,36 @@ struct ad_string_content:
 struct ad_string_helper: ::fas::serialization::deser::ad_value2range<_string_content_> {};
 */
 
+/*
 struct ad_string_helper:
   ::fas::serialization::deser::ad_entity_variant< type_list_n<
       ::fas::serialization::deser::parse_copy< ::fas::json::parse::_utf8_letter_>
   >::type>
 {};
+*/
 
-
+/*
 struct ad_string_content:
   ad_sequence<
     sequence::each,
     ::fas::json::parse::_quote_
   >
 {};
+*/
 
 // TODO: meta для вставки или back_inserter<string>
 // то же для массивов 
 // TODO: для всех - reference_wrapper
+/*
 struct ad_string:
   ::fas::serialization::deser::ad_entity2< type_list_n<
       parse_if< ::fas::json::parse::_quote_>,
-      /*deser<_string_helper_>*/target,
+      target,
       parse< ::fas::json::parse::_quote_>
   >::type >
 {
 };
-
+*/
 
 /*
 struct ad_parse_field:
@@ -147,23 +151,25 @@ struct aspect:
     array::aspect,
     object::aspect,
     //advice< _jstring_,     ad_jstring >,
-    advice< _optional_,    ::fas::serialization::deser::ad_nothing>,
+    //advice< _optional_,    ::fas::serialization::deser::ad_nothing>,
     advice< _parser_, ::fas::serialization::deser::ad_parser>,
     alias< _ignore_, _parser_>,
     //advice< _parse_field_, ad_parse_field >,
     //advice< _parse_item_, ad_parse_item>,
     //advice< _field_,    ad_field >,
     //advice< _array_list_, ad_array_list>,
-    alias<  _prop_, _field_>,
-    alias<  _attr_, _field_>,
+    //alias<  _prop_, _field_>,
+    //alias<  _attr_, _field_>,
     // TODO: member_field как сокращенный вариант member
     //advice< _target_, ::fas::serialization::deser::ad_target >,
     //advice< _tag_, ::fas::serialization::deser::ad_tag >,
     advice< _value_,       ::fas::serialization::deser::ad_value >,
     advice< _access_,        ::fas::serialization::deser::ad_access/*<_target_>*/ >,
-    advice< _string_helper_,  ad_string_helper >,
-    advice< _string_content_, ad_string_content >,
-    advice< _string_,         ad_string >,
+    //advice< _string_helper_,  ad_string_helper >,
+    //advice< _string_content_, ad_string_content >,
+    alias< _string_content_,  ::fas::serialization::_sequence_each_ >,
+    //advice< _string_,         ad_string >,
+    alias< _string_,         ::fas::serialization::_entity_ >,
     //advice< _error_, ad_parse_error >,
     advice< _integer_,        ::fas::serialization::deser::ad_integer >,
     advice< _equal_content_,    ::fas::serialization::deser::ad_equal_content>,

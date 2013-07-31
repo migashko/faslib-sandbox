@@ -8,12 +8,6 @@ struct ad_integer
   template<typename T, typename J, typename V>
   void operator()(T& /*t*/, J, V& /*v*/)
   {
-    typedef typename J::proval_list proval_list;
-    /*
-    typedef typename J::target target;
-    typedef typename target::tag _tag_;
-    return t.get_aspect().template get<_tag_>()(t, target(), v);
-    */
   }
 
   template<typename T, typename J, typename V, typename R>

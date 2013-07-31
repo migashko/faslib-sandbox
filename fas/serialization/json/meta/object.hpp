@@ -17,7 +17,6 @@
 #include <fas/serialization/meta/container.hpp>
 
 
-#include <fas/serialization/deser/utility.hpp>
 #include <fas/serialization/tags.hpp>
 
 namespace fas{ namespace json{
@@ -125,7 +124,7 @@ struct string_content
   {
     //typedef _string_helper_ tag; 
     
-    typedef ::fas::serialization::_entity3_variant_ tag; // сделать алиас на _item_
+    typedef ::fas::serialization::_entity_piece_ tag; // сделать алиас на _string_helper_
     typedef typename type_list_n<
       parse2< ::fas::json::parse::_utf8_letter_, true_, true_>
     >::type entity_list;
@@ -134,8 +133,8 @@ struct string_content
 
   typedef type_list<string_helper> target_list;
   
-  //typedef _string_content_ tag;
-  typedef ::fas::serialization::_sequence_each_ tag;
+  typedef _string_content_ tag;
+  //typedef ::fas::serialization::_sequence_each_ tag;
   
   // Костыль - должн быть exception (типа invalid_string)
   typedef ignore_field alt_target; // TODO:
@@ -150,6 +149,13 @@ struct string
   typedef typename normalize<ProvalList>::type proval_list;
   typedef container< string_content > target;
   typedef _string_ tag;
+  
+  typedef typename type_list_n<
+    parse2< ::fas::json::parse::_quote_, true_>,
+    target,  
+    parse2< ::fas::json::parse::_quote_>
+  >::type entity_list;
+
 };
 
 template<typename Target, typename ProvalList = empty_list>
@@ -158,6 +164,13 @@ struct string_ex
   typedef typename normalize<ProvalList>::type proval_list;
   typedef Target target;
   typedef _string_ tag;
+  
+  typedef typename type_list_n<
+    parse2< ::fas::json::parse::_quote_, true_>,
+    target,  
+    parse2< ::fas::json::parse::_quote_>
+  >::type entity_list;
+  
 };
 
 template<typename TString>
@@ -184,7 +197,7 @@ template<typename Name, typename Value>
 struct field
 {
   typedef typename type_list_n<Name, Value>::type target_list;
-  typedef _attr_ tag;
+  typedef _field_ tag;
   typedef typename type_list_n</*
     parse2< ::fas::json::parse::_space_>,
     Target,  // Убрать target, вставить реальный Target
@@ -219,6 +232,7 @@ struct field_list
   typedef typename normalize<TargetList>::type target_list;
   typedef _field_list_smart_ tag;
   typedef ignore_field alt_target; // TODO: 
+  typedef ::fas::json::parse::_right_brace_ stop_tag;
 };
 
 
@@ -277,7 +291,8 @@ struct sequence_items
   typedef Alt alt_target;
   
   // TODO: alias на _sequence_items_
-  typedef ::fas::serialization::_sequence_each_ tag;
+  // typedef ::fas::serialization::_sequence_each_ tag;
+  typedef _sequence_items_ tag;
   typedef ::fas::json::parse::_right_bracket_ stop_tag;
 
 };

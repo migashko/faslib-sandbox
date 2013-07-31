@@ -17,12 +17,6 @@ struct ad_equal_content
   template<typename T, typename J, typename V>
   void operator()(T& /*t*/, J, V& /*v*/)
   {
-    // TODO: ?
-    /*
-    typedef typename J::target target;
-    typedef typename target::tag tag;
-    t.get_aspect().template get<tag>()(t, target(), v);
-    */
   }
 
   template<typename T, typename J, typename V, typename R>

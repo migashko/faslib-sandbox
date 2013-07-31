@@ -17,8 +17,9 @@ namespace fas{ namespace json{ namespace deser{ namespace array{
 
 struct aspect:
   ::fas::aspect< type_list_n<
-    alias<_item_,  ::fas::serialization::_entity3_>,
-    alias<_array_, ::fas::serialization::_entity3_>
+    alias<_item_,  ::fas::serialization::_entity_>,
+    alias<_array_, ::fas::serialization::_entity_>,
+    alias<_sequence_items_, ::fas::serialization::_sequence_each_>
     //advice< _item_, ad_item >,
 //    advice< _process_item_, ad_process_item>,
 //    advice< _process_sequence_items_, ad_process_sequence_items>,

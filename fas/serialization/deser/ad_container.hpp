@@ -12,12 +12,6 @@ struct ad_container
   template<typename T, typename J, typename V>
   void operator()(T& /*t*/, J, V& /*v*/)
   {
-    /*
-    typedef typename J::target target;
-    typedef typename target::tag _tag_;
-    typename typerange<V>::orange vr = orange(v);
-    return t.get_aspect().template get<_tag_>()( t, target(), vr);
-    */
   }
   
 
@@ -26,12 +20,10 @@ struct ad_container
   {
     typedef typename J::target target;
     typedef typename target::tag _tag_;
-    //typedef V value_type;
     typename typerange<V>::orange vr = orange(v, true);
     return t.get_aspect().template get<_tag_>()( t, target(), vr, r);
   }
 };
-
 
 }}}
 

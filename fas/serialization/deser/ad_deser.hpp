@@ -35,7 +35,6 @@ struct ad_deser
 
     return r;
   }
-  
 };
 
 }}}

@@ -18,15 +18,12 @@
 
 namespace fas{ namespace serialization{ namespace deser{
 
-
-//template<typename Tg>
 struct ad_parser
 {
   template<typename T, typename J, typename V, typename R>
   R operator()(T& t, J, V& v, R r)
   {
     typedef typename J::parser_tag _tag_;
-    //return t.get_aspect().template get<_tag_>()(t, std::make_pair(r, mrange(r))).first;
     return _(t, J(), v, r, typename J::parse_if(), typename J::copy());
   }
   
@@ -76,9 +73,7 @@ private:
     }
     return r;
   }
-
 };
-
 
 }}}
 

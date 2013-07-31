@@ -5,9 +5,10 @@ namespace fas{ namespace serialization{
 
 struct _container_;
 struct _element_;
-struct _entity3_; // это основной - переименовать
-struct _entity3_variant_;
+struct _entity_; // это основной - переименовать
+struct _entity_piece_;
 struct _sequence_each_;
+struct _sequence_smart_;
 
 //
   

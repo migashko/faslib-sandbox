@@ -2,7 +2,9 @@
 #define FAS_SERIALIZATION_DESER_ASPECT_HPP
 
 #include <fas/serialization/deser/ad_entity.hpp>
-#include <fas/serialization/deser/sequence/ad_sequence_each.hpp>
+#include <fas/serialization/deser/ad_entity_piece.hpp>
+#include <fas/serialization/deser/ad_sequence_each.hpp>
+#include <fas/serialization/deser/ad_sequence_smart.hpp>
 #include <fas/serialization/tags.hpp>
 #include <fas/aop/advice.hpp>
 #include <fas/aop/aspect.hpp>
@@ -10,9 +12,10 @@
 namespace fas{ namespace serialization{ namespace deser{
 
 typedef ::fas::aspect< type_list_n<
-  advice<_entity3_, ad_entity3>,
-  advice<_entity3_variant_, ad_entity3_variant>,
-  advice<_sequence_each_, ad_sequence_each>
+  advice<_entity_, ad_entity>,
+  advice<_entity_piece_, ad_entity_piece>,
+  advice<_sequence_each_, ad_sequence_each>,
+  advice<_sequence_smart_, ad_sequence_smart>
 >::type > aspect;
 
 }}}

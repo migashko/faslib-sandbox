@@ -1,14 +1,11 @@
 #ifndef FAS_SERIALIZATION_DESER_AD_PUSH2RANGE_HPP
 #define FAS_SERIALIZATION_DESER_AD_PUSH2RANGE_HPP
 
-//#include <fas/typemanip/reference_wrapper.hpp>
 #include <fas/serialization/tags.hpp>
 #include <fas/range.hpp>
 
 namespace fas{ namespace serialization{ namespace deser{
 
-// Переименовать, т.к. это может быть замена если v - srange например
-// puset? push or set
 struct ad_element
 {
   template<typename T, typename J, typename V, typename R>

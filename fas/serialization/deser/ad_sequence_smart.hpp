@@ -13,15 +13,12 @@
 #include <fas/integral/int_.hpp>
 
 #include <fas/type_list/empty_list.hpp>
-#include <fas/serialization/deser/sequence/sequence.hpp>
 
 namespace fas{ namespace serialization{ namespace deser{
 
-template<typename TgParseEnd>
-struct ad_sequence<sequence::smart, TgParseEnd>
-{
-  typedef TgParseEnd      _end_;
 
+struct ad_sequence_smart
+{
   template<typename T, typename J, typename V>
   void operator()(T& , J, V& )
   {
@@ -34,20 +31,21 @@ struct ad_sequence<sequence::smart, TgParseEnd>
   {
     typedef typename J::target_list target_list;
     typedef typename J::alt_target alt_target;
+    typedef typename J::stop_tag stop_tag;
     // static_check equal length target_list and proval_list
-    if ( t.get_aspect().template get<_end_>().peek(t, r) )
+    if ( t.get_aspect().template get<stop_tag>().peek(t, r) )
       return r;
     t.get_aspect().template get<_status_>() = true;
-    return _( t, v, r, target_list(), alt_target(), int_<length<target_list>::value>() );
+    return _<stop_tag>( t, v, r, target_list(), alt_target(), int_<length<target_list>::value>() );
   }
 
 private:
 
   // Отработали все элементы
-  template<typename T, typename V, typename R, typename TgAlt>
+  template<typename TgStop, typename T, typename V, typename R, typename TgAlt>
   R _(T& t, V& v, R r, empty_list, TgAlt, int_<0> )
   {
-    while ( r && !t.get_aspect().template get<_end_>().peek(t, r) )
+    while ( r && !t.get_aspect().template get<TgStop>().peek(t, r) )
     {
       typedef typename TgAlt::tag alt_tag;
       r = t.get_aspect().template get< alt_tag >()(t, TgAlt(), v, r );
@@ -56,7 +54,7 @@ private:
   }
 
   // Дошли до конца списка
-  template<typename T, typename V, typename R, typename L, typename TgAlt>
+  template<typename TgStop, typename T, typename V, typename R, typename L, typename TgAlt>
   R _(T& t, V& v, R r, L, TgAlt, int_<0> )
   {
     // здесь альтенатива, по умочанию парсинг
@@ -64,21 +62,21 @@ private:
     r = t.get_aspect().template get< alt_tag >()(t, TgAlt(), v, r );
     
     // Если дошли до конца, отрабатываем необработанные элементы
-    if ( t.get_aspect().template get<_end_>().peek(t, r) )
+    if ( t.get_aspect().template get<TgStop>().peek(t, r) )
       return _(t, v, L(), r);
 
-    return _(t, v, r, L(), TgAlt(), int_<length<L>::value>());
+    return _<TgStop>(t, v, r, L(), TgAlt(), int_<length<L>::value>());
   }
 
 
-  template<typename T, typename V, typename R, typename L, typename TgAlt,  int N >
+  template<typename TgStop, typename T, typename V, typename R, typename L, typename TgAlt,  int N >
   R _(T& t, V& v, R r, L, TgAlt, int_<N> )
   {
     enum { position = length<L>::value - N };
     typedef typename type_at_c<position, L>::type target;
     typedef typename target::tag _tag_;
 
-    if ( t.get_aspect().template get<_end_>().peek(t, r) )
+    if ( t.get_aspect().template get<TgStop>().peek(t, r) )
       return r;
 
     R income = r;
@@ -92,13 +90,13 @@ private:
     {
       t.get_aspect().template get<_status_>() = true;
       // Текущий не подошел, берем следующий
-      return _(t, v, income, L(), TgAlt(), int_<N-1>() );
+      return _<TgStop>(t, v, income, L(), TgAlt(), int_<N-1>() );
     }
 
     // Ок. удаляем текущий из списка, продолжаем с начала списка
     typedef typename erase_c<position, L>::type  target_list;
     
-    return _(t, v, r, target_list(), TgAlt(), int_<length<target_list>::value>() );
+    return _<TgStop>(t, v, r, target_list(), TgAlt(), int_<length<target_list>::value>() );
   }
   
 /// finalize
@@ -116,7 +114,6 @@ private:
   {
     return r;
   }
-
 };
 
 }}}
