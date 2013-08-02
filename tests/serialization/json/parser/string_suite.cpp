@@ -149,7 +149,7 @@ UNIT(ad_control_charaster_unit, "")
   using namespace fas::testing;
   aj::parse::ad_control_character acc;
 
-  typedef char chs_type[10];
+  typedef char chs_type[];
   chs_type chs="\"\\/bfnrt";
   std::srand( static_cast<int>(time(0)) );
   std::random_shuffle(chs, chs + sizeof(chs)-1   );
@@ -171,7 +171,7 @@ UNIT(ad_string_content_unit, "")
 {
   using namespace fas::testing;
   aj::parse::ad_string_content asc;
-  typedef char chs_type[100];
+  typedef char chs_type[];
   chs_type chs="~Ё你\\ueF43\\b\\\"\"";
   std::string result;
   asc(t, std::make_pair( fas::srange(chs), fas::orange(result) ) );
@@ -184,7 +184,7 @@ UNIT(ad_string_unit, "")
 {
   using namespace fas::testing;
   aj::parse::ad_string as;
-  typedef char chs_type[100];
+  typedef char chs_type[];
 //  chs_type chs="\"~Ё你\\ueF43\\b\\\"\"/*  */";
 //  chs_type org="\"~Ё你\\ueF43\\b\\\"\"";
   std::cout << std::endl << "\\\"" << std::endl;

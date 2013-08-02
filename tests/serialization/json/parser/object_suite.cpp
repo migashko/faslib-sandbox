@@ -14,7 +14,7 @@ UNIT(ad_object_unit, "")
 {
   using namespace fas::testing;
   aj::parse::ad_object as;
-  typedef char chs_type[100];
+  typedef char chs_type[];
   chs_type chs="{ \"field\":12234 }";
   std::string result;
   as(t, std::make_pair( fas::srange(chs), fas::orange(result) ) );

@@ -7,6 +7,7 @@
 #include <fas/typemanip/member.hpp>
 #include <fas/type_list/is_type_list.hpp>
 #include <fas/type_list/empty_list.hpp>
+#include <fas/type_list/type_list_n.hpp>
 #include <fas/range.hpp>
 
 #include "sequence.hpp"
@@ -125,7 +126,7 @@ struct string_content
     //typedef _string_helper_ tag; 
     
     typedef ::fas::serialization::_entity_piece_ tag; // сделать алиас на _string_helper_
-    typedef typename type_list_n<
+    typedef type_list_n<
       parse2< ::fas::json::parse::_utf8_letter_, true_, true_>
     >::type entity_list;
     

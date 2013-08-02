@@ -24,7 +24,7 @@ namespace fas{ namespace serialization{ namespace deser{
 struct ad_entity_piece
 {  
   template<typename T, typename J, typename V>
-  void operator()(T& t, J, V& v)
+  void operator()(T& , J, V& )
   {
   }
 

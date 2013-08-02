@@ -40,7 +40,7 @@ public:
 
   moke_range() {}
 
-  moke_range(T b, T e) {}
+  moke_range(T /*b*/, T /*e*/) {}
 
   operator bool () const { return true; }
 
@@ -64,7 +64,7 @@ public:
 
   void increase(difference_type, difference_type) {}
 
-  void decrease(difference_type cbeg, difference_type cend) { }
+  void decrease(difference_type /*cbeg*/, difference_type /*cend*/) { }
 
   moke_range<T>& operator++() { return *this; }
 
@@ -88,7 +88,7 @@ public:
 
   moke_range<T>& operator += (difference_type ) { return *this; }
 
-  moke_range<T>& operator -= (difference_type n ) { return *this; }
+  moke_range<T>& operator -= (difference_type /*n*/ ) { return *this; }
 
   moke& operator[] ( difference_type ) const { return _moke; }
 
@@ -141,8 +141,8 @@ inline moke_range<T> operator -
 template<typename T>
 inline typename moke_range<T>::difference_type operator -
   (
-    moke_range<T> r1,
-    moke_range<T> r2
+    moke_range<T>,
+    moke_range<T>
   )
 {
   return 0;

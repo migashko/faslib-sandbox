@@ -9,6 +9,7 @@
 
 #include <fas/aop/aspect.hpp>
 #include <fas/aop/advice.hpp>
+#include <fas/aop/group.hpp>
 #include <fas/type_list/type_list_n.hpp>
 
 #include <fas/serialization/except/tags.hpp>

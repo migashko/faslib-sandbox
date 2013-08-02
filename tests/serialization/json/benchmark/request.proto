@@ -1,0 +1,8 @@
+package benchmark;
+
+message request
+{
+  required int32 oid = 1;
+  required int32 offset = 2;
+  required int32 limit = 3;
+}
