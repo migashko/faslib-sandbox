@@ -19,14 +19,12 @@
 
 
 #include <fas/serialization/tags.hpp>
+#include <fas/serialization/deser/tags.hpp>
 
 namespace fas{ namespace json{
 
 using ::fas::serialization::container;
-/*
-using ::fas::serialization::deser::parse;
-using ::fas::serialization::deser::target;
- */ 
+
 }}
 // ---
 
@@ -68,7 +66,7 @@ struct parse2
   typedef Copy copy;
   
   typedef Tg parser_tag;
-  typedef _parser_ tag;
+  typedef ::fas::serialization::deser::_parser_ tag;
 };
 
 template<typename Tg>
@@ -189,9 +187,18 @@ struct equal_string
 
 /// object
 
+/*
 template<typename Name>
 struct name: equal_string<Name>
 {
+};*/
+
+
+
+template<typename Name>
+struct name: Name
+{
+  typedef _name_ tag;
 };
 
 template<typename Name, typename Value>

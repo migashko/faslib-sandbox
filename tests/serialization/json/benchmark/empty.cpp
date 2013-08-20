@@ -3,7 +3,9 @@
 void empty_serialize(request*, bool){}
 void empty_serialize(response*, bool){}
 void empty_deserialize(request*, bool){}
-void empty_deserialize(response*, bool){}
+void empty_deserialize(response* r, bool)
+{
+}
 
 
 /*

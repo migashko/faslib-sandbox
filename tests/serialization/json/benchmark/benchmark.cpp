@@ -18,6 +18,12 @@ void fasjson_serialize(response*, bool);
 void fasjson_deserialize(request*, bool);
 void fasjson_deserialize(response*, bool);
 
+void fasoldjson_serialize(request*, bool);
+void fasoldjson_serialize(response*, bool);
+void fasoldjson_deserialize(request*, bool);
+void fasoldjson_deserialize(response*, bool);
+
+
 void protobuf_init();
 void protobuf_serialize(request*, bool);
 void protobuf_serialize(response*, bool);
@@ -207,7 +213,7 @@ void show_test( F f, size_t count, bool show )
 
 int main()
 {
-  size_t count = 100000;
+  size_t count = 1000;
   bool show = false;
   protobuf_init();  
   std::cout << "#######################" << std::endl;
@@ -229,10 +235,13 @@ int main()
   show_test( f_test<request, empty_deserialize, false>("empty_deserialize"), count, show);
   show_test( f_test<request, sprintf_deserialize, false>("sprintf_deserialize"), count, show);
   show_test( f_test<request, fasjson_deserialize, false>("fasjson_deserialize"), count, show);
+  show_test( f_test<request, fasoldjson_deserialize, false>("fasoldjson_deserialize"), count, show);
   show_test( f_test<request, protobuf_deserialize, false>("protobuf_deserialize"), count, show);
   std::cout << "====    response    ====" << std::endl;
   show_test( f_test<response, empty_deserialize, false>("empty_deserialize"), count, show);
+  
   show_test( f_test<response, sprintf_deserialize, false>("sprintf_deserialize"), count, show);
+  
   show_test( f_test<response, fasjson_deserialize, false>("fasjson_deserialize"), count, show);
   show_test( f_test<response, protobuf_deserialize, false>("protobuf_deserialize"), count, show);
   /*

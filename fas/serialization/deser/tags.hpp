@@ -3,6 +3,7 @@
 
 namespace fas{ namespace serialization{ namespace deser{
 
+struct _parser_;
 
 }}}
 

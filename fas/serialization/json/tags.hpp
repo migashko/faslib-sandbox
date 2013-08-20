@@ -27,7 +27,7 @@ struct _string_helper_;
 // Основные вспомогательные
 //struct _target_;
 //struct _tag_;
-struct _parser_;
+//struct _parser_;
 struct _ignore_;
 struct _nothing_;
 

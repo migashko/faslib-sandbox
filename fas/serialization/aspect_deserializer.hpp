@@ -17,13 +17,14 @@
 
 namespace fas{ namespace serialization{ 
 
+  /*
 typedef ::fas::aspect< type_list_n<
   value_advice<_status_, bool >,
   group<_clear_, _except_>,
   advice<_deser_, ad_deser>
 >::type > aspect_deserializer;
 
-
+*/
 
 }}
 

@@ -20,6 +20,7 @@ SET(
   empty.cpp
   sprintf.cpp
   fasjson.cpp
+  fasoldjson.cpp
   protobuf.cpp
   jsoncpp/src/json_reader.cpp 
   jsoncpp/src/json_value.cpp 

@@ -6,3 +6,17 @@ message request
   required int32 offset = 2;
   required int32 limit = 3;
 }
+
+message point
+{
+  required int32 x = 1;
+  required int32 y = 2;
+}
+
+message response
+{
+  required string secret = 1;
+  required string name = 2;
+  required string description = 3;
+  repeated point data = 4;
+}

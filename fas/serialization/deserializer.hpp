@@ -3,19 +3,17 @@
 
 #include <fas/serialization/tags.hpp>
 #include <fas/serialization/except/tags.hpp>
-#include <fas/serialization/deser/aspect.hpp>
-#include <fas/aop/aspect_class.hpp>
-#include <fas/typemanip/reference_wrapper.hpp>
+//#include <fas/serialization/deser/aspect.hpp>
+#include <fas/aop.hpp>
+//#include <fas/typemanip/reference_wrapper.hpp>
 
 namespace fas{ namespace serialization{
 
-template<
-  typename A1
->
+template<typename A>
 class deserializer
-  : public aspect_class<A1, deser::aspect >
+  : public aspect_class<A>
 {
-  typedef aspect_class<A1, deser::aspect > super;
+  typedef aspect_class<A> super;
 public:
   typedef typename super::aspect aspect;
   typedef typename super::aspect::template advice_cast<_except_>::type::exception_type exception_type;

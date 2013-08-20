@@ -4,12 +4,12 @@
 #include <fas/serialization/json/tags.hpp>
 
 namespace fas{ namespace json{
-
+/*
 template<typename TString>
 struct tstring: TString
 {
   typedef _tstring_ tag;
-};
+};*/
 
 }}
 

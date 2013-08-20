@@ -14,8 +14,42 @@
 
 namespace fas{ namespace json{ namespace deser{ namespace object{
 
+struct ad_name
+{
+  template<typename T, typename J, typename V>
+  void operator()(T& /*t*/, J, V& /*v*/)
+  {
+  }
+
+  template<typename T, typename J, typename V, typename R>
+  R operator()(T& t, J, V&, R r)
+  {
+    return _(t, J()(), r);
+  }
+  
+private:
+  template<typename T, typename RN, typename R>
+  R _(T& t, RN rn, R r)
+  {
+    using ::fas::serialization::_status_;
+    t.get_aspect().template get<_status_>() = false;
+    R orig = r;
+    if ( *r != '"' )
+      return orig;
+    ++r;
+    for (;r && rn && *r==*rn; ++r, ++rn);
+    
+    if ( !r || *r!='"' || ( rn && *rn!='\0') )
+      return orig;
+    ++r;
+    t.get_aspect().template get<_status_>() = true;
+    return r;
+  }
+};
+  
 struct aspect:
   ::fas::aspect< type_list_n<
+    advice<_name_, ad_name>,
     // alias< _name_, _jstring_ >,
     //advice<_field_key_, ad_field_key>,
     //advice<_field_value_, ad_field_value>,

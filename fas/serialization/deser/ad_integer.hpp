@@ -16,6 +16,38 @@ struct ad_integer
     return this->deserealize(v, r);
   }
 
+  template<typename V, typename R >
+  R toto( V& v, R r )
+  {
+    if( !r )
+      return r;
+
+    v = 0;
+
+    register bool neg = *r=='-';
+
+    if ( neg ) ++r;
+
+    if ( !r || *r < '0' || *r > '9')
+      return r;
+
+    // цифры с первым нулем запрещены (напр 001), только 0
+
+    if ( *r == '0' )
+      return ++r;
+
+    for ( ;r; ++r )
+    {
+      if ( *r < '0' || *r > '9' )
+        break;
+      v = v*10 + (*r- '0');
+    }
+
+    if (neg) v*=-1;
+
+    return r;
+  }
+  
 private:
 
   template<typename V, typename R >
