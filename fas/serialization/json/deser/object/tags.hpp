@@ -3,8 +3,10 @@
 
 namespace fas{ namespace json{ namespace deser{
 
+/*
 struct _field_key_;
 struct _field_value_;
+*/
 
 }}}
 

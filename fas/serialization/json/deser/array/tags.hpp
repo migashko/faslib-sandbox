@@ -3,9 +3,10 @@
 
 namespace fas{ namespace json{ namespace deser{
 
+  /*
 struct _process_sequence_items_;
 struct _process_item_;
-
+*/
 
 }}}
 

@@ -13,11 +13,11 @@
 #include <fas/serialization/json/tags.hpp>
 
 namespace fas{ namespace json{ namespace deser{ namespace object{
-
+/*
 struct ad_name
 {
   template<typename T, typename J, typename V>
-  void operator()(T& /*t*/, J, V& /*v*/)
+  void operator()(T& , J, V& )
   {
   }
 
@@ -45,24 +45,16 @@ private:
     t.get_aspect().template get<_status_>() = true;
     return r;
   }
-};
-  
+};*/
+  /*
 struct aspect:
   ::fas::aspect< type_list_n<
     advice<_name_, ad_name>,
-    // alias< _name_, _jstring_ >,
-    //advice<_field_key_, ad_field_key>,
-    //advice<_field_value_, ad_field_value>,
-    //advice<_field_, ad_field>,
     alias<_field_,  ::fas::serialization::_entity_>,
-
-    //advice<_field_list_smart_, ad_field_list_smart >,
     alias<_field_list_smart_, ::fas::serialization::_sequence_smart_ >,
-    //advice<_object_, ad_object>
     alias<_object_, ::fas::serialization::_entity_>
-
   >::type >
-{};
+{};*/
 
 }}}}
 
