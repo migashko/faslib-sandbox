@@ -4,18 +4,19 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 
-#ifndef FAS_EXCEPT_AD_EXCEPT_DISABLE_HPP
-#define FAS_EXCEPT_AD_EXCEPT_DISABLE_HPP
+#ifndef FAS_EXCEPT_AD_DISABLED_EXCEPT_HPP
+#define FAS_EXCEPT_AD_DISABLED_EXCEPT_HPP
 
+#include <exception>
 
 namespace fas{
 
 template<typename Ex = std::exception >
-struct ad_except_disable
+struct ad_disabled_except
 {
   typedef Ex exception_type;
   
-  ad_except_disable()
+  ad_disabled_except()
     : _exception_flag(false)
   {
   }

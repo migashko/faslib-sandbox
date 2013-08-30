@@ -10,8 +10,8 @@
 #include <fas/serialization/deser/ad_integer.hpp>
 #include <fas/serialization/deser/ad_parser.hpp>
 
-#include <fas/serialization/json/deser/ad_integer.hpp>
-#include <fas/serialization/json/deser/ad_jstring.hpp>
+// #include <fas/serialization/json/deser/ad_integer.hpp>
+// #include <fas/serialization/json/deser/ad_jstring.hpp>
 
 #include <fas/serialization/deser/aspect.hpp>
 #include <fas/serialization/deser/ad_deser.hpp>
@@ -37,8 +37,8 @@
 
 
 /// ////////////////////////
-#include <fas/serialization/json/deser/array/aspect.hpp>
-#include <fas/serialization/json/deser/object/aspect.hpp>
+//#include <fas/serialization/json/deser/array/aspect.hpp>
+//#include <fas/serialization/json/deser/object/aspect.hpp>
 
 #include <fas/serialization/except/parse_error.hpp>
 
@@ -47,12 +47,13 @@ namespace fas{ namespace json{ namespace deser{
 //using ::fas::serialization::deser::parse;
 ///using ::fas::serialization::deser::deser;
 
-
+/*
 struct _string_content_variant_;
 struct _utf8_letter_;
 struct _error_;
 struct _empty_;
 struct _item_impl_;
+*/
 /*
 struct ad_parse_error
 {
@@ -63,6 +64,7 @@ struct ad_parse_error
   }
 };
 */
+/*
 struct ad_empty
 {
   template<typename T, typename J, typename V, typename R>
@@ -70,11 +72,11 @@ struct ad_empty
   {
     return r;
   }
-};
+};*/
 
 
-struct _target_list_;
-struct _primary_list_;
+//struct _target_list_;
+//struct _primary_list_;
 
 // advanced
 /*
@@ -136,15 +138,14 @@ struct aspect:
     alias<_object_, ::fas::serialization::_entity_>,
  
     alias< _ignore_, ::fas::serialization::deser::_parser_>,
-    advice< _value_,       ::fas::serialization::deser::ad_value >,
-    advice< _access_,        ::fas::serialization::deser::ad_access >,
     alias< _string_content_,  ::fas::serialization::_sequence_each_ >,
     alias< _string_,         ::fas::serialization::_entity_ >,
-    advice< _integer_,        ::fas::serialization::deser::ad_integer >,
-    advice< _equal_content_,    ::fas::serialization::deser::ad_equal_content>,
     type_list_n<
+      advice< _value_,       ::fas::serialization::deser::ad_value >,
+      advice< _access_,        ::fas::serialization::deser::ad_access >,
+      advice< _integer_,        ::fas::serialization::deser::ad_integer >,
+      advice< _equal_content_,    ::fas::serialization::deser::ad_equal_content>,
       advice< ::fas::serialization::_deser_, ::fas::serialization::deser::ad_deser >,
-      // advice< _empty_, ad_empty>,
       advice< _element_, ::fas::serialization::deser::ad_element >,
       advice< _container_, ::fas::serialization::deser::ad_container >
     >::type

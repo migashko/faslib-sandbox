@@ -17,7 +17,7 @@
 #include <fas/serialization/tags.hpp>
 
 #include <fas/except/ad_except.hpp>
-#include <fas/except/ad_except_disable.hpp>
+#include <fas/except/ad_disabled_except.hpp>
 #include <fas/except/ad_deferred_except.hpp>
 
 namespace fas{ namespace serialization{ namespace except{
@@ -28,7 +28,7 @@ typedef ::fas::aspect< type_list_n<
 >::type > aspect;
 
 typedef ::fas::aspect< type_list_n<
-  advice<_except_, ::fas::ad_except_disable< exception > >,
+  advice<_except_, ::fas::ad_disabled_except< exception > >,
   group< _clear_, _except_>
 >::type > aspect_disable;
 
