@@ -155,7 +155,7 @@ UNIT(ad_control_charaster_unit, "")
   std::random_shuffle(chs, chs + sizeof(chs)-1   );
   std::string result;
   //typedef fas::typerange<chs_type>::range irange;
-  typedef fas::string_range<char*> irange;
+  typedef fas::random_access_range<char*> irange;
   typedef fas::typerange<std::string>::orange orange;
   typedef std::pair< irange, orange> pair_range;
 

@@ -152,7 +152,7 @@ struct value<unsigned long>
   typedef serializerT< value<unsigned long> > serializer;
 };
 
-
+/*
 template<>
 struct value<long long>
 {
@@ -165,7 +165,7 @@ struct value<unsigned long long>
 {
   typedef unsigned long long target;
   typedef serializerT< value<unsigned long long> > serializer;
-};
+};*/
 
 
 

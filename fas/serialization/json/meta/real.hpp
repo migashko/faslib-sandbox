@@ -8,14 +8,12 @@
 
 namespace fas{ namespace json{
 
-  /*
+template<typename ProvalList = empty_list>
 struct real
 {
-  typedef metalist::number metatype;
-  typedef ser::_real_ serializer_tag;
-  typedef deser::_real_ deserializer_tag;
+  typedef typename normalize<ProvalList>::type proval_list;
+  //typedef _real_ tag;
 };
-*/
 
 }}
 

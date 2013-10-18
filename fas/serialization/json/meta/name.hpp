@@ -2,10 +2,16 @@
 #define FAS_SERIALIZATION_JSON_META_NAME_HPP
 
 #include <fas/serialization/json/tags.hpp>
-#include <fas/serialization/json/meta/optional.hpp>
-#include <fas/type_list/empty_list.hpp>
+//#include <fas/serialization/json/meta/optional.hpp>
+//#include <fas/type_list/empty_list.hpp>
 
 namespace fas{ namespace json{
+
+template<typename Name>
+struct name: Name
+{
+  typedef _name_ tag;
+};
 
 /*
 template<typename Name>

@@ -199,7 +199,7 @@ class serializerT< value<unsigned long> >
 {
 };
 
-
+/*
 template<>
 class serializerT< value<long long> >
   : public detail::serializerN<long long>
@@ -210,7 +210,7 @@ template<>
 class serializerT< value<unsigned long long> >
   : public detail::serializerN<unsigned long long>
 {
-};
+};*/
 
 
 template<>

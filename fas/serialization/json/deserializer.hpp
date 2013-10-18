@@ -7,7 +7,7 @@
 #include <fas/serialization/json/parse/aspect.hpp>
 #include <fas/serialization/deserializer.hpp>
 
-#include <fas/aop/aspect_merge.hpp>
+#include <fas/aop/merge_aspect.hpp>
 
 namespace fas{ namespace json{
 
@@ -23,7 +23,7 @@ template<typename A = empty_type>
 class deserializer:
   public ::fas::serialization::deserializer<
     //TODO: допилить aspect_merge, чтоб не делал список из одного аспекта
-    typename aspect_merge<A, deserializer_aspect >::type
+    typename merge_aspect<A, deserializer_aspect >::type
   >
 {
   

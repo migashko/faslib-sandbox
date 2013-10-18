@@ -50,7 +50,7 @@ struct _value_;
 
 struct _inserter_;
 
-struct _array_list_;
+struct _item_list_;
 
 }}
 

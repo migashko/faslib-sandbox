@@ -11,7 +11,7 @@
 #include <fas/serialization/f_clear.hpp>
 #include <fas/range/range_traits.hpp>
 #include <fas/range/mrange.hpp>
-#include <fas/aop/group_for_each.hpp>
+#include <fas/aop/for_each_group.hpp>
 
 namespace fas{ namespace serialization{ namespace parse{
 
@@ -23,14 +23,14 @@ struct ad_parse
   template<typename T, typename R>
   R operator() (T& t, R r)
   {
-    group_for_each<_clear_>( t, f_clear() );
+    for_each_group<_clear_>( t, f_clear() );
     return t.get_aspect().template get<_tag_>()(t, std::make_pair( r, mrange(r) ) ).first;
   }
   
   template<typename T, typename RI, typename RO>
   std::pair<RI, RO> operator() (T& t, RI ri, RO ro)
   {
-    group_for_each<_clear_>( t, f_clear() );
+    for_each_group<_clear_>( t, f_clear() );
     return t.get_aspect().template get<_tag_>()(t, std::make_pair( ri, ro ) );
   }
 };

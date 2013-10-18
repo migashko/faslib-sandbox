@@ -14,7 +14,7 @@
 
 #include <fas/except/throw_.hpp>
 #include <fas/range/distance.hpp>
-#include <fas/range/string_range.hpp>
+#include <fas/range/srange.hpp>
 
 namespace fas{ namespace serialization{ namespace parse{
 
@@ -22,7 +22,7 @@ template<typename TString>
 struct ad_charset
 {
   typedef TString tstring;
-  typedef string_range< typename TString::value_type > tstring_range;
+  //typedef string_range< typename TString::value_type > tstring_range;
 
   template<typename T, typename R>
   bool peek( T&, R r)
@@ -30,6 +30,8 @@ struct ad_charset
     if ( !r )
       return false;
 
+    return _peek(r, srange( tstring()() ));
+      /*
     tstring_range sr = tstring_range( tstring()() );
     for ( ; sr; ++sr )
     {
@@ -37,11 +39,14 @@ struct ad_charset
         return true;
     }
     return false;
+    */
   }
 
   template<typename T, typename RR>
   RR operator()(T& t, RR rr)
   {
+    return _(t,  rr, srange(tstring()()));
+    /*
     tstring_range sr = tstring_range( tstring()() );
     for (;sr;++sr)
     {
@@ -58,7 +63,44 @@ struct ad_charset
       }
     }
     return throw_<_except_>( t, expected_of(tstring()(),  distance(rr.first) ), rr);
+    */
   }
+  
+private:
+  
+  template< typename R,  typename SR>
+  bool _peek( R r,  SR sr)
+  {
+    for ( ; sr; ++sr )
+    {
+      if ( *r == *sr )
+        return true;
+    }
+    return false;
+  }
+
+  template<typename T, typename RR,  typename SR>
+  RR _(T& t, RR rr, SR sr)
+  {
+    // tstring_range sr = tstring_range( tstring()() );
+    for (;sr;++sr)
+    {
+      if (!rr.second)
+        return throw_<_except_>( t, out_of_range( distance(rr.first) ), rr );
+
+      if ( !rr.first )
+        return throw_<_except_>( t, unexpected_end_fragment(), rr );
+
+      if ( *rr.first == *sr )
+      {
+        *(rr.second++) = *(rr.first++);
+        return rr;
+      }
+    }
+    return throw_<_except_>( t, expected_of(tstring()(),  distance(rr.first) ), rr);
+  }
+
+  
 };
 
 }}}

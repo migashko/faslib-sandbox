@@ -11,13 +11,83 @@
 #include <fas/serialization/f_clear.hpp>
 #include <fas/serialization/except/syntax_error.hpp>
 
-#include <fas/aop/group_for_each.hpp>
+//#include <fas/aop/for_each_group.hpp>
 #include <fas/except/throw_.hpp>
 #include <fas/range.hpp>
 #include <fas/range/mrange.hpp>
+#include <fas/range/orange.hpp>
 
 namespace fas{ namespace serialization{ namespace deser{
+  
+struct ad_parse_skip
+{
+  template<typename T, typename J, typename V, typename R>
+  R operator()(T& t, J, V&, R r)
+  {
+    typedef typename J::parser_tag _tag_;
+    return t.get_aspect().template get<_tag_>()(t, std::make_pair(r, mrange(r))).first;    
+  }  
+};
 
+struct ad_parse_skip_if
+{
+  template<typename T, typename J, typename V, typename R>
+  R operator()(T& t, J, V&, R r)
+  {
+    typedef typename J::parser_tag _tag_;
+    if ( !t.get_aspect().template get<_tag_>().peek(t, r))
+      t.get_aspect().template get<_status_>() = false;
+    else
+      r = t.get_aspect().template get<_tag_>()(t, std::make_pair(r, mrange(r))).first;
+    return r;
+
+  }  
+};
+
+struct ad_parse_copy
+{
+  template<typename T, typename J, typename V, typename R>
+  R operator()(T& t, J, V& v, R r)
+  {
+    typedef typename J::parser_tag _tag_;
+    //return t.get_aspect().template get<_tag_>()(t, std::make_pair(r, fas::orange(v))).first;
+    //return t.get_aspect().template get<_tag_>()(t, std::make_pair(r, v)).first;
+    
+    std::pair<R, V> res = t.get_aspect().template get<_tag_>()(t, std::make_pair(r, v));
+    r = res.first;
+    v = res.second; // а надо ли?    
+    return r;
+  }  
+};
+
+
+struct ad_parse_copy_if
+{
+  template<typename T, typename J, typename V, typename R>
+  R operator()(T& t, J, V& v, R r)
+  {
+    typedef typename J::parser_tag _tag_;
+    typedef typename J::parser_tag _tag_;
+
+    if ( !t.get_aspect().template get<_tag_>().peek(t, r))
+      t.get_aspect().template get<_status_>() = false;
+    else
+    {
+      //return t.get_aspect().template get<_tag_>()(t, std::make_pair(r, fas::orange(v))).first;
+      
+      
+      //std::pair<R, V> res = t.get_aspect().template get<_tag_>()(t, std::make_pair(r, fas::orange(v))); // TODO : orange(v) ? ? 
+      std::pair<R, V> res = t.get_aspect().template get<_tag_>()(t, std::make_pair(r, v));
+      r = res.first;
+      v = res.second; // а надо ли?  
+      
+    }
+    return r;
+    
+  }  
+};
+
+/*
 struct ad_parser
 {
   template<typename T, typename J, typename V, typename R>
@@ -74,7 +144,7 @@ private:
     return r;
   }
 };
-
+*/
 }}}
 
 #endif

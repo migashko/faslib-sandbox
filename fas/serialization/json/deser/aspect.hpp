@@ -42,6 +42,10 @@
 
 #include <fas/serialization/except/parse_error.hpp>
 
+
+#include <fas/serialization/json/deser/ad_object.hpp>
+#include <fas/serialization/json/deser/ad_field.hpp>
+
 namespace fas{ namespace json{ namespace deser{
 
 //using ::fas::serialization::deser::parse;
@@ -133,11 +137,12 @@ struct aspect:
 
     // object::aspect,
     advice<_name_, ad_name>,
-    alias<_field_,  ::fas::serialization::_entity_>,
+    //alias<_field_,  ::fas::serialization::_entity_>,
+    advice<_field_,  ad_field>,
     alias<_field_list_smart_, ::fas::serialization::_sequence_smart_ >,
     alias<_object_, ::fas::serialization::_entity_>,
- 
-    alias< _ignore_, ::fas::serialization::deser::_parser_>,
+    //advice<_object_, ad_object>,
+    alias< _ignore_, ::fas::serialization::deser::_parse_skip_>,
     alias< _string_content_,  ::fas::serialization::_sequence_each_ >,
     alias< _string_,         ::fas::serialization::_entity_ >,
     type_list_n<

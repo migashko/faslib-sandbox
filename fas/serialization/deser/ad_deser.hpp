@@ -11,7 +11,7 @@
 #include <fas/serialization/f_clear.hpp>
 #include <fas/serialization/except/syntax_error.hpp>
 
-#include <fas/aop/group_for_each.hpp>
+#include <fas/aop/for_each_group.hpp>
 #include <fas/except/throw_.hpp>
 #include <fas/range.hpp>
 
@@ -24,7 +24,7 @@ struct ad_deser
   {
     typedef typename range_traits<R>::range_category  first_range_category;
 
-    group_for_each<_clear_>( t, f_clear() );
+    for_each_group<_clear_>( t, f_clear() );
 
     t.get_aspect().template get<_status_>() = true;
 

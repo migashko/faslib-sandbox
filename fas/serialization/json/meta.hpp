@@ -6,10 +6,12 @@
 #include <fas/serialization/json/meta/integer.hpp>
 #include <fas/serialization/json/meta/string.hpp>
 #include <fas/serialization/json/meta/name.hpp>
-#include <fas/serialization/json/meta/attr.hpp>
+//#include <fas/serialization/json/meta/attr.hpp>
 #include <fas/serialization/json/meta/acc.hpp>
 #include <fas/serialization/json/meta/object.hpp>
 #include <fas/serialization/json/meta/value.hpp>
+#include <fas/serialization/json/meta/field.hpp>
+#include <fas/serialization/json/meta/mem_field.hpp>
 
 
 

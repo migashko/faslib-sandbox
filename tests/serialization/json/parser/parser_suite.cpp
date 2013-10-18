@@ -5,6 +5,9 @@
 
 namespace aj = ::fas::json;
 
+struct parser_all_space_copy: aj::parser< aj::all_space_copy > {};
+struct parser_orig: aj::parser<> {};
+
 UNIT(parser1_unit, "")
 {
   using namespace fas::testing;
@@ -12,7 +15,7 @@ UNIT(parser1_unit, "")
 
   const char *str="{  /* \"aaa\":false */  }";
   
-  aj::parser< aj::all_space_copy > p;
+  parser_all_space_copy p;
   
   p( fas::srange(str) );
   t << is_true<expect>( p ) << FAS_TESTING_FILE_LINE;
@@ -31,7 +34,7 @@ UNIT(parser1_unit, "")
 
   p.exception();
   
-  aj::parser<> p2;
+  parser_orig p2;
   p2( fas::srange(str) );
   t << is_true<expect>( p2 ) << FAS_TESTING_FILE_LINE;
 
@@ -43,13 +46,14 @@ UNIT(parser1_unit, "")
   t << nothing();
 }
 
+
 UNIT(parser2_unit, "")
 {
   using namespace fas::testing;
 
-  const char *str="[  /* \"aaa\":false */  ]";
-  
-  aj::parser< aj::all_space_copy > p;
+  //const char *str="[  \"aaa\":false  ]";
+  const char *str="[    ]";  
+  parser_all_space_copy p;
 
   p( fas::srange(str) );
   t << is_true<expect>( p ) << FAS_TESTING_FILE_LINE;
@@ -65,7 +69,7 @@ UNIT(parser2_unit, "")
   p( fas::srange(str), fas::range(strarr) );
   t << equal<expect, std::string>(strarr, str) << strarr << std::endl << FAS_TESTING_FILE_LINE;
 
-  aj::parser<> p2;
+  parser_orig p2;
   p2( fas::srange(str) );
   t << is_true<expect>( p2 ) << FAS_TESTING_FILE_LINE;
 

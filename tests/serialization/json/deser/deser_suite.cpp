@@ -16,7 +16,7 @@ UNIT(deser1_unit, "")
   int value = -1;
   char json[]="12345";
   aj::deserializer<> deser;
-  //deser(aj::integer< as::maximum< fas::int_<12345> > >(), value, fas::srange(json) );
+  deser(aj::integer< as::maximum< fas::int_<12345> > >(), value, fas::srange(json) );
   
   typedef aj::value< fas::type_list_n<
     aj::integer<>,
@@ -24,7 +24,7 @@ UNIT(deser1_unit, "")
   >::type > integer_json;
   
   deser( integer_json(), value, fas::srange(json) );
-  std::cout << value << std::endl;
+  std::cout << std::endl <<  value << std::endl;
   t << nothing();
 }
 
@@ -37,7 +37,7 @@ UNIT(deser2_unit, "")
   char json[]="\"name\"";
   aj::deserializer<> deser;
   deser( aj::name<n_name>(), value, fas::srange(json) );
-  std::cout << value << std::endl;
+  std::cout << std::endl << value << std::endl;
   t << equal<expect>(value, -1);
   t << nothing();
 }
@@ -201,7 +201,7 @@ UNIT(deser6_unit, "")
   t << nothing();
 }
 
-typedef aj::array< aj::array_list< fas::type_list_n<
+typedef aj::array< aj::item_list< fas::type_list_n<
   aj::item< acc_member1 >,
   aj::item< acc_member2 >
 >::type > > array2object;

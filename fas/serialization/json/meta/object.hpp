@@ -16,6 +16,8 @@
 
 // ---
 #include <fas/serialization/meta/container.hpp>
+#include <fas/serialization/json/meta/acc.hpp>
+#include <fas/serialization/json/meta/field.hpp>
 
 
 #include <fas/serialization/tags.hpp>
@@ -59,7 +61,8 @@ struct element
 /// parser
 ///
 
-template<typename Tg, typename If = false_, typename Copy = false_>
+// TODO: сделать этот базовым - оновные три производные
+/*template<typename Tg, typename If = false_, typename Copy = false_>
 struct parse2
 {
   typedef If parse_if;
@@ -67,8 +70,38 @@ struct parse2
   
   typedef Tg parser_tag;
   typedef ::fas::serialization::deser::_parser_ tag;
+};*/
+
+template<typename Tg>
+struct parse_skip
+{
+  typedef Tg parser_tag;
+  typedef ::fas::serialization::deser::_parse_skip_ tag;
 };
 
+template<typename Tg>
+struct parse_skip_if
+{
+  typedef Tg parser_tag;
+  typedef ::fas::serialization::deser::_parse_skip_if_ tag;
+};
+
+template<typename Tg>
+struct parse_copy
+{
+  typedef Tg parser_tag;
+  typedef ::fas::serialization::deser::_parse_copy_ tag;
+};
+
+
+template<typename Tg>
+struct parse_copy_if
+{
+  typedef Tg parser_tag;
+  typedef ::fas::serialization::deser::_parse_copy_if_ tag;
+};
+
+/*
 template<typename Tg>
 struct ignore
 {
@@ -78,42 +111,30 @@ struct ignore
   typedef Tg parser_tag;
   // Это алиас на _parser_, нужен для сериализатора
   typedef _ignore_ tag;
-};
+};*/
 
-struct ignore_field: ignore< ::fas::json::parse::_object_field_ >{};
+struct ignore_field: parse_skip_if< ::fas::json::parse::_object_field_ >{};
 
-struct ignore_item: ignore< ::fas::json::parse::_array_item_ >{};
+struct ignore_item: parse_skip_if< ::fas::json::parse::_array_item_ >{};
 
-struct ignore_string: ignore< ::fas::json::parse::_string_ >{};
+struct ignore_string: parse_skip_if< ::fas::json::parse::_string_ >{};
 
-struct ignore_boolean: ignore< ::fas::json::parse::_boolean_ >{};
+struct ignore_boolean: parse_skip_if< ::fas::json::parse::_boolean_ >{};
 
-struct ignore_null: ignore< ::fas::json::parse::_null_ >{};
+struct ignore_null: parse_skip_if< ::fas::json::parse::_null_ >{};
 
-struct ignore_array: ignore< ::fas::json::parse::_array_ >{};
+struct ignore_array: parse_skip_if< ::fas::json::parse::_array_ >{};
 
-struct ignore_object: ignore< ::fas::json::parse::_object_ >{};
+struct ignore_object: parse_skip_if< ::fas::json::parse::_object_ >{};
 
-struct ignore_value: ignore< ::fas::json::parse::_value_ >{};
+struct ignore_value: parse_skip_if< ::fas::json::parse::_value_ >{};
 
 
 ///
 /// basic
 ///
 
-template<typename ProvalList = empty_list>
-struct integer
-{
-  typedef typename normalize<ProvalList>::type proval_list;
-  typedef _integer_ tag;
-};
 
-template<typename ProvalList = empty_list>
-struct real
-{
-  typedef typename normalize<ProvalList>::type proval_list;
-  //typedef _real_ tag;
-};
 
 /// string
 
@@ -125,7 +146,7 @@ struct string_content
     
     typedef ::fas::serialization::_entity_piece_ tag; // сделать алиас на _string_helper_
     typedef type_list_n<
-      parse2< ::fas::json::parse::_utf8_letter_, true_, true_>
+      parse_copy_if< ::fas::json::parse::_utf8_letter_>
     >::type entity_list;
     
   };
@@ -150,9 +171,9 @@ struct string
   typedef _string_ tag;
   
   typedef typename type_list_n<
-    parse2< ::fas::json::parse::_quote_, true_>,
+    parse_skip_if< ::fas::json::parse::_quote_>,
     target,  
-    parse2< ::fas::json::parse::_quote_>
+    parse_skip< ::fas::json::parse::_quote_>
   >::type entity_list;
 
 };
@@ -165,9 +186,9 @@ struct string_ex
   typedef _string_ tag;
   
   typedef typename type_list_n<
-    parse2< ::fas::json::parse::_quote_, true_>,
+    parse_skip_if< ::fas::json::parse::_quote_>,
     target,  
-    parse2< ::fas::json::parse::_quote_>
+    parse_skip< ::fas::json::parse::_quote_>
   >::type entity_list;
   
 };
@@ -194,43 +215,47 @@ struct name: equal_string<Name>
 };*/
 
 
-
+/*
 template<typename Name>
 struct name: Name
 {
   typedef _name_ tag;
 };
+*/
 
+/*
 template<typename Name, typename Value>
 struct field
 {
+  typedef Name key;
+  typedef Value value;
+  
   typedef typename type_list_n<Name, Value>::type target_list;
+  
   typedef _field_ tag;
-  typedef typename type_list_n</*
-    parse2< ::fas::json::parse::_space_>,
-    Target,  // Убрать target, вставить реальный Target
-    parse2< ::fas::json::parse::_space_>,
-    parse2< ::fas::json::parse::_sequence_separator_>
-    */
- 
-    parse2< ::fas::json::parse::_space_>,
+  
+  typedef typename type_list_n<
+    parse_skip< ::fas::json::parse::_space_>,
     Name,
-    parse2< ::fas::json::parse::_space_>,
-    parse2< ::fas::json::parse::_colon_>,
-    parse2< ::fas::json::parse::_space_>,
+    parse_skip< ::fas::json::parse::_space_>,
+    parse_skip< ::fas::json::parse::_colon_>,
+    parse_skip< ::fas::json::parse::_space_>,
     Value,
-    parse2< ::fas::json::parse::_space_>,
-    parse2< ::fas::json::parse::_sequence_separator_>
- 
+    parse_skip< ::fas::json::parse::_space_>,
+    parse_skip< ::fas::json::parse::_sequence_separator_>
   >::type entity_list;
 
 };
 
+*/
+
+/*
 template<typename TString, typename V, typename VT, VT V::* m, typename Value>
 struct mem_field
   : field< name<TString>, acc< member<V, VT, m>, Value> >
 {
 };
+*/
 
 
 template< typename TargetList, typename Alt = ignore_field>
@@ -256,10 +281,16 @@ struct object
   typedef _object_ tag;
   
   typedef typename type_list_n<
-    parse2< ::fas::json::parse::_left_brace_, true_>,
+    parse_skip_if< ::fas::json::parse::_left_brace_>,
     target,  
-    parse2< ::fas::json::parse::_right_brace_>
+    parse_skip< ::fas::json::parse::_right_brace_>
   >::type entity_list;
+};
+
+template<typename Obj>
+struct base
+  : Obj::target::target_list
+{
 };
 
 // array
@@ -284,10 +315,10 @@ struct item
   //typedef ::fas::serialization::_entity3_ tag; // сделать алиас на _item_
   typedef _item_ tag;
   typedef typename type_list_n<
-    parse2< ::fas::json::parse::_space_>,
+    parse_skip< ::fas::json::parse::_space_>,
     Target,  // Убрать target, вставить реальный Target
-    parse2< ::fas::json::parse::_space_>,
-    parse2< ::fas::json::parse::_sequence_separator_>
+    parse_skip< ::fas::json::parse::_space_>,
+    parse_skip< ::fas::json::parse::_sequence_separator_>
   >::type entity_list;
 };
 
@@ -316,21 +347,22 @@ struct array
 
   
   typedef typename type_list_n<
-    parse2< ::fas::json::parse::_left_bracket_, true_>,
+    parse_skip_if< ::fas::json::parse::_left_bracket_>,
     target,  
-    parse2< ::fas::json::parse::_right_bracket_>
+    parse_skip< ::fas::json::parse::_right_bracket_>
   >::type entity_list;
 
 };
 
 
 template< typename TargetList>
-struct array_list
+struct item_list
 {
   //typedef typename normalize<TargetList>::type target_list;
   typedef TargetList target_list;
-  typedef _array_list_ tag;
+  typedef _item_list_ tag;
 };
+
 
 
 
