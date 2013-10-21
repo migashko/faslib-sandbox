@@ -11,7 +11,9 @@
 #include <fas/serialization/json/meta/object.hpp>
 #include <fas/serialization/json/meta/value.hpp>
 #include <fas/serialization/json/meta/field.hpp>
+#include <fas/serialization/json/meta/element.hpp>
 #include <fas/serialization/json/meta/mem_field.hpp>
+#include <fas/serialization/json/meta/parse.hpp>
 
 
 

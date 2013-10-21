@@ -18,6 +18,11 @@
 #include <fas/serialization/meta/container.hpp>
 #include <fas/serialization/json/meta/acc.hpp>
 #include <fas/serialization/json/meta/field.hpp>
+#include <fas/serialization/json/meta/element.hpp>
+#include <fas/serialization/json/meta/parse.hpp>
+#include <fas/serialization/json/meta/ignore.hpp>
+#include <fas/serialization/json/meta/string_content.hpp>
+
 
 
 #include <fas/serialization/tags.hpp>
@@ -31,136 +36,6 @@ using ::fas::serialization::container;
 // ---
 
 namespace fas{ namespace json{
-
-///
-/// common
-///
-
-// TODO: ограничения на размер контенера
-//       container< ..., int_<10> >
-
-/*
-сделать reverse да и все
-template<typename T>
-struct front_inserter
-{
-  // TODO:
-};
-*/
-
-
-template<typename T>
-struct element
-{
-  typedef T target;
-  typedef _element_ tag;
-};
-
-
-///
-/// parser
-///
-
-// TODO: сделать этот базовым - оновные три производные
-/*template<typename Tg, typename If = false_, typename Copy = false_>
-struct parse2
-{
-  typedef If parse_if;
-  typedef Copy copy;
-  
-  typedef Tg parser_tag;
-  typedef ::fas::serialization::deser::_parser_ tag;
-};*/
-
-template<typename Tg>
-struct parse_skip
-{
-  typedef Tg parser_tag;
-  typedef ::fas::serialization::deser::_parse_skip_ tag;
-};
-
-template<typename Tg>
-struct parse_skip_if
-{
-  typedef Tg parser_tag;
-  typedef ::fas::serialization::deser::_parse_skip_if_ tag;
-};
-
-template<typename Tg>
-struct parse_copy
-{
-  typedef Tg parser_tag;
-  typedef ::fas::serialization::deser::_parse_copy_ tag;
-};
-
-
-template<typename Tg>
-struct parse_copy_if
-{
-  typedef Tg parser_tag;
-  typedef ::fas::serialization::deser::_parse_copy_if_ tag;
-};
-
-/*
-template<typename Tg>
-struct ignore
-{
-  typedef true_ parse_if;
-  typedef false_ copy;
-
-  typedef Tg parser_tag;
-  // Это алиас на _parser_, нужен для сериализатора
-  typedef _ignore_ tag;
-};*/
-
-struct ignore_field: parse_skip_if< ::fas::json::parse::_object_field_ >{};
-
-struct ignore_item: parse_skip_if< ::fas::json::parse::_array_item_ >{};
-
-struct ignore_string: parse_skip_if< ::fas::json::parse::_string_ >{};
-
-struct ignore_boolean: parse_skip_if< ::fas::json::parse::_boolean_ >{};
-
-struct ignore_null: parse_skip_if< ::fas::json::parse::_null_ >{};
-
-struct ignore_array: parse_skip_if< ::fas::json::parse::_array_ >{};
-
-struct ignore_object: parse_skip_if< ::fas::json::parse::_object_ >{};
-
-struct ignore_value: parse_skip_if< ::fas::json::parse::_value_ >{};
-
-
-///
-/// basic
-///
-
-
-
-/// string
-
-struct string_content
-{
-  struct string_helper
-  {
-    //typedef _string_helper_ tag; 
-    
-    typedef ::fas::serialization::_entity_piece_ tag; // сделать алиас на _string_helper_
-    typedef type_list_n<
-      parse_copy_if< ::fas::json::parse::_utf8_letter_>
-    >::type entity_list;
-    
-  };
-
-  typedef type_list<string_helper> target_list;
-  
-  typedef _string_content_ tag;
-  //typedef ::fas::serialization::_sequence_each_ tag;
-  
-  // Костыль - должн быть exception (типа invalid_string)
-  typedef ignore_field alt_target; // TODO:
-  
-  typedef ::fas::json::parse::_quote_ stop_tag;
-};
 
 
 template<typename ProvalList = empty_list>
