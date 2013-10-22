@@ -16,121 +16,33 @@
 
 // ---
 #include <fas/serialization/meta/container.hpp>
-#include <fas/serialization/json/meta/acc.hpp>
-#include <fas/serialization/json/meta/field.hpp>
-#include <fas/serialization/json/meta/element.hpp>
-#include <fas/serialization/json/meta/parse.hpp>
-#include <fas/serialization/json/meta/ignore.hpp>
-#include <fas/serialization/json/meta/string_content.hpp>
-
-
-
-#include <fas/serialization/tags.hpp>
-#include <fas/serialization/deser/tags.hpp>
 
 namespace fas{ namespace json{
 
 using ::fas::serialization::container;
 
 }}
+
+#include <fas/serialization/json/meta/acc.hpp>
+#include <fas/serialization/json/meta/field.hpp>
+#include <fas/serialization/json/meta/element.hpp>
+#include <fas/serialization/json/meta/parse.hpp>
+#include <fas/serialization/json/meta/ignore.hpp>
+#include <fas/serialization/json/meta/string_content.hpp>
+#include <fas/serialization/json/meta/string.hpp>
+#include <fas/serialization/json/meta/string_ex.hpp>
+#include <fas/serialization/json/meta/equal_content.hpp>
+#include <fas/serialization/json/meta/equal_string.hpp>
+#include <fas/serialization/json/meta/base.hpp>
+
+
+
+#include <fas/serialization/tags.hpp>
+#include <fas/serialization/deser/tags.hpp>
+
 // ---
 
 namespace fas{ namespace json{
-
-
-template<typename ProvalList = empty_list>
-struct string
-{
-  typedef typename normalize<ProvalList>::type proval_list;
-  typedef container< string_content > target;
-  typedef _string_ tag;
-  
-  typedef typename type_list_n<
-    parse_skip_if< ::fas::json::parse::_quote_>,
-    target,  
-    parse_skip< ::fas::json::parse::_quote_>
-  >::type entity_list;
-
-};
-
-template<typename Target, typename ProvalList = empty_list>
-struct string_ex
-{
-  typedef typename normalize<ProvalList>::type proval_list;
-  typedef Target target;
-  typedef _string_ tag;
-  
-  typedef typename type_list_n<
-    parse_skip_if< ::fas::json::parse::_quote_>,
-    target,  
-    parse_skip< ::fas::json::parse::_quote_>
-  >::type entity_list;
-  
-};
-
-template<typename TString>
-struct equal_content
-  : TString
-{
-  typedef _equal_content_ tag; 
-};
-
-template<typename TString>
-struct equal_string
-  : string_ex< equal_content<TString> >
-{
-};
-
-/// object
-
-/*
-template<typename Name>
-struct name: equal_string<Name>
-{
-};*/
-
-
-/*
-template<typename Name>
-struct name: Name
-{
-  typedef _name_ tag;
-};
-*/
-
-/*
-template<typename Name, typename Value>
-struct field
-{
-  typedef Name key;
-  typedef Value value;
-  
-  typedef typename type_list_n<Name, Value>::type target_list;
-  
-  typedef _field_ tag;
-  
-  typedef typename type_list_n<
-    parse_skip< ::fas::json::parse::_space_>,
-    Name,
-    parse_skip< ::fas::json::parse::_space_>,
-    parse_skip< ::fas::json::parse::_colon_>,
-    parse_skip< ::fas::json::parse::_space_>,
-    Value,
-    parse_skip< ::fas::json::parse::_space_>,
-    parse_skip< ::fas::json::parse::_sequence_separator_>
-  >::type entity_list;
-
-};
-
-*/
-
-/*
-template<typename TString, typename V, typename VT, VT V::* m, typename Value>
-struct mem_field
-  : field< name<TString>, acc< member<V, VT, m>, Value> >
-{
-};
-*/
 
 
 template< typename TargetList, typename Alt = ignore_field>
@@ -139,7 +51,7 @@ struct field_list
   // TODO: list categories
   typedef typename normalize<TargetList>::type target_list;
   typedef _field_list_smart_ tag;
-  typedef ignore_field alt_target; // TODO: 
+  typedef Alt alt_target; // TODO: 
   typedef ::fas::json::parse::_right_brace_ stop_tag;
 };
 
@@ -154,19 +66,16 @@ struct object
   >::type target;
   
   typedef _object_ tag;
-  
-  typedef typename type_list_n<
-    parse_skip_if< ::fas::json::parse::_left_brace_>,
-    target,  
-    parse_skip< ::fas::json::parse::_right_brace_>
-  >::type entity_list;
+
 };
 
+/*
 template<typename Obj>
 struct base
   : Obj::target::target_list
 {
 };
+*/
 
 // array
 

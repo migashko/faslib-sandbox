@@ -1,5 +1,5 @@
-#ifndef FAS_SERIALIZATION_JSON_META_STRING_HPP
-#define FAS_SERIALIZATION_JSON_META_STRING_HPP
+#ifndef FAS_SERIALIZATION_JSON_META_STRING_EX_HPP
+#define FAS_SERIALIZATION_JSON_META_STRING_EX_HPP
 
 #include <fas/serialization/json/tags.hpp>
 #include <fas/serialization/json/meta/object.hpp>
@@ -9,11 +9,11 @@
 
 namespace fas{ namespace json{
 
-template<typename ProvalList = empty_list>
-struct string
+template<typename Target, typename ProvalList = empty_list>
+struct string_ex
 {
-  typedef container< string_content > target;
   typedef typename normalize<ProvalList>::type proval_list;
+  typedef Target target;
   typedef _string_ tag;
 };
 

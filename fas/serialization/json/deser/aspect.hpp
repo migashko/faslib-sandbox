@@ -46,6 +46,7 @@
 #include <fas/serialization/json/deser/ad_object.hpp>
 #include <fas/serialization/json/deser/ad_field.hpp>
 #include <fas/serialization/json/deser/ad_string_content.hpp>
+#include <fas/serialization/json/deser/ad_string.hpp>
 
 namespace fas{ namespace json{ namespace deser{
 
@@ -141,12 +142,13 @@ struct aspect:
     //alias<_field_,  ::fas::serialization::_entity_>,
     advice<_field_,  ad_field>,
     alias<_field_list_smart_, ::fas::serialization::_sequence_smart_ >,
-    alias<_object_, ::fas::serialization::_entity_>,
-    //advice<_object_, ad_object>,
+    //alias<_object_, ::fas::serialization::_entity_>,
+    advice<_object_, ad_object>,
     alias< _ignore_, ::fas::serialization::deser::_parse_skip_>,
     //alias< _string_content_,  ::fas::serialization::_sequence_each_ >,
     advice< _string_content_,  ad_string_content >,
-    alias< _string_,         ::fas::serialization::_entity_ >,
+    advice< _string_,  ad_string >,
+    //alias< _string_,         ::fas::serialization::_entity_ >,
     type_list_n<
       advice< _value_,       ::fas::serialization::deser::ad_value >,
       advice< _access_,        ::fas::serialization::deser::ad_access >,
