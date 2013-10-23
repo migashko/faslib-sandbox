@@ -2,6 +2,7 @@
 #define FAS_SERIALIZATION_JSON_META_IGNORE_HPP
 
 #include <fas/serialization/json/tags.hpp>
+#include <fas/serialization/json/meta/parse.hpp>
 
 namespace fas{ namespace json{
 

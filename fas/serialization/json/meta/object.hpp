@@ -25,6 +25,7 @@ using ::fas::serialization::container;
 
 #include <fas/serialization/json/meta/acc.hpp>
 #include <fas/serialization/json/meta/field.hpp>
+#include <fas/serialization/json/meta/field_list.hpp>
 #include <fas/serialization/json/meta/element.hpp>
 #include <fas/serialization/json/meta/parse.hpp>
 #include <fas/serialization/json/meta/ignore.hpp>
@@ -34,6 +35,8 @@ using ::fas::serialization::container;
 #include <fas/serialization/json/meta/equal_content.hpp>
 #include <fas/serialization/json/meta/equal_string.hpp>
 #include <fas/serialization/json/meta/base.hpp>
+#include <fas/serialization/json/meta/item.hpp>
+#include <fas/serialization/json/meta/item_sequence.hpp>
 
 
 
@@ -45,87 +48,40 @@ using ::fas::serialization::container;
 namespace fas{ namespace json{
 
 
-template< typename TargetList, typename Alt = ignore_field>
-struct field_list
-{
-  // TODO: list categories
-  typedef typename normalize<TargetList>::type target_list;
-  typedef _field_list_smart_ tag;
-  typedef Alt alt_target; // TODO: 
-  typedef ::fas::json::parse::_right_brace_ stop_tag;
-};
 
 
-template< typename TargetList = empty_list >
+template< typename FieldList = empty_list, typename Alt = ignore_field >
 struct object
 {
+  typedef field_list<FieldList,  Alt> target;
+  /*
   typedef typename if_c< 
     is_type_list<TargetList>::value, 
-    field_list<TargetList>, 
+    
+    field_list<TargetList,  Alt>, 
     TargetList 
-  >::type target;
+  >::type target;*/
   
   typedef _object_ tag;
 
 };
 
-/*
-template<typename Obj>
-struct base
-  : Obj::target::target_list
-{
-};
-*/
-
-// array
-
-/*
- * struct ad_item: ad_entity2< type_list_n<
-  parse< ::fas::json::parse::_space_>,
-  target,
-  parse< ::fas::json::parse::_space_>,
-  parse< ::fas::json::parse::_sequence_separator_>
->::type >
- */
-
 template< typename Target>
-struct item
+struct object_ex
 {
-  //typedef ::fas::serialization::deser::parse  parse;
-  //typedef ::fas::serialization::deser::target target;
-
   typedef Target target;
-  //typedef _item_ tag;
-  //typedef ::fas::serialization::_entity3_ tag; // сделать алиас на _item_
-  typedef _item_ tag;
-  typedef typename type_list_n<
-    parse_skip< ::fas::json::parse::_space_>,
-    Target,  // Убрать target, вставить реальный Target
-    parse_skip< ::fas::json::parse::_space_>,
-    parse_skip< ::fas::json::parse::_sequence_separator_>
-  >::type entity_list;
-};
-
-template<typename TargetList, typename Alt = ignore_item>
-struct sequence_items
-{
-  typedef typename normalize<TargetList>::type target_list;
-  //typedef _sequence_items_ tag;
-  typedef Alt alt_target;
   
-  // TODO: alias на _sequence_items_
-  // typedef ::fas::serialization::_sequence_each_ tag;
-  typedef _sequence_items_ tag;
-  typedef ::fas::json::parse::_right_bracket_ stop_tag;
+  typedef _object_ tag;
 
 };
 
 
 // сделать Вторым параметром список целей, пост условий
-template< typename Target >
+template< typename Target, typename Alt = ignore_item >
 struct array
 {
-  typedef container< sequence_items< element< item< Target > > > > target;
+  //typedef container< item_sequence_ex< element< item< Target > > > > target;
+  typedef container< item_sequence< Target, Alt > > target;
 
   typedef _array_ tag;
 
