@@ -3,7 +3,7 @@
 
 #include <fas/serialization/json/meta/name.hpp>
 #include <fas/serialization/json/meta/acc.hpp>
-#include <fas/typemanip/member.hpp>
+#include <fas/functional/member.hpp>
 
 namespace fas{ namespace json{
 

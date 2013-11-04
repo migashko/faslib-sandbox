@@ -49,6 +49,7 @@
 #include <fas/serialization/json/deser/ad_string_content.hpp>
 #include <fas/serialization/json/deser/ad_string.hpp>
 #include <fas/serialization/json/deser/ad_item.hpp>
+#include <fas/serialization/json/deser/ad_array.hpp>
 
 namespace fas{ namespace json{ namespace deser{
 
@@ -137,7 +138,8 @@ struct aspect:
     //array::aspect,
     // alias<_item_,  ::fas::serialization::_entity_>,
     advice<_item_,  ad_item>,
-    alias<_array_, ::fas::serialization::_entity_>,
+    // alias<_array_, ::fas::serialization::_entity_>,
+    advice<_array_, ad_array >,
     alias<_sequence_items_, ::fas::serialization::_sequence_each_>,
 
     // object::aspect,

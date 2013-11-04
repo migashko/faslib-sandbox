@@ -8,7 +8,7 @@
 #define FAS_SERIALIZATION_JSON_PARSE_AD_COMMA_HPP
 
 #include <fas/serialization/parse/ad_tstring.hpp>
-#include <fas/typemanip/tchars.hpp>
+#include <fas/functional/tchars.hpp>
 
 namespace fas{ namespace json{ namespace parse{
 

@@ -7,8 +7,6 @@
 #ifndef FAS_SERIALIZATION_JSON_PARSE_ARRAY_ASPECT_HPP
 #define FAS_SERIALIZATION_JSON_PARSE_ARRAY_ASPECT_HPP
 
-//#include <fas/serialization/json/parse/array/ad_left_bracket.hpp>
-//#include <fas/serialization/json/parse/array/ad_right_bracket.hpp>
 #include <fas/serialization/json/parse/array/ad_array_item.hpp>
 #include <fas/serialization/json/parse/array/ad_item_list.hpp>
 #include <fas/serialization/json/parse/array/ad_array.hpp>
@@ -16,7 +14,7 @@
 #include <fas/serialization/json/parse/array/tags.hpp>
 
 #include <fas/serialization/parse/ad_tstring.hpp>
-#include <fas/typemanip/tchars.hpp>
+#include <fas/functional/tchars.hpp>
 
 
 namespace fas{ namespace json{ namespace parse{ namespace array{

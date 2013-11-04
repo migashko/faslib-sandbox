@@ -20,7 +20,7 @@
 #include <fas/serialization/json/parse/object/tags.hpp>
 
 #include <fas/serialization/parse/ad_tstring.hpp>
-#include <fas/typemanip/tchars.hpp>
+#include <fas/functional/tchars.hpp>
 
 
 namespace fas{ namespace json{ namespace parse{ namespace object{

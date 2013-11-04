@@ -20,7 +20,9 @@
 #include <fas/serialization/json/meta/equal_string.hpp>
 #include <fas/serialization/json/meta/base.hpp>
 #include <fas/serialization/json/meta/item.hpp>
+#include <fas/serialization/json/meta/item_list.hpp>
 #include <fas/serialization/json/meta/item_sequence.hpp>
+#include <fas/serialization/json/meta/array.hpp>
 
 
 #endif

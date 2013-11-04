@@ -11,7 +11,7 @@
 #include <fas/serialization/json/parse/ad_comma.hpp>
 #include <fas/serialization/json/parse/ad_sequence_separator.hpp>
 #include <fas/serialization/parse/ad_tstring.hpp>
-#include <fas/typemanip/tchars.hpp>
+#include <fas/functional/tchars.hpp>
 #include <fas/serialization/parse/ad_parse.hpp>
 
 #include <fas/serialization/json/parse/space/aspect.hpp>
